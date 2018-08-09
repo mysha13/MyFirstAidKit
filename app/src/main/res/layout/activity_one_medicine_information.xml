@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.elasz.myfirstaidkit.OneMedicineInformation">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:columnCount="5"
+        android:rowCount="3">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="66dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_rowSpan="3"
+            app:srcCompat="@drawable/ic_menu_camera" />
+
+<TextView
+    android:text="Nazwa:"
+    android:textSize="10dp"
+    android:layout_marginTop="3dp"
+    android:id="@+id/txtview_name"
+    android:layout_marginLeft="10dp"
+    android:textColor="@android:color/black"/>
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/txt_name"
+            android:layout_columnSpan="1"
+            android:textSize="10dp"
+            android:text="Nazwa edit" />
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="10dp"
+            android:text="EXP: "
+            android:id="@+id/txtview_expdate"/>
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:text="02/01/2020"
+            android:textSize="10dp"
+            android:id="@+id/txt_expdate"/>
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="10dp"
+            android:text="Postać:"
+            android:id="@+id/txtview_form"/>
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:text="Tabletki powlekane"
+            android:textSize="10dp"
+            android:id="@+id/txt_form"/>
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="10dp"
+            android:text="Schorzenie: "
+            android:id="@+id/txtview_sickness"/>
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:text="katar"
+            android:textSize="10dp"
+            android:id="@+id/txt_sickness"/>
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="10dp"
+            android:text="Ilość: "
+            android:id="@+id/txtview_numberofmedicine"/>
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="10dp"
+            android:text="5 opakowań"
+            android:id="@+id/txt_numberOfMedicine"/>
+
+        <CheckBox
+            android:layout_marginTop="2dp"
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_column="3"
+            android:layout_row="2"
+            android:text="Zażywane"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="10dp"
+            android:text="Więcej informacji"/>
+    </GridLayout>
+
+</LinearLayout>
