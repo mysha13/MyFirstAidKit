@@ -22,7 +22,8 @@
         <activity android:name=".ListView_InformationList" />
         <activity android:name=".FindMedicine" />
         <activity android:name=".AddMedicine" />
-        <activity android:name=".OneMedicineInformation"></activity>
+        <activity android:name=".OneMedicineInformation" />
+        <activity android:name=".Alarms"></activity>
     </application>
 
 </manifest>
