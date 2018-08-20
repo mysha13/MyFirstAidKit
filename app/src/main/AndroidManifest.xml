@@ -23,7 +23,8 @@
         <activity android:name=".FindMedicine" />
         <activity android:name=".AddMedicine" />
         <activity android:name=".OneMedicineInformation" />
-        <activity android:name=".Alarms"></activity>
+        <activity android:name=".Alarms" />
+        <activity android:name=".ListOfMedicines"></activity>
     </application>
 
 </manifest>

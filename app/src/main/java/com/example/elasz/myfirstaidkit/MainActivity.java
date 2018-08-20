@@ -1,8 +1,10 @@
 package com.example.elasz.myfirstaidkit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,10 +15,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+private CardView cv_search;
+private CardView cv_add;
+private CardView cv_take;
+private CardView cv_listOfMedicines;
+private CardView cv_addAlarm;
 
     /*@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,5 +119,48 @@ public class MainActivity extends AppCompatActivity
         simpleList = (ListView)findViewById(R.id.listviewinformation);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_infoName, countryList);
         simpleList.setAdapter(arrayAdapter);
+
+
+
+
+        cv_search=(CardView) findViewById(R.id.btn_search);
+        cv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityFindMedicine();
+            }
+        });
+
+        cv_add=(CardView) findViewById(R.id.btn_addMedicine);
+        cv_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityAddMedicine();
+            }
+        });
+
+        cv_listOfMedicines=(CardView) findViewById(R.id.btn_listOfMedicines);
+        cv_listOfMedicines.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               openActivityListOfMedicines();
+            }
+        });
+
     }
+
+    public void openActivityFindMedicine(){
+        Intent intent=new Intent(this, FindMedicine.class);
+        startActivity(intent);
+    }
+
+    public void openActivityAddMedicine(){
+        Intent intent=new Intent(this, AddMedicine.class);
+        startActivity(intent);
+    }
+    public void openActivityListOfMedicines(){
+        Intent intent=new Intent(this, ListOfMedicines.class);
+        startActivity(intent);
+    }
+
 }

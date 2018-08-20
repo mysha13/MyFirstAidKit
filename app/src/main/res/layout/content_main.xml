@@ -63,6 +63,7 @@
 
         <!-- Column 2 -->
         <android.support.v7.widget.CardView
+            android:id="@+id/btn_search"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -103,6 +104,7 @@
         <!-- Row 2 -->
         <!-- Column 1 -->
         <android.support.v7.widget.CardView
+            android:id="@+id/btn_takeMedicine"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -141,6 +143,7 @@
 
         <!-- Column 2 -->
         <android.support.v7.widget.CardView
+            android:id="@+id/btn_addMedicine"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -180,6 +183,7 @@
         <!-- Row 3 -->
         <!-- Column 1 -->
         <android.support.v7.widget.CardView
+            android:id="@+id/btn_listOfMedicines"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -218,6 +222,7 @@
 
         <!-- Column 2 -->
         <android.support.v7.widget.CardView
+            android:id="@+id/btn_addAlarms"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
