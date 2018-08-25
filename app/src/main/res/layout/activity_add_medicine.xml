@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="com.example.elasz.myfirstaidkit.AddMedicine">
 
 
@@ -23,13 +24,22 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="90dp"
-                android:layout_height="70dp"
+                android:layout_width="100dp"
+                android:layout_height="90dp"
                 android:layout_columnSpan="1"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_rowSpan="5"
+                android:layout_marginLeft="5dp"
+                android:layout_rowSpan="4"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_menu_camera" />
+
+            <Button
+                android:id="@+id/btn_scanBarcode"
+                android:layout_columnSpan="3"
+                android:textAlignment="center"
+                android:text="Skanuj kod kreskowy"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/txtview_name"
@@ -37,7 +47,7 @@
                 android:layout_marginTop="3dp"
                 android:text="Nazwa:"
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/txt_name"
@@ -46,7 +56,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:text="Nazwa edit"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txtview_expdate"
@@ -54,7 +64,7 @@
                 android:layout_marginTop="3dp"
                 android:text="EXP: "
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/txt_expdate"
@@ -64,7 +74,7 @@
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="3dp"
                 android:text="02/01/2020"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txtview_opendate"
@@ -72,7 +82,7 @@
                 android:layout_marginTop="3dp"
                 android:text="Otwarto: "
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/txt_opendate"
@@ -82,7 +92,7 @@
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="3dp"
                 android:text="02/01/2019"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txtview_form"
@@ -90,7 +100,7 @@
                 android:layout_marginTop="3dp"
                 android:text="Postać:"
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <!--<TextView
                 android:id="@+id/txt_form"
@@ -99,14 +109,15 @@
                 android:layout_marginTop="3dp"
                 android:text="Tabletki powlekane"
                 android:textSize="13dp" />-->
+
             <Spinner
                 android:id="@+id/spin_form"
-                android:layout_width="153dp"
-                android:layout_columnSpan="2"
+                android:layout_width="250dp"
+                android:layout_columnSpan="3"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:layout_gravity="center"
-                android:textSize="13dp"></Spinner>
+                android:layout_gravity="right"
+                android:textSize="16dp"></Spinner>
 
 
             <TextView
@@ -115,17 +126,17 @@
                 android:layout_marginTop="3dp"
                 android:text="Schorzenie: "
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
 
             <Spinner
                 android:id="@+id/spin_sickness"
-                android:layout_width="153dp"
-                android:layout_columnSpan="2"
+                android:layout_width="250dp"
+                android:layout_columnSpan="3"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:layout_gravity="center"
-                android:textSize="13dp"></Spinner>
+                android:layout_gravity="right"
+                android:textSize="16dp"></Spinner>
 
             <TextView
                 android:id="@+id/txtview_numberofmedicine"
@@ -133,13 +144,13 @@
                 android:layout_marginTop="3dp"
                 android:text="Ilość: "
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/txt_numberOfMedicine"
                 android:layout_marginLeft="10dp"
                 android:hint="Liczba"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
             <!--<TextView
                 android:id="@+id/txt_numberOfMedicine"
@@ -160,9 +171,9 @@
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_gravity="center"
-                android:textSize="13dp"></Spinner>
+                android:layout_marginTop="10dp"
+                android:layout_gravity="right"
+                android:textSize="16dp"></Spinner>
 
             <TextView
                 android:id="@+id/txtview_person"
@@ -171,7 +182,7 @@
                 android:layout_columnSpan="2"
                 android:text="Dla kogo przepisane: "
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <Spinner
                 android:id="@+id/spin_person"
@@ -179,8 +190,8 @@
                 android:layout_columnSpan="2"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:layout_gravity="center"
-                android:textSize="13dp"></Spinner>
+                android:layout_gravity="right"
+                android:textSize="16dp"></Spinner>
 
             <TextView
                 android:id="@+id/txtview_idmedicine"
@@ -189,7 +200,7 @@
                 android:layout_columnSpan="2"
                 android:text="Identyfikator produktu: "
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/txt_idOfMedicine"
@@ -198,7 +209,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:text="Nazwa edit"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txtview_subsActive"
@@ -207,7 +218,7 @@
                 android:layout_columnSpan="2"
                 android:text="Substancje czynne: "
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <!--<TextView
                 android:id="@+id/txt_subsActive"
@@ -225,7 +236,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:hint="Substancje czynne"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txtview_subsPower"
@@ -234,7 +245,7 @@
                 android:layout_columnSpan="2"
                 android:text="Moc / dawka: "
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/txt_subsPower"
@@ -243,7 +254,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:hint="Dawka"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txtview_codeATC"
@@ -252,7 +263,7 @@
                 android:layout_columnSpan="2"
                 android:text="Kod ATC:"
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/txt_codeATC"
@@ -261,7 +272,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:text="ATC CODE"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txtview_responsibleObject"
@@ -270,7 +281,7 @@
                 android:layout_columnSpan="2"
                 android:text="Podmiot odpowiedzialny:"
                 android:textColor="@android:color/black"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/txt_responsibleObject"
@@ -279,7 +290,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:text="Odpowiedzialny"
-                android:textSize="13dp" />
+                android:textSize="16dp" />
 
         </GridLayout>
 

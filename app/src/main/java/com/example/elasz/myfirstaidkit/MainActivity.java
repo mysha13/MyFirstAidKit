@@ -18,6 +18,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,6 +31,14 @@ private CardView cv_take;
 private CardView cv_listOfMedicines;
 private CardView cv_addAlarm;
 
+    @BindView(R.id.btn_search)
+    CardView btnForSearchActivity;
+
+    @BindView(R.id.btn_addMedicine)
+    CardView btnForAddMedicineActivity;
+
+    @BindView(R.id.btn_listOfMedicines)
+    CardView btnForListOfMedicinesActivity;
     /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,4 +175,39 @@ private CardView cv_addAlarm;
         startActivity(intent);
     }
 
+
+    /*@OnClick(R.id.btn_search) void openActivityFindMedicine() {
+    Intent intent = new Intent(this, FindMedicine.class);
+    startActivity(intent);
 }
+    @OnClick(R.id.btn_search) void openActivityListOfMedicines(){
+        Intent intent=new Intent(this, ListOfMedicines.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_search) void openActivityAddMedicine(){
+        Intent intent=new Intent(this, AddMedicine.class);
+        startActivity(intent);
+    }
+
+    public void OpenNextActvities(int id)
+    {
+        if(id==R.id.btn_search) {
+            Intent intent=new Intent(this, FindMedicine.class);
+            startActivity(intent);
+        }
+        else if(id==R.id.btn_addMedicine){
+            Intent intent=new Intent(this, AddMedicine.class);
+            startActivity(intent);
+        }
+        else if(id==R.id.btn_listOfMedicines){
+            Intent intent=new Intent(this, ListOfMedicines.class);
+            startActivity(intent);
+        }
+
+
+    }*/
+
+}
+
+
