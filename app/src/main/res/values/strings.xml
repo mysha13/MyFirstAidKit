@@ -5,4 +5,36 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+
+    <string name="popular_name">Nazwa</string>
+    <string name="popular_exp">EXP</string>
+    <string name="popular_form">Postać</string>
+    <string name="popular_disease">Schorzenie</string>
+    <string name="popular_number">Ilość</string>
+
+    <string name="mainActivity_search">Szukaj leku</string>
+    <string name="mainActivity_add">Dodaj</string>
+    <string name="mainActivity_take">Zażyj</string>
+    <string name="mainActivity_alarms">Alarmy</string>
+    <string name="mainActivity_listOfMedicine">Lista leków</string>
+
+    <string name="oneInformationMedicine_txt_name">Nazwa</string>
+    <string name="oneInformationMedicine_txt_form">Postać</string>
+    <string name="oneInformationMedicine_txt_number">Ilość</string>
+    <string name="oneInformationMedicine_txt_exp">EXP</string>
+    <string name="oneInformationMedicine_txt_disease">Schorzenie</string>
+    <string name="oneInformationMedicine_checkb_taken">Zażywane</string>
+
+    <string name="addMedicine_btn_scanCode">Skanuj kod leku</string>
+    <string name="addMedicine_txt_name">Nazwa</string>
+    <string name="addMedicine_txt_opened">Otwarto</string>
+    <string name="addMedicine_txt_forperson">Przepisane dla</string>
+    <string name="addMedicine_txt_power">Moc</string>
+    <string name="addMedicine_txt_activeSubs">Substancje czynne</string>
+    <string name="addMedicine_txt_code">Kod</string>
+    <string name="addMedicine_txt_producer">Producent</string>
+    <string name="addMedicine_txt_note">Notka</string>
+
+
 </resources>
