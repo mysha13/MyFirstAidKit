@@ -27,6 +27,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:id="@+id/btn_download_file"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_marginBottom="16dp"
@@ -44,12 +45,14 @@
 
                 <ImageButton
                     android:src="@drawable/ic_menu_camera"
+                    android:id="@+id/imagebtn_download_file"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:text="Inne"
+                    android:id="@+id/txt_download_file"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textAlignment="center"
@@ -83,12 +86,14 @@
 
                 <ImageButton
                     android:src="@drawable/ic_menu_gallery"
+                    android:id="@+id/imagebtn_search"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:text="@string/mainActivity_search"
+                    android:id="@+id/txt_search"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textAlignment="center"
@@ -165,7 +170,8 @@
                     android:src="@drawable/ic_menu_gallery"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imagebtn_add"/>
 
                 <TextView
                     android:text="@string/mainActivity_add"
@@ -174,7 +180,8 @@
                     android:textAlignment="center"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_add"/>
             </LinearLayout>
 
 
@@ -203,12 +210,14 @@
 
                 <ImageButton
                     android:src="@drawable/ic_menu_camera"
+                    android:id="@+id/imagebtn_lists"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:text="@string/mainActivity_listOfMedicine"
+                    android:id="@+id/txt_lists"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textAlignment="center"

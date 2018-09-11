@@ -36,5 +36,7 @@
     <string name="addMedicine_txt_producer">Producent</string>
     <string name="addMedicine_txt_note">Notka</string>
 
+    <string name="addMedicine_dialog_selectfromgallery">Wybierz zdjęcie z galerii</string>
+    <string name="addMedicine_dialog_selectfromcamera">Zrób zdjęcia aparatem</string>
 
 </resources>

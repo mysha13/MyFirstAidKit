@@ -139,13 +139,13 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
                 scannerView.resumeCameraPreview(BarcodeScanner.this);
             }
         });
-        builder.setNegativeButton("Zobacz", new DialogInterface.OnClickListener() {
+        /*builder.setNegativeButton("Zobacz", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(scannerResult));
                 startActivity(intent);
             }
-        });
+        });*/
         builder.setMessage(scannerResult);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
