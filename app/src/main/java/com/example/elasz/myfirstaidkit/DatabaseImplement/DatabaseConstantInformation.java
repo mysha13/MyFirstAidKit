@@ -7,7 +7,7 @@ package com.example.elasz.myfirstaidkit.DatabaseImplement;
 public class DatabaseConstantInformation {
 
     public static final String DBName = "FirstAidKit.db";
-    public static final int DBVersion = 2;
+    public static final int DBVersion = 1;
 
     public static final String USERMEDICAMENTSTABLE = "UserMedicaments";
     public static final String ID_USERMED = "Id_UserMed";
