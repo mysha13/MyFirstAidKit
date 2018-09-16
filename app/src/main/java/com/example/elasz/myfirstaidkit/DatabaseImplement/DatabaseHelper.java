@@ -34,10 +34,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void formTableStartContent(SQLiteDatabase db) {
         ContentValues cv = new ContentValues();
-        /*cv.put(DatabaseConstants.PLACE_NAME, "brak");
-        cv.put(DatabaseConstants.PLACE_DESCRIPTION,"Leki nieprzypisane do żadnego miejsca");
-        db.insert(DatabaseConstants.PLACESTABLE,null,cv);
-        cv.clear();*/
 
         String[] forms = {"czopki","inne","kapsułki","maść","pastylki","saszetki","syrop","tabletki", "tabletki musujące", "zawiesina"};
 

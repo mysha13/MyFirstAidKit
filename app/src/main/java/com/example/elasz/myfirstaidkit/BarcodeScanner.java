@@ -151,4 +151,6 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
         alertDialog.show();
 
     }
+
+
 }

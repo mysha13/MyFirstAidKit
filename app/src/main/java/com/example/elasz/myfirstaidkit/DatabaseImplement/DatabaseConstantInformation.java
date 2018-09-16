@@ -7,7 +7,7 @@ package com.example.elasz.myfirstaidkit.DatabaseImplement;
 public class DatabaseConstantInformation {
 
     public static final String DBName = "FirstAidKit.db";
-    public static final int DBVersion = 1;
+    public static final int DBVersion = 2;
 
     public static final String USERMEDICAMENTSTABLE = "UserMedicaments";
     public static final String ID_USERMED = "Id_UserMed";
@@ -50,13 +50,13 @@ public class DatabaseConstantInformation {
     public static final String CREATE_TABLE_USERMEDICAMENTS = "CREATE TABLE " + USERMEDICAMENTSTABLE + "("
             + ID_USERMED + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + NAME + " TEXT NOT NULL, "
-            + ID_MEDICAMENT + "INT NOT NULL, "
+            + ID_MEDICAMENT + "INT, "
             + EXPDATE + "DATE, "
             + OPENDATE + "DATE, "
             + FORM + " INTEGER, "
             + PURPOSE + " TEXT, "
             + AMOUNT + " DOUBLE NOT NULL, "
-            + AMOUNT_FORM + "INT NOT NULL, "
+            + AMOUNT_FORM + "INT , "
             + PERSON + "INT, "
             + NOTE + "TEXT, "
             + ");";
@@ -84,7 +84,7 @@ public class DatabaseConstantInformation {
             + MEDNAME + " TEXT NOT NULL, "
             + POWER + "TEXT NOT NULL, "
             + ACTIVESUBS + " TEXT , "
-            + CODE + "INT NOT NULL, "
+            + CODE + "TEXT NOT NULL, "  //było int, text żeby wyszukiwac
             + PRODUCER + "TEXT NOT NULL, "
             + ");";
 
