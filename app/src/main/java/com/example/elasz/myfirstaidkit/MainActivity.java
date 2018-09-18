@@ -162,6 +162,8 @@ private CardView cv_download;
             public void onClick(View v) {
                 }
         });
+
+
         txtDownload=(TextView) findViewById(R.id.txt_download_file);
         cv_download=(CardView) findViewById(R.id.btn_download_file);
         cv_download.setOnClickListener(new View.OnClickListener() {

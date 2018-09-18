@@ -36,7 +36,7 @@ public class DownloadTasks {
         this.downloadUrl = downloadUrl;
 
         //TU SIE SYPIE
-        downloadFileName = downloadUrl;//.replace(HttpLink.MedicalsRegister, "");//Create file name by picking download file name from URL
+        downloadFileName = "test";//.replace(HttpLink.MedicalsRegister, "");//Create file name by picking download file name from URL
         Log.e(TAG, downloadFileName);
 
         //Start Downloading Task
