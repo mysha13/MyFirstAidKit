@@ -46,7 +46,7 @@ public class DBUserMedicamentsAdapter {
             cv.put(DatabaseConstantInformation.PURPOSE, purpose);
             cv.put(DatabaseConstantInformation.AMOUNT, amount);
             cv.put(DatabaseConstantInformation.AMOUNT_FORM, amount_form);       //check format
-            cv.put(DatabaseConstantInformation.PERSON_NAME, person);            //check format
+            cv.put(DatabaseConstantInformation.PERSON, person);            //check format
             cv.put(DatabaseConstantInformation.NOTE, note);
             return database.insert(DatabaseConstantInformation.USERMEDICAMENTSTABLE, null, cv);
 

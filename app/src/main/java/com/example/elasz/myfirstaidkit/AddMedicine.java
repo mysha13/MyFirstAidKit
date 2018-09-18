@@ -137,9 +137,9 @@ public class AddMedicine extends AppCompatActivity {
 
     boolean isImageFitToScreen;
     private String fullScreenInd;
-private ImageView imageView;
+    private ImageView imageView;
 
-private Button saveMedicine;
+    private Button saveMedicine;
 
 
     String mCurrentPhotoPath;
@@ -161,17 +161,6 @@ private Button saveMedicine;
 
 
         imageView=(ImageView) findViewById(R.id.imageView2);
-        /*fullScreenInd = getIntent().getStringExtra("fullScreenIndicator");
-        if ("y".equals(fullScreenInd)) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            getSupportActionBar().hide();
-
-            imageView.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-            imageView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-            imageView.setAdjustViewBounds(false);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        }*/
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,23 +196,6 @@ private Button saveMedicine;
             }
         });
 
-
-        //imageView=(ImageView) this.findViewById(R.id.imageView2);
-        /*imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isImageFitToScreen) {
-                    isImageFitToScreen=false;
-                    imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    imageView.setAdjustViewBounds(true);
-                }else{
-                    isImageFitToScreen=true;
-                    imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                }
-            }
-        });*/
-
         addPhoto=(FloatingActionButton) this.findViewById(R.id.btn_addPhoto);
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,32 +204,6 @@ private Button saveMedicine;
                // Toast.makeText(AddMedicine.this, "Kliknięto", Toast.LENGTH_SHORT).show();
             }
         });
-        /*this.imageView = (ImageView)this.findViewById(R.id.imageView2);
-        Button photoButton = (Button) this.findViewById(R.id.btn_addPhoto);
-        photoButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.CAMERA},
-                                MY_CAMERA_PERMISSION_CODE);
-                    } else {
-                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                    }
-                }
-            });*/
-
-       /* imageView=(ImageView) findViewById(R.id.imageView2);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //takePicture(view);
-                //AlertDialog.Builder builder = new AlertDialog.Builder(result);
-                //builder.setTitle("Tu otwórz aparat");
-
-            }
-        });*/
 
         expdate = (TextView) findViewById(R.id.tv_expdate);
         expdate.setOnClickListener(new View.OnClickListener() {
@@ -285,30 +231,6 @@ private Button saveMedicine;
 
             }
         });
-
-            /*@Override
-            public void onClick(View view){
-                GetCurrentDateData();
-            }
-*/
-            /*mDisplayDate = (TextView) findViewById(R.id.txt_expdate);
-            mDisplayDate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Calendar cal = Calendar.getInstance();
-                    int year = cal.get(Calendar.YEAR);
-                    int month = cal.get(Calendar.MONTH);
-                    int day = cal.get(Calendar.DAY_OF_MONTH);
-                    DatePickerDialog dialog = new DatePickerDialog(
-                            AddMedicine.this,
-                            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                            mDateSetListener,
-                            year,month,day);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.show();*/
-
-
-
 
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {

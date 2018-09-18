@@ -86,32 +86,6 @@ private CardView cv_download;
     private Uri Download_Uri;
 
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }*/
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -188,40 +162,15 @@ private CardView cv_download;
             public void onClick(View v) {
                 }
         });
-
-
         txtDownload=(TextView) findViewById(R.id.txt_download_file);
         cv_download=(CardView) findViewById(R.id.btn_download_file);
         cv_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkPermission();
-                //url=Uri.parse("http://pub.rejestrymedyczne.csioz.gov.pl/pobieranie_WS/Pobieranie.ashx?filetype=XLS&regtype=RPL_FILES");
-               /* Download_Uri = Uri.parse("http://pub.rejestrymedyczne.csioz.gov.pl/pobieranie_WS/Pobieranie.ashx?filetype=XLS&regtype=RPL_FILES");
 
-                DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
-                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                request.setAllowedOverRoaming(false);
-                request.setTitle("GadgetSaint Downloading " + "Sample" + ".xls");
-                request.setDescription("Downloading " + "Sample" + ".xls");
-                request.setVisibleInDownloadsUi(true);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/GadgetSaint/"  + "/" + "Sample" + ".xls");
-
-
-                refid = downloadManager.enqueue(request);*/
-
-
-            //}
-
-            /*if (isConnectingToInternet())
-                new DownloadTasks(MainActivity.this, cv_download, txtDownload, HttpLink.MedicalsRegister);
-            else
-                Toast.makeText(MainActivity.this, "Oops!! There is no internet connection. Please enable internet connection and try again.", Toast.LENGTH_SHORT).show();
-*/
     }
 });
-
-
 
         imagebtnSearch=(ImageButton) findViewById(R.id.imagebtn_search);
         imagebtnSearch.setOnClickListener(new View.OnClickListener() {
@@ -399,38 +348,6 @@ private CardView cv_download;
         }
     }*/
 
-
-    /*@OnClick(R.id.btn_search) void openActivityFindMedicine() {
-    Intent intent = new Intent(this, FindMedicine.class);
-    startActivity(intent);
-}
-    @OnClick(R.id.btn_search) void openActivityListOfMedicines(){
-        Intent intent=new Intent(this, ListOfMedicines.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.btn_search) void openActivityAddMedicine(){
-        Intent intent=new Intent(this, AddMedicine.class);
-        startActivity(intent);
-    }
-
-    public void OpenNextActvities(int id)
-    {
-        if(id==R.id.btn_search) {
-            Intent intent=new Intent(this, FindMedicine.class);
-            startActivity(intent);
-        }
-        else if(id==R.id.btn_addMedicine){
-            Intent intent=new Intent(this, AddMedicine.class);
-            startActivity(intent);
-        }
-        else if(id==R.id.btn_listOfMedicines){
-            Intent intent=new Intent(this, ListOfMedicines.class);
-            startActivity(intent);
-        }
-
-
-    }*/
 
 }
 

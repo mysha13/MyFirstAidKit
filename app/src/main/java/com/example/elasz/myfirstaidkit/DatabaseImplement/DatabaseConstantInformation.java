@@ -50,15 +50,15 @@ public class DatabaseConstantInformation {
     public static final String CREATE_TABLE_USERMEDICAMENTS = "CREATE TABLE " + USERMEDICAMENTSTABLE + "("
             + ID_USERMED + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + NAME + " TEXT NOT NULL, "
-            + ID_MEDICAMENT + "INT, "
-            + EXPDATE + "DATE, "
-            + OPENDATE + "DATE, "
+            + ID_MEDICAMENT + " INT, "
+            + EXPDATE + " DATE, "
+            + OPENDATE + " DATE, "
             + FORM + " INTEGER, "
             + PURPOSE + " TEXT, "
             + AMOUNT + " DOUBLE NOT NULL, "
-            + AMOUNT_FORM + "INT , "
-            + PERSON + "INT, "
-            + NOTE + "TEXT, "
+            + AMOUNT_FORM + " INT, "
+            + PERSON + " INT, "
+            + NOTE + " TEXT, "
             + ");";
 
     public static final String CREATE_TABLE_FORM = "CREATE TABLE " + FORMTABLE + "("
@@ -80,12 +80,12 @@ public class DatabaseConstantInformation {
 
 
     public static final String CREATE_TABLE_MEDICAMENTINFO = "CREATE TABLE " + MEDICAMENTINFOTABLE + "("
-            + ID_MED + "INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ID_MED + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + MEDNAME + " TEXT NOT NULL, "
-            + POWER + "TEXT NOT NULL, "
+            + POWER + " TEXT NOT NULL, "
             + ACTIVESUBS + " TEXT , "
-            + CODE + "TEXT NOT NULL, "  //było int, text żeby wyszukiwac
-            + PRODUCER + "TEXT NOT NULL, "
+            + CODE + " TEXT NOT NULL, "  //było int, text żeby wyszukiwac
+            + PRODUCER + " TEXT NOT NULL, "
             + ");";
 
 }
