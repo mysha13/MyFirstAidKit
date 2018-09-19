@@ -76,6 +76,8 @@ private TextView txtDownload;
 private CardView cv_download;
     private static final String TAG = "Download MainActivity";
 
+    private ArrayList<ShortMedInfoItem> medicines = new ArrayList<>();
+
     @BindView(R.id.btn_search)
     CardView btnForSearchActivity;
 
@@ -151,7 +153,7 @@ private CardView cv_download;
     ListView simpleList;
     String countryList[] = {"Leki przeterminowane", "Leki terminowe", "Wszystkie leki"};
 
-    private ArrayList<ShortMedInfoItem> meds = new ArrayList<>();
+
 
     @Override   protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);      setContentView(R.layout.activity_main);
@@ -257,9 +259,9 @@ private CardView cv_download;
         startActivity(intent);
     }
     public void openActivityListOfMedicines(){
-        Intent intent=new Intent(this, ListOfMedicines.class);
+        Intent intent=new Intent(this, OneMedicineInformation.class);//ListOfMedicines
         Bundle bundle = new Bundle();
-        bundle.putSerializable("ListOfMedicines", (Serializable) meds);
+        bundle.putSerializable("ListOfMedicines", (Serializable) medicines);
         intent.putExtras(bundle);
         startActivity(intent);
     }

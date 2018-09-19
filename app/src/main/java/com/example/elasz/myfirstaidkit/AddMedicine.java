@@ -152,8 +152,10 @@ public class AddMedicine extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
         ButterKnife.bind(this);
+
         name=(EditText) findViewById(R.id.et_name_add);
         amount=(EditText) findViewById(R.id.et_amount_add);
+
         saveMedicine=(Button)findViewById(R.id.btn_saveAddedMedicine_add);
         saveMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +166,6 @@ public class AddMedicine extends AppCompatActivity {
 
 
         imageView=(ImageView) findViewById(R.id.imageView_add);
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,8 +189,6 @@ public class AddMedicine extends AppCompatActivity {
                 AddMedicine.this.startActivity(intent);*/
             }
         });
-
-
 
         removePhoto=(FloatingActionButton) findViewById(R.id.btn_removePhoto);
         removePhoto.setOnClickListener(new View.OnClickListener() {
@@ -260,8 +259,6 @@ public class AddMedicine extends AppCompatActivity {
             }
         };
 
-
-
     }
 
     @OnClick(R.id.btn_saveAddedMedicine_add)
@@ -286,8 +283,6 @@ public class AddMedicine extends AppCompatActivity {
         }
     }
     private long TryToAdd() {
-        //int place = getPlaceID(dAPlace, spinnerCorrection(spPlaceAdd));
-        //int form = getFormID(dAForm, spinnerCorrection(spFormAdd));
         dbUserMed.OpenDB();
         long work = addMedToDB();
         dbUserMed.CloseDB();
@@ -297,15 +292,14 @@ public class AddMedicine extends AppCompatActivity {
     private long addMedToDB() {
         return dbUserMed.AddUserMedicamentData(name.getText().toString(),
                 0,
-                null,
-                null,
+                null,//expdate.getText().toString(),
+                null,//opendate.getText().toString(),
                 null,
                 null,
                 Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
                 null,
                 null,
-                null);
-                //place);
+                null);//note.getText().toString());
     }
 
     private void SetDatabaseAdapters() {

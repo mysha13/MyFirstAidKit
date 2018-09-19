@@ -46,20 +46,19 @@ public class OneMedicineInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_medicine_information);
         ButterKnife.bind(this);
-        setRecycler();
-        retriveBundle();
-        inicialize();
-
+        setRecyclerView();
+        getBundle();
+        initialize();
     }
 
-    private void setRecycler() {
+    private void setRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void retriveBundle() {
+    private void getBundle() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             getBundleContent(bundle);
@@ -82,27 +81,27 @@ public class OneMedicineInformation extends AppCompatActivity {
 
     private void getMed() {
         medicaments.clear();
-        getMedObject();
+        getMedicamentItem();
 
         if (!(medicaments.size() < 1)) {
             recyclerView.setAdapter(shortmedadapter);
         }
     }
 
-    private void getMedObject() {
-        setDatabaseAdapters();
+    private void getMedicamentItem() {
+        setDBAdapters();
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
-        //addMedToList(cursor,dAMed,dAForm,dAPlace,meds);
+
     }
-    private void setDatabaseAdapters() {
+    private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbMedInfo = new DBMedicamentInfoAdapter(this);
         dbForm = new DBFormAdapter(this);
         dbPurpose = new DBPurposeAdapter( this);
     }
 
-    public void inicialize() {
+    public void initialize() {
         /*RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position, String id, int bNumber) {
@@ -116,68 +115,17 @@ public class OneMedicineInformation extends AppCompatActivity {
         recyclerView.setAdapter(shortmedadapter);
     }
 
-    private void ButtonNumber(String id, int bNumber) {
-        if (bNumber == 1) {
-            UpdateMedButton(id);
-        } else if (bNumber == 2) {
+    private void ButtonNumber(String id, int btn_nb) {
+        if (btn_nb == 1) {
+            //UpdateMedButton(id);
+        } else if (btn_nb == 2) {
             //DeleteMedButton(id);
         }
-        else if (bNumber == 3){
-            MoreInfoButton(id);
+        else if (btn_nb == 3){
+            //MoreInfoButton(id);
         }
     }
 
-    private void MoreInfoButton(String id) {
-        Intent intent = new Intent(OneMedicineInformation.this, ViewAllInfoMedicine.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("Id", Integer.parseInt(id));
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
-    public void UpdateMedButton(String id) {
 
-        Intent intent = new Intent(OneMedicineInformation.this, UpdateMedicine.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("Id", Integer.parseInt(id));
-        intent.putExtras(bundle);
-        startActivity(intent);
-
-    }
-
-   /* public void DeleteMedButton(String id) {
-
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
-        View mView = getLayoutInflater().inflate(R.layout.dialog_delete, null);
-        mBuilder.setView(mView);
-        final AlertDialog dialog = mBuilder.create();
-        Button bNo = (Button) mView.findViewById(R.id.bDoNotDelete);
-        bNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-
-            }
-        });
-
-        Button bYes = (Button) mView.findViewById(R.id.bDeleteContent);
-        bYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteMed(id);
-                dialog.dismiss();
-                retrieveMed();
-            }
-        });
-        dialog.show();
-
-    }*/
-
-    /*private void deleteMed(String id) {
-        DatabaseMedAdapter dbMed = new DatabaseMedAdapter(getBaseContext());
-        dbMed.openDB();
-        dbMed.deleteMed(String.valueOf(id));
-        dbMed.closeDB();
-
-    }*/
 }
