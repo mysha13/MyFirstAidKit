@@ -1,44 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.elasz.myfirstaidkit.OneMedicineInformation">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Liczba leków: "/>
-
-        <TextView
-            android:id="@+id/tv_numberOfMedicaments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="aa"/>
-
-    </LinearLayout>
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:padding="5dp">
-
-    </android.support.v7.widget.RecyclerView>
-
-   <!-- <GridLayout
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -79,6 +43,7 @@
             android:layout_rowSpan="2"
             android:textSize="7dp"
             android:text="Edytuj" />
+
         <ImageView
             android:id="@+id/imageView_oneMedicineItem"
             android:layout_width="70dp"
@@ -86,7 +51,8 @@
             android:layout_rowSpan="5"
             android:layout_gravity="center"
             android:layout_marginLeft="7dp"
-            app:srcCompat="@drawable/ic_menu_camera" />
+            android:src="@drawable/ic_photo_camera_black_24dp" />
+
         <TextView
             android:textColor="@android:color/black"
             android:layout_marginTop="3dp"
@@ -156,7 +122,7 @@
             android:text="5 opakowań"
             android:id="@+id/tv_amount_item"/>
 
-        &lt;!&ndash;<CheckBox
+        <!--<CheckBox
             android:layout_marginTop="2dp"
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
@@ -165,7 +131,7 @@
             android:layout_row="2"
             android:text="@string/oneInformationMedicine_checkb_taken"
             android:layout_columnSpan="1"
-            android:textSize="10dp" />&ndash;&gt;
+            android:textSize="10dp" />-->
 
         <Button
             android:id="@+id/btn_moreInfo_item"
@@ -175,7 +141,7 @@
             android:textSize="7dp"
             android:layout_rowSpan="2"
             android:text="Więcej >>"
-           />
+            />
 
         <TextView
             android:textColor="@android:color/black"
@@ -191,6 +157,5 @@
             android:textSize="10dp"
             android:text="200mg"
             android:id="@+id/tv_power_item"/>
-    </GridLayout>-->
-
+    </GridLayout>
 </LinearLayout>

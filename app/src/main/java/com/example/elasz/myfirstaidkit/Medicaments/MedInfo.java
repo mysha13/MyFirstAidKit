@@ -4,7 +4,7 @@ package com.example.elasz.myfirstaidkit.Medicaments;
  * Created by elasz on 17.09.2018.
  */
 
-public class MedInfo {
+/*public class MedInfo {
     int Id;
     String medname;
     String power;
@@ -69,4 +69,4 @@ public class MedInfo {
         this.producer = producer;
     }
 
-}
+}*/

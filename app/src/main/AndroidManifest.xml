@@ -38,6 +38,7 @@
         <activity android:name=".BarcodeScanner" />
         <activity android:name=".FullScreenPhoto" />
         <activity android:name=".ViewAllInfoMedicine" />
+        <activity android:name=".UpdateMedicine"></activity>
     </application>
 
 </manifest>

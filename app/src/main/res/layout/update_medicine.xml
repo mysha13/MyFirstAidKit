@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.elasz.myfirstaidkit.AddMedicine">
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:columnCount="4"
+            android:horizontalSpacing="5dp"
+            android:padding="5dp"
+            android:rowCount="20"
+            android:verticalSpacing="1dp">
+
+            <TextView
+                android:layout_columnSpan="4"
+                android:id="@+id/tv_id_update"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/imageView_update"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_columnSpan="1"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_rowSpan="3"
+                android:scaleType="fitXY"
+                android:maxHeight="100dp"
+                android:maxWidth="100dp"
+                app:srcCompat="@drawable/ic_menu_camera" />
+
+            <Button
+                android:id="@+id/btn_scanBarcode_update"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="3"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:text="@string/addMedicine_btn_scanCode"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/txtview_name"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/popular_name"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/et_name_update"
+                android:layout_width="153dp"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:hint="Nazwa edit"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtview_expdate"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/popular_exp"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tv_expdate_update"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:text="dd/mm/rrrr"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_removePhoto_update"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:srcCompat="@drawable/ic_cancel_black_24dp"
+                    android:scaleType="center"
+                    />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_addPhoto_update"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+                    android:scaleType="center"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtview_opendate"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/addMedicine_txt_opened"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tv_opendate_update"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:text="dd/mm/rrrr"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtview_form"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/popular_form"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <!--<TextView
+                android:id="@+id/txt_form"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="Tabletki powlekane"
+                android:textSize="13dp" />-->
+
+            <Spinner
+                android:id="@+id/spin_form_update"
+                android:layout_width="250dp"
+                android:layout_height="55dp"
+                android:layout_columnSpan="3"
+                android:layout_gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:textSize="16dp"></Spinner>
+
+
+            <TextView
+                android:id="@+id/txtview_purpose"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:text="@string/popular_disease"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+
+            <Spinner
+                android:id="@+id/spin_purpose_update"
+                android:layout_width="250dp"
+                android:layout_height="55dp"
+                android:layout_columnSpan="3"
+                android:layout_gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:textSize="16dp"></Spinner>
+
+            <TextView
+                android:id="@+id/txtview_numberofmedicine"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/popular_number"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/et_amount_update"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginLeft="10dp"
+                android:hint="Liczba"
+                android:textSize="16dp" />
+
+            <!--<TextView
+                android:id="@+id/txt_numberOfMedicine"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="5 "
+                android:textSize="13dp" />-->
+
+            <!-- <TextView
+                android:id="@+id/txt_formOfMedicine"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="opakowań"
+                android:textSize="13dp" />-->
+
+            <Spinner
+                android:id="@+id/spin_amountform_update"
+                android:layout_width="160dp"
+                android:layout_height="55dp"
+                android:layout_columnSpan="2"
+                android:layout_gravity="right"
+                android:layout_marginLeft="10dp"
+                android:textSize="16dp"></Spinner>
+
+            <TextView
+                android:id="@+id/txtview_person"
+                android:layout_columnSpan="2"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/addMedicine_txt_forperson"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <Spinner
+                android:id="@+id/spin_person_update"
+                android:layout_width="160dp"
+                android:layout_height="55dp"
+                android:layout_columnSpan="2"
+                android:layout_gravity="right"
+                android:layout_marginTop="3dp"
+                android:textSize="16dp"></Spinner>
+
+            <TextView
+                android:id="@+id/txtview_subsPower"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/addMedicine_txt_power"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/et_power_update"
+                android:layout_width="155dp"
+                android:layout_columnSpan="2"
+                android:layout_marginTop="3dp"
+                android:hint="Dawka"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:id="@+id/txtview_subsActive"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/addMedicine_txt_activeSubs"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <!--<TextView
+                android:id="@+id/txt_subsActive"
+                android:layout_width="155dp"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="Nazwa edit"
+                android:textSize="13dp"
+                />-->
+            <EditText
+                android:id="@+id/et_subsActive_update"
+                android:layout_width="155dp"
+                android:layout_columnSpan="2"
+                android:layout_marginTop="3dp"
+                android:hint="Substancje czynne"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:id="@+id/txtview_codeATC"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/addMedicine_txt_code"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/et_code_update"
+                android:layout_width="153dp"
+                android:layout_columnSpan="2"
+                android:layout_marginTop="3dp"
+                android:hint="BARCODE"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtview_responsibleObject"
+                android:layout_width="153dp"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="@string/addMedicine_txt_producer"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/et_producer_update"
+                android:layout_width="153dp"
+                android:layout_columnSpan="2"
+                android:layout_marginTop="3dp"
+                android:hint="Odpowiedzialny"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtview_idmedicine"
+                android:layout_width="153dp"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:text="@string/addMedicine_txt_note"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/et_note_update"
+                android:layout_width="154dp"
+                android:layout_columnSpan="2"
+                android:layout_marginTop="3dp"
+                android:hint="Natatka dodatkowa, własna"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/btn_saveAddedMedicine_update"
+                android:text="Zapisz zmiany"
+                android:layout_columnSpan="4"
+                android:layout_width="match_parent"/>
+
+        </GridLayout>
+
+    </ScrollView>
+</LinearLayout>

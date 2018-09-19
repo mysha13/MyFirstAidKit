@@ -1,10 +1,12 @@
 package com.example.elasz.myfirstaidkit.Medicaments;
 
+import java.io.Serializable;
+
 /**
  * Created by elasz on 19.09.2018.
  */
 
-public class ShortMedInfoItem {
+public class ShortMedInfoItem implements Serializable {
 
     int Id;
     String name;
