@@ -102,7 +102,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.listener = listener;
-           
+
 
         }
 
