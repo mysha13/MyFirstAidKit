@@ -56,42 +56,45 @@ public class AddMedicine extends AppCompatActivity {
     private DBMedicamentInfoAdapter dbMedInfo;
     private DBUserMedicamentsAdapter dbUserMed;
    // private DatabaseFormAdapter dAForm;
-    @BindView(R.id.et_name)
+    @BindView(R.id.et_name_add)
     EditText name;
 
-    @BindView(R.id.tv_expdate)
+    @BindView(R.id.tv_expdate_add)
     TextView expdate;
 
-    @BindView(R.id.tv_opendate)
+    @BindView(R.id.tv_opendate_add)
     TextView opendate;
 
-    @BindView(R.id.spin_form)
+    @BindView(R.id.spin_form_add)
     Spinner form;
 
-    @BindView(R.id.spin_purpose)
+    @BindView(R.id.spin_purpose_add)
     Spinner purpose;
 
-    @BindView(R.id.et_amount)
+    @BindView(R.id.et_amount_add)
     EditText amount;
 
-    @BindView(R.id.spin_amountform)
+    @BindView(R.id.spin_amountform_add)
     Spinner amountForm;
 
-    @BindView(R.id.spin_person)
+    @BindView(R.id.spin_person_add)
     Spinner person;
 
-    @BindView(R.id.et_power)
+    @BindView(R.id.et_power_add)
     EditText power;
 
-    @BindView(R.id.et_subsActive)
+    @BindView(R.id.et_subsActive_add)
     EditText subsActive;
-    @BindView(R.id.et_code)
+
+    @BindView(R.id.et_code_add)
     EditText code;
 
-    @BindView(R.id.et_producer)
+    @BindView(R.id.et_producer_add)
     EditText producer;
-    @BindView(R.id.et_note)
+
+    @BindView(R.id.et_note_add)
     EditText note;
+
     @BindView(R.id.btn_addPhoto)
     FloatingActionButton addPhoto;
 
@@ -124,7 +127,7 @@ public class AddMedicine extends AppCompatActivity {
     private ImageView imageView;*/
 
 //butterknife nie działa!!!
-    @BindView(R.id.btn_scanBarcode)
+    @BindView(R.id.btn_scanBarcode_add)
     Button btnScanBarcode;
 
 
@@ -149,9 +152,9 @@ public class AddMedicine extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
         ButterKnife.bind(this);
-        name=(EditText) findViewById(R.id.et_name);
-        amount=(EditText) findViewById(R.id.et_amount);
-        saveMedicine=(Button)findViewById(R.id.btn_saveAddedMedicine);
+        name=(EditText) findViewById(R.id.et_name_add);
+        amount=(EditText) findViewById(R.id.et_amount_add);
+        saveMedicine=(Button)findViewById(R.id.btn_saveAddedMedicine_add);
         saveMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +163,7 @@ public class AddMedicine extends AppCompatActivity {
         });
 
 
-        imageView=(ImageView) findViewById(R.id.imageView2);
+        imageView=(ImageView) findViewById(R.id.imageView_add);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,7 +208,7 @@ public class AddMedicine extends AppCompatActivity {
             }
         });
 
-        expdate = (TextView) findViewById(R.id.tv_expdate);
+        expdate = (TextView) findViewById(R.id.tv_expdate_add);
         expdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -213,7 +216,7 @@ public class AddMedicine extends AppCompatActivity {
             }
         });
 
-        opendate=(TextView) findViewById(R.id.tv_opendate);
+        opendate=(TextView) findViewById(R.id.tv_opendate_add);
         opendate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,7 +225,7 @@ public class AddMedicine extends AppCompatActivity {
         });
 
 
-        btnScanBarcode = (Button) findViewById(R.id.btn_scanBarcode);
+        btnScanBarcode = (Button) findViewById(R.id.btn_scanBarcode_add);
         //mDisplayDate = (TextView) findViewById(R.id.txt_expdate);
         btnScanBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,7 +264,7 @@ public class AddMedicine extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.btn_saveAddedMedicine)
+    @OnClick(R.id.btn_saveAddedMedicine_add)
     void AddMedicineClick(){
         if(name.getText().toString().matches("")){
             Toast.makeText(AddMedicine.this, "Nazwa jest pusta", Toast.LENGTH_LONG).show();
@@ -516,7 +519,7 @@ public class AddMedicine extends AppCompatActivity {
         }
     }*/
 
-    @OnClick(R.id.tv_opendate)
+    @OnClick(R.id.tv_opendate_add)
     public void getOpenDate(){
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -531,7 +534,7 @@ public class AddMedicine extends AppCompatActivity {
         dialog.show();
     }
 
-    @OnClick(R.id.tv_expdate)
+    @OnClick(R.id.tv_expdate_add)
     public void getExpDate(){
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -546,7 +549,7 @@ public class AddMedicine extends AppCompatActivity {
         dialog.show();
     }
 
-    @OnClick(R.id.btn_scanBarcode)
+    @OnClick(R.id.btn_scanBarcode_add)
     public void OpenBarcodeScannerActivity(){
         Intent intent= new Intent(this, BarcodeScanner.class);
         startActivity(intent);

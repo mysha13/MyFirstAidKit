@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by elasz on 17.09.2018.
  */
 
-public class UserMed implements Serializable {
+public class AllMedInfoItem implements Serializable {
 
     int Id;
     String name;
@@ -20,8 +20,8 @@ public class UserMed implements Serializable {
     int person;
     String note;
 
-    public UserMed (int id, String name, int id_medicament, String expdate, String opendate, String form,
-                    String purpose, String amount, String amoutform, int person, String note){
+    public AllMedInfoItem(int id, String name, int id_medicament, String expdate, String opendate, String form,
+                          String purpose, String amount, String amoutform, int person, String note){
         Id=id;
         this.name=name;
         this.id_medicament=id_medicament;
@@ -32,6 +32,14 @@ public class UserMed implements Serializable {
         this.amount=amount;
         this.person=person;
         this.note=note;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:columnCount="4"
-            android:horizontalSpacing="5dp"
+            android:horizontalSpacing="1dp"
             android:padding="5dp"
             android:rowCount="20"
             android:verticalSpacing="1dp">
@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"/>
 
             <ImageView
-                android:id="@+id/imageView_add"
+                android:id="@+id/imageView_allinfo"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_columnSpan="1"
@@ -44,14 +44,7 @@
                 android:maxWidth="100dp"
                 app:srcCompat="@drawable/ic_menu_camera" />
 
-            <Button
-                android:id="@+id/btn_scanBarcode_add"
-                android:layout_width="wrap_content"
-                android:layout_columnSpan="3"
-                android:layout_gravity="center"
-                android:gravity="center_vertical"
-                android:text="@string/addMedicine_btn_scanCode"
-                android:textAlignment="center" />
+
 
             <TextView
                 android:id="@+id/txtview_name"
@@ -61,12 +54,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/et_name_add"
+            <TextView
+                android:id="@+id/et_name_allinfo"
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:hint="Nazwa edit"
                 android:textSize="16dp" />
 
@@ -79,7 +74,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/tv_expdate_add"
+                android:id="@+id/tv_expdate_allinfo"
                 android:layout_width="wrap_content"
                 android:layout_columnSpan="2"
                 android:layout_gravity="center"
@@ -87,34 +82,7 @@
                 android:text="dd/mm/rrrr"
                 android:textSize="16dp" />
 
-<LinearLayout
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_columnSpan="1"
-    android:orientation="horizontal"
-    android:layout_gravity="center">
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_height="30dp"
-        android:layout_width="wrap_content"
-        android:id="@+id/btn_removePhoto"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp"
-        app:srcCompat="@drawable/ic_cancel_black_24dp"
-        android:scaleType="center"
-        />
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_height="30dp"
-        android:layout_width="wrap_content"
-        android:id="@+id/btn_addPhoto"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="5dp"
-        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
-        android:scaleType="center"/>
-
-</LinearLayout>
 
             <TextView
                 android:id="@+id/txtview_opendate"
@@ -125,7 +93,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/tv_opendate_add"
+                android:id="@+id/tv_opendate_allinfo"
                 android:layout_width="wrap_content"
                 android:layout_columnSpan="2"
                 android:layout_gravity="center"
@@ -150,35 +118,36 @@
                 android:text="Tabletki powlekane"
                 android:textSize="13dp" />-->
 
-            <Spinner
-                android:id="@+id/spin_form_add"
+            <TextView
+                android:id="@+id/spin_form_allinfo"
                 android:layout_width="250dp"
-                android:layout_height="55dp"
                 android:layout_columnSpan="3"
-                android:layout_gravity="right"
+                android:gravity="center"
+                android:hint="Tabletki"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:textSize="16dp"></Spinner>
+                android:textSize="16dp"></TextView>
 
 
             <TextView
-                android:id="@+id/txtview_purpose"
+                android:id="@+id/txtview_sickness"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
                 android:text="@string/popular_disease"
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
 
-            <Spinner
-                android:id="@+id/spin_purpose_add"
+            <TextView
+                android:id="@+id/spin_purpose_allinfo"
                 android:layout_width="250dp"
-                android:layout_height="55dp"
                 android:layout_columnSpan="3"
-                android:layout_gravity="right"
+                android:gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:textSize="16dp"></Spinner>
+                android:hint="gorączka"
+                android:textSize="16dp"></TextView>
 
             <TextView
                 android:id="@+id/txtview_numberofmedicine"
@@ -189,8 +158,8 @@
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/et_amount_add"
+            <TextView
+                android:id="@+id/et_amount_allinfo"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="10dp"
                 android:hint="Liczba"
@@ -210,14 +179,14 @@
                 android:text="opakowań"
                 android:textSize="13dp" />-->
 
-            <Spinner
-                android:id="@+id/spin_amountform_add"
+            <TextView
+                android:id="@+id/spin_amountform_allinfo"
                 android:layout_width="160dp"
-                android:layout_height="55dp"
                 android:layout_columnSpan="2"
                 android:layout_gravity="right"
                 android:layout_marginLeft="10dp"
-                android:textSize="16dp"></Spinner>
+                android:hint="ml"
+                android:textSize="16dp"></TextView>
 
             <TextView
                 android:id="@+id/txtview_person"
@@ -229,14 +198,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
-            <Spinner
-                android:id="@+id/spin_person_add"
+            <TextView
+                android:id="@+id/spin_person_allinfo"
                 android:layout_width="160dp"
-                android:layout_height="55dp"
                 android:layout_columnSpan="2"
                 android:layout_gravity="right"
                 android:layout_marginTop="3dp"
-                android:textSize="16dp"></Spinner>
+                android:hint="Osoba"
+                android:textSize="16dp"></TextView>
 
             <TextView
                 android:id="@+id/txtview_subsPower"
@@ -247,8 +216,8 @@
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/et_power_add"
+            <TextView
+                android:id="@+id/et_power_allinfo"
                 android:layout_width="155dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
@@ -274,12 +243,12 @@
                 android:text="Nazwa edit"
                 android:textSize="13dp"
                 />-->
-            <EditText
-                android:id="@+id/et_subsActive_add"
+            <TextView
+                android:id="@+id/et_subsActive_allinfo"
                 android:layout_width="155dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Substancje czynne"
+                android:hint="Substancje czynne "
                 android:textSize="16dp" />
 
 
@@ -292,8 +261,8 @@
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/et_code_add"
+            <TextView
+                android:id="@+id/et_code_allinfo"
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
@@ -310,8 +279,8 @@
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/et_producer_add"
+            <TextView
+                android:id="@+id/et_producer_allinfo"
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
@@ -327,19 +296,15 @@
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/et_note_add"
+            <TextView
+                android:id="@+id/et_note_allinfo"
                 android:layout_width="154dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
                 android:hint="Natatka dodatkowa, własna"
                 android:textSize="16dp" />
 
-            <Button
-                android:id="@+id/btn_saveAddedMedicine_add"
-                android:text="Zapisz"
-                android:layout_columnSpan="4"
-                android:layout_width="match_parent"/>
+
 
         </GridLayout>
 
