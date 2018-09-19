@@ -58,7 +58,7 @@ public class DatabaseConstantInformation {
             + AMOUNT + " DOUBLE NOT NULL, "
             + AMOUNT_FORM + " INT, "
             + PERSON + " INT, "
-            + NOTE + " TEXT, "
+            + NOTE + " TEXT "
             + ");";
 
     public static final String CREATE_TABLE_FORM = "CREATE TABLE " + FORMTABLE + "("
