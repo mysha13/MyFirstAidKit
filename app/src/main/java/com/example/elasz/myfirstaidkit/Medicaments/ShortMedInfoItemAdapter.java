@@ -32,7 +32,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_one_medicine_information, null);
+                .inflate(R.layout.one_medicine_item, null);
         return new ViewHolder(itemLayoutView, listener);
     }
 
@@ -102,8 +102,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.listener = listener;
-            // goToUpdate.setOnClickListener(this);
-            //deleteMedFromListDialog.setOnClickListener(this);
+           
 
         }
 
