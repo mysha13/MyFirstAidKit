@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
+import com.facebook.stetho.Stetho;
 
 import org.w3c.dom.Text;
 
@@ -156,8 +157,10 @@ private CardView cv_download;
 
 
     @Override   protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);      setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         simpleList = (ListView)findViewById(R.id.listviewinformation);
+        Stetho.initializeWithDefaults(this);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_infoName, countryList);
         simpleList.setAdapter(arrayAdapter);
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);

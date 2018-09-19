@@ -1,5 +1,6 @@
 package com.example.elasz.myfirstaidkit.Medicaments;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ShortMedInfoItemAdapter.ViewHolder holder, int position) {
         holder.tv_Id.setText(String.valueOf(shortMeds.get(position).getId()));
         holder.tv_Name.setText(shortMeds.get(position).getName());
         holder.tv_EXPDate.setText(shortMeds.get(position).getExpdate());
@@ -53,6 +54,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         int bNumber = 0;
         RecyclerViewClickListener listener;
 
@@ -102,7 +104,6 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.listener = listener;
-
 
         }
 

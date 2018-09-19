@@ -65,7 +65,7 @@ public class DBUserMedicamentsAdapter {
                 DatabaseConstantInformation.PURPOSE,
                 DatabaseConstantInformation.AMOUNT,
                 DatabaseConstantInformation.AMOUNT_FORM,
-                DatabaseConstantInformation.PERSON_NAME,
+                DatabaseConstantInformation.PERSON,
                 DatabaseConstantInformation.NOTE};
 
         return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE, columns, null, null, null, null, null);
@@ -81,7 +81,7 @@ public class DBUserMedicamentsAdapter {
         cvUpdateRow.put(DatabaseConstantInformation.PURPOSE, purpose);
         cvUpdateRow.put(DatabaseConstantInformation.AMOUNT, amount);
         cvUpdateRow.put(DatabaseConstantInformation.AMOUNT_FORM, amount_form);       //check format
-        cvUpdateRow.put(DatabaseConstantInformation.PERSON_NAME, person);            //check format
+        cvUpdateRow.put(DatabaseConstantInformation.PERSON, person);            //check format
         cvUpdateRow.put(DatabaseConstantInformation.NOTE, note);
 
         return database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, cvUpdateRow, DatabaseConstantInformation.ID_USERMED + "=" + String.valueOf(id), null);

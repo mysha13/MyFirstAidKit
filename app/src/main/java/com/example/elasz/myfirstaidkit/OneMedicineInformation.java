@@ -3,11 +3,13 @@ package com.example.elasz.myfirstaidkit;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OneMedicineInformation extends AppCompatActivity {
-
 
     ShortMedInfoItemAdapter shortmedadapter;
     ArrayList<ShortMedInfoItem> medicaments;
@@ -52,21 +53,21 @@ public class OneMedicineInformation extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void getBundle() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            getBundleContent(bundle);
-        } else {
+//        Bundle bundle = getIntent().getExtras();
+//        if (bundle != null) {
+//            getBundleContent(bundle);
+//        } else {
             medicaments = new ArrayList<>();
             numberOfMeds.setText("Wszystkie leki dodane");
             getMed();
-        }
+        //}
     }
 
     private void getBundleContent(Bundle bundle) {
@@ -92,8 +93,9 @@ public class OneMedicineInformation extends AppCompatActivity {
         setDBAdapters();
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
-
+        Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
     }
+
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbMedInfo = new DBMedicamentInfoAdapter(this);
