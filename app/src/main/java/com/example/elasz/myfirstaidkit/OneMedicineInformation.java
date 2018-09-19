@@ -112,7 +112,7 @@ public class OneMedicineInformation extends AppCompatActivity {
         RecyclerViewClickListener listener = (view, position, id, bNumber) -> {
             ButtonNumber(id, bNumber);
         };
-        shortmedadapter = new ShortMedInfoItem(medicaments, listener);
+        shortmedadapter = new ShortMedInfoItemAdapter(medicaments, listener);
         recyclerView.setAdapter(shortmedadapter);
     }
 

@@ -21,6 +21,10 @@ android {
             java.srcDirs = ['src/main/java', 'src/main/java/com/example/elasz/myfirstaidkit/DatabaseImplementation']
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {

@@ -34,6 +34,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
+
 import org.w3c.dom.Text;
 
 import java.io.File;
@@ -42,10 +44,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -147,7 +151,7 @@ private CardView cv_download;
     ListView simpleList;
     String countryList[] = {"Leki przeterminowane", "Leki terminowe", "Wszystkie leki"};
 
-
+    private ArrayList<ShortMedInfoItem> meds = new ArrayList<>();
 
     @Override   protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);      setContentView(R.layout.activity_main);
@@ -254,6 +258,9 @@ private CardView cv_download;
     }
     public void openActivityListOfMedicines(){
         Intent intent=new Intent(this, ListOfMedicines.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ListOfMedicines", (Serializable) meds);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
