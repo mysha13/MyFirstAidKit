@@ -57,6 +57,7 @@ public class OneMedicineInformation extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
     }
 
     private void getBundle() {
@@ -94,8 +95,33 @@ public class OneMedicineInformation extends AppCompatActivity {
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
+        CreateMedList(cursor, dbUserMed,dbForm,dbPurpose, medicaments);
     }
+    public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBFormAdapter dbForm, DBPurposeAdapter dbPurpose, ArrayList<ShortMedInfoItem> medicaments) {
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String expdate = cursor.getString(2);
+                //int formInt = cursor.getInt(3);
+                String form=cursor.getString(3);
 
+                String purpose = cursor.getString(4);
+                String amount = cursor.getString(5);
+                //double amount = cursor.getDouble(5);
+                String amountform=cursor.getString(6);
+                String power= cursor.getString(7);
+
+                dbUserMed.CloseDB();
+
+                // String form = getFormName(dAForm, formInt);
+
+                ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose,amount, amountform, power);
+                medicaments.add(shortmed);
+
+            }
+        }
+    }
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbMedInfo = new DBMedicamentInfoAdapter(this);

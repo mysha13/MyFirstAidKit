@@ -21,10 +21,10 @@
 
         <TextView
             android:id="@+id/tv_numberOfMedicaments"
-            android:layout_width="match_parent"
+            android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="aa"/>
+            android:text="aa" />
 
     </LinearLayout>
 

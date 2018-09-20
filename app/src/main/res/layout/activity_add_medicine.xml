@@ -319,7 +319,7 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/txtview_idmedicine"
+                android:id="@+id/txtview_note"
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginLeft="10dp"
@@ -335,11 +335,24 @@
                 android:hint="Natatka dodatkowa, własna"
                 android:textSize="16dp" />
 
+            <TextView
+                android:id="@+id/txtview_istaken"
+                android:layout_width="153dp"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:text="Zażywane"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+
+            <CheckBox
+                android:id="@+id/cb_istaken"/>
+
             <Button
                 android:id="@+id/btn_saveAddedMedicine_add"
                 android:text="Zapisz"
                 android:layout_columnSpan="4"
                 android:layout_width="match_parent"/>
+
 
         </GridLayout>
 

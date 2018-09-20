@@ -19,7 +19,7 @@
         android:layout_height="match_parent">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
+            android:id="@+id/autoCompletetv_findbyname"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
@@ -33,12 +33,13 @@
             android:hint="Wpisz nazwę leku" />
 
         <ImageButton
+            android:id="@+id/btn_searchbyname"
             android:layout_width="10dp"
             android:layout_height="50dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
-            android:labelFor="@id/autoCompleteTextView"
+            android:labelFor="@id/autoCompletetv_findbyname"
             app:srcCompat="@drawable/ic_search_black_24dp" />
 
     </LinearLayout>
@@ -48,7 +49,8 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
+        <EditText
+            android:id="@+id/et_findbycode"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
@@ -57,15 +59,16 @@
             android:ems="9"
             android:gravity="center_vertical"
             android:textSize="20dp"
-            android:text="Skanuj by znaleźć lek " />
+            android:hint="Skanuj lub wpisz kod  " />
 
         <ImageButton
+            android:id="@+id/btn_scanBarcode_find"
             android:layout_width="10dp"
             android:layout_height="50dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:labelFor="@id/autoCompleteTextView"
+            android:labelFor="@id/autoCompletetv_findbyname"
             app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
 
     </LinearLayout>

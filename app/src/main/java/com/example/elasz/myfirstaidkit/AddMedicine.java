@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -100,6 +101,9 @@ public class AddMedicine extends AppCompatActivity {
 
     @BindView(R.id.btn_removePhoto)
     FloatingActionButton removePhoto;
+
+    @BindView(R.id.cb_istaken)
+    CheckBox istake;
 
     /*@BindView(R.id.imageView2)
     ImageView imageView;*/
@@ -299,7 +303,8 @@ public class AddMedicine extends AppCompatActivity {
                 Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
                 null,
                 null,
-                null);//note.getText().toString());
+                null,
+                istake.isChecked());//note.getText().toString());
     }
 
     private void SetDatabaseAdapters() {

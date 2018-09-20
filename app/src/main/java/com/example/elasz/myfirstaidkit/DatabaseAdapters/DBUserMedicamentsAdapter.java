@@ -35,7 +35,7 @@ public class DBUserMedicamentsAdapter {
         dbHelper.close();
     }
 
-    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note) {
+    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note, boolean istake) {
         try {
             ContentValues cv = new ContentValues();
             cv.put(DatabaseConstantInformation.NAME, name);
@@ -48,6 +48,7 @@ public class DBUserMedicamentsAdapter {
             cv.put(DatabaseConstantInformation.AMOUNT_FORM, amount_form);       //check format
             cv.put(DatabaseConstantInformation.PERSON, person);            //check format
             cv.put(DatabaseConstantInformation.NOTE, note);
+            cv.put(DatabaseConstantInformation.ISTAKEN,istake);
             return database.insert(DatabaseConstantInformation.USERMEDICAMENTSTABLE, null, cv);
 
         } catch (SQLException ex) {
@@ -66,12 +67,13 @@ public class DBUserMedicamentsAdapter {
                 DatabaseConstantInformation.AMOUNT,
                 DatabaseConstantInformation.AMOUNT_FORM,
                 DatabaseConstantInformation.PERSON,
-                DatabaseConstantInformation.NOTE};
+                DatabaseConstantInformation.NOTE,
+                DatabaseConstantInformation.ISTAKEN};
 
         return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE, columns, null, null, null, null, null);
     }
 
-    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note){
+    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note, int istake){
         ContentValues cvUpdateRow = new ContentValues();
         cvUpdateRow.put(DatabaseConstantInformation.NAME, name);
         cvUpdateRow.put(DatabaseConstantInformation.ID_MEDICAMENT, id_medicament);
@@ -83,6 +85,8 @@ public class DBUserMedicamentsAdapter {
         cvUpdateRow.put(DatabaseConstantInformation.AMOUNT_FORM, amount_form);       //check format
         cvUpdateRow.put(DatabaseConstantInformation.PERSON, person);            //check format
         cvUpdateRow.put(DatabaseConstantInformation.NOTE, note);
+        cvUpdateRow.put(DatabaseConstantInformation.ISTAKEN,istake);
+
 
         return database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, cvUpdateRow, DatabaseConstantInformation.ID_USERMED + "=" + String.valueOf(id), null);
     }
@@ -105,6 +109,10 @@ public class DBUserMedicamentsAdapter {
         return colContent;
     }
 
+    public Cursor getNames() {
+        return database.query(true, DatabaseConstantInformation.USERMEDICAMENTSTABLE, new String[]{DatabaseConstantInformation.NAME}, null, null, DatabaseConstantInformation.NAME, null, null, null);
+
+    }
     public Cursor FindUserMedicamentByName(String name, String columnName) {
 
         String[] columns = new String[]{DatabaseConstantInformation.ID_USERMED,
