@@ -1,10 +1,13 @@
 package com.example.elasz.myfirstaidkit.Medicaments;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.elasz.myfirstaidkit.Interfaces.RecyclerViewClickListener;
@@ -45,6 +48,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         holder.tv_Form.setText(shortMeds.get(position).getForm());
         holder.tv_Purpose.setText(shortMeds.get(position).getPurpose());
         holder.tv_Amount.setText(String.valueOf(shortMeds.get(position).getAmount()));
+        //holder.iv_Image.setImageBitmap(shortMeds.get(position).getImage());
         //holder.tv_Power.setText(userMeds.get(position).getPower());
     }
 
@@ -57,6 +61,9 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
 
         int bNumber = 0;
         RecyclerViewClickListener listener;
+
+        @BindView(R.id.imageView_oneMedicineItem)
+        ImageView iv_Image;
 
         @BindView(R.id.tv_id_item)
         TextView tv_Id;

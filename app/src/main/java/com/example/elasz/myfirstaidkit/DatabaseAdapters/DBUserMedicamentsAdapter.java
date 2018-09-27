@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseHelper;
@@ -35,7 +36,7 @@ public class DBUserMedicamentsAdapter {
         dbHelper.close();
     }
 
-    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note, boolean istake) {
+    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note, boolean istake, byte[] image) {
         try {
             ContentValues cv = new ContentValues();
             cv.put(DatabaseConstantInformation.NAME, name);
@@ -46,9 +47,10 @@ public class DBUserMedicamentsAdapter {
             cv.put(DatabaseConstantInformation.PURPOSE, purpose);
             cv.put(DatabaseConstantInformation.AMOUNT, amount);
             cv.put(DatabaseConstantInformation.AMOUNT_FORM, amount_form);       //check format
-            cv.put(DatabaseConstantInformation.PERSON, person);            //check format
+            cv.put(DatabaseConstantInformation.PERSON, person);                 //check format
             cv.put(DatabaseConstantInformation.NOTE, note);
             cv.put(DatabaseConstantInformation.ISTAKEN,istake);
+            cv.put(DatabaseConstantInformation.IMAGE, image);                   // check format
             return database.insert(DatabaseConstantInformation.USERMEDICAMENTSTABLE, null, cv);
 
         } catch (SQLException ex) {
@@ -68,12 +70,13 @@ public class DBUserMedicamentsAdapter {
                 DatabaseConstantInformation.AMOUNT_FORM,
                 DatabaseConstantInformation.PERSON,
                 DatabaseConstantInformation.NOTE,
-                DatabaseConstantInformation.ISTAKEN};
+                DatabaseConstantInformation.ISTAKEN,
+                DatabaseConstantInformation.IMAGE};
 
         return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE, columns, null, null, null, null, null);
     }
 
-    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note, int istake){
+    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note, int istake, byte[] image){
         ContentValues cvUpdateRow = new ContentValues();
         cvUpdateRow.put(DatabaseConstantInformation.NAME, name);
         cvUpdateRow.put(DatabaseConstantInformation.ID_MEDICAMENT, id_medicament);
@@ -86,7 +89,7 @@ public class DBUserMedicamentsAdapter {
         cvUpdateRow.put(DatabaseConstantInformation.PERSON, person);            //check format
         cvUpdateRow.put(DatabaseConstantInformation.NOTE, note);
         cvUpdateRow.put(DatabaseConstantInformation.ISTAKEN,istake);
-
+        cvUpdateRow.put(DatabaseConstantInformation.IMAGE,image);
 
         return database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, cvUpdateRow, DatabaseConstantInformation.ID_USERMED + "=" + String.valueOf(id), null);
     }
@@ -124,7 +127,7 @@ public class DBUserMedicamentsAdapter {
                 DatabaseConstantInformation.PURPOSE,
                 DatabaseConstantInformation.AMOUNT,
                 DatabaseConstantInformation.AMOUNT_FORM,
-                DatabaseConstantInformation.PERSON_NAME,
+                DatabaseConstantInformation.PERSON,
                 DatabaseConstantInformation.NOTE};
 
         return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE,
@@ -139,7 +142,7 @@ public class DBUserMedicamentsAdapter {
         database.delete(DatabaseConstantInformation.USERMEDICAMENTSTABLE, DatabaseConstantInformation.ID_USERMED + "=?", new String[]{id});
     }
 
-   /* public Cursor FindUserMedicamentByCode(String code, String columnName) {
+    public Cursor FindUserMedicamentByCode(String code, String columnName) {
 
         String[] columns = new String[]{DatabaseConstantInformation.ID_USERMED,
                 DatabaseConstantInformation.MEDNAME,
@@ -152,7 +155,7 @@ public class DBUserMedicamentsAdapter {
                 columns,
                 columnName + "=?" + " COLLATE NOCASE",
                 new String[]{code}, null, null, DatabaseConstantInformation.CODE);
-    }*/
+    }
 
 
 }

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -35,7 +36,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPersonAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
 
 import java.io.ByteArrayOutputStream;
@@ -56,45 +61,69 @@ public class AddMedicine extends AppCompatActivity {
     private static final String TAG = "AddMedicine";
     private DBMedicamentInfoAdapter dbMedInfo;
     private DBUserMedicamentsAdapter dbUserMed;
+    private DBFormAdapter dbForm;
+    private DBAmountFormAdapter dbAmountForm;
+    private DBPersonAdapter dbPerson;
+    private DBPurposeAdapter dbPurpose;
+
+    public static void setCodecode(String codecode) {
+        AddMedicine.codecode = codecode;
+    }
+
+    public static String codecode;
+
    // private DatabaseFormAdapter dAForm;
     @BindView(R.id.et_name_add)
     EditText name;
+    private String todb_name;
 
     @BindView(R.id.tv_expdate_add)
     TextView expdate;
+    private String todb_expdate;
 
     @BindView(R.id.tv_opendate_add)
     TextView opendate;
+    private String todb_opendate;
 
     @BindView(R.id.spin_form_add)
     Spinner form;
+    private String todb_form;
 
     @BindView(R.id.spin_purpose_add)
     Spinner purpose;
+    private String todb_purpose;
 
     @BindView(R.id.et_amount_add)
     EditText amount;
+    private String todb_amount;
 
     @BindView(R.id.spin_amountform_add)
     Spinner amountForm;
+    private String todb_amountForm;
 
     @BindView(R.id.spin_person_add)
     Spinner person;
+    private String todb_person;
 
     @BindView(R.id.et_power_add)
     EditText power;
+    private String todb_power;
 
     @BindView(R.id.et_subsActive_add)
     EditText subsActive;
+    private String todb_subsActive;
 
     @BindView(R.id.et_code_add)
     EditText code;
+    private String todb_code;
 
     @BindView(R.id.et_producer_add)
     EditText producer;
+    private String todb_producer;
 
     @BindView(R.id.et_note_add)
     EditText note;
+    private String todb_note;
 
     @BindView(R.id.btn_addPhoto)
     FloatingActionButton addPhoto;
@@ -108,7 +137,7 @@ public class AddMedicine extends AppCompatActivity {
     /*@BindView(R.id.imageView2)
     ImageView imageView;*/
 
-
+    private byte[] convertedimage;
 
     //private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -156,7 +185,9 @@ public class AddMedicine extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
         ButterKnife.bind(this);
-
+        if(codecode!=null){
+            code.setText(codecode);
+        }
         name=(EditText) findViewById(R.id.et_name_add);
         amount=(EditText) findViewById(R.id.et_amount_add);
 
@@ -281,54 +312,119 @@ public class AddMedicine extends AppCompatActivity {
     private void CheckResult() {
         long work = TryToAdd();
         if (work > 0) {
-            Toast.makeText(AddMedicine.this, "Sukces", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddMedicine.this, "Dodano lek", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(AddMedicine.this,"Porażka", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
     }
     private long TryToAdd() {
+        IsThereAnyImage();
+        CheckEmptyFields();
         dbUserMed.OpenDB();
         long work = addMedToDB();
         dbUserMed.CloseDB();
         return work;
     }
 
+    private void CheckEmptyFields() {
+        if(expdate.getText()==null){
+            todb_expdate=null;
+        }
+        else{
+            todb_expdate=expdate.getText().toString();
+        }
+
+        if(opendate.getText()==null){
+            todb_opendate=null;
+        }
+        else{
+            todb_opendate=opendate.getText().toString();
+        }
+
+       /* if(form.getText()==null){
+            todb_form=null;
+        }
+        else{
+            todb_form=form.getText().toString();
+        }*/
+
+       /* if(purpose.getText()==null){
+            todb_purpose=null;
+        }
+        else{
+            todb_purpose=purpose.getText().toString();
+        }*/
+
+       /* if(amountForm.getText()==null){
+            todb_amountForm=null;
+        }
+        else{
+            todb_amountForm=amountForm.getText().toString();
+        }*/
+
+        /* if(person.getText()==null){
+            todb_person=null;
+        }
+        else{
+            todb_person=person.getText().toString();
+        }*/
+        if(note.getText()==null){
+            todb_note=null;
+        }
+        else{
+            todb_note=note.getText().toString();
+        }
+
+    }
+
+    private void IsThereAnyImage()
+    {
+        try{
+            Bitmap mybitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+            if(mybitmap == null){
+                convertedimage=null;
+            }
+            else{
+                convertedimage=ConvertImageToByteArray(mybitmap);
+            }
+        }
+        catch(Exception ex){
+            Log.e("No Image", ex.toString());
+        }finally {
+            convertedimage=null;
+        }
+
+    }
+
     private long addMedToDB() {
         return dbUserMed.AddUserMedicamentData(name.getText().toString(),
                 0,
-                null,//expdate.getText().toString(),
-                null,//opendate.getText().toString(),
+                todb_expdate,//expdate.getText().toString(),
+                todb_opendate,//opendate.getText().toString(),
                 null,
                 null,
                 Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
                 null,
                 null,
-                null,
-                istake.isChecked());//note.getText().toString());
+                todb_note, //note.getText().toString());
+                istake.isChecked(),
+                convertedimage);
+    }
+
+    public static byte[] ConvertImageToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        return outputStream.toByteArray();
     }
 
     private void SetDatabaseAdapters() {
         dbMedInfo = new DBMedicamentInfoAdapter(this);
         dbUserMed = new DBUserMedicamentsAdapter(this);
-        //dAForm = new DatabaseFormAdapter(this);
+        dbForm = new DBFormAdapter(this);
+        dbAmountForm = new DBAmountFormAdapter(this);
+        dbPerson = new DBPersonAdapter(this);
+        dbPurpose = new DBPurposeAdapter(this);
     }
-
-    //for a better photos quality
-   /* private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  *//* prefix *//*
-                ".jpg",         *//* suffix *//*
-                storageDir      *//* directory *//*
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }*/
 
     private void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
@@ -370,25 +466,7 @@ public class AddMedicine extends AppCompatActivity {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, CAMERA);
-
-            // Create the File where the photo should go
-           /* File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(intent, CAMERA);
-            }*/
         }
-        //startActivityForResult(intent, CAMERA);
     }
 
     private  void ClearImageView(){
@@ -431,7 +509,7 @@ public class AddMedicine extends AppCompatActivity {
 
     public String saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        myBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         File wallpaperDirectory = new File(
                 Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
         // have the object build the directory structure, if needed.
@@ -441,13 +519,13 @@ public class AddMedicine extends AppCompatActivity {
 
         try {
             File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
+                    .getTimeInMillis() + ".png");
             f.createNewFile();
             FileOutputStream fo = new FileOutputStream(f);
             fo.write(bytes.toByteArray());
             MediaScannerConnection.scanFile(this,
                     new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
+                    new String[]{"image/png"}, null);
             fo.close();
             Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
 
@@ -457,24 +535,6 @@ public class AddMedicine extends AppCompatActivity {
         }
         return "";
     }
-
-    /*private void setUI(){
-        addPhoto=(FloatingActionButton) findViewById(R.id.btn_addPhoto);
-        imageView=(ImageView) findViewById(R.id.imageView2);
-        addPhoto.setOnClickListener(this);
-    }*/
-
-    /*public void takePhoto(View view){
-        Intent intent =new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file=new File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), //where is picture saved
-                "test.jpg"); //name of file
-        Uri temp = Uri.fromFile(file);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, temp);
-        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); //1 means high quality
-        startActivityForResult(intent, 0);
-
-    }*/
 
     /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -552,6 +612,8 @@ public class AddMedicine extends AppCompatActivity {
     public void OpenBarcodeScannerActivity(){
         Intent intent= new Intent(this, BarcodeScanner.class);
         startActivity(intent);
+        BarcodeScanner bar= new BarcodeScanner();
+        code.setText(bar.getCode().toString());
     }
 
 }

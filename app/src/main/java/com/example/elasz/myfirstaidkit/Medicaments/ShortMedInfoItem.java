@@ -1,6 +1,9 @@
 package com.example.elasz.myfirstaidkit.Medicaments;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
+import java.sql.Blob;
 
 /**
  * Created by elasz on 19.09.2018.
@@ -16,6 +19,7 @@ public class ShortMedInfoItem implements Serializable {
     String amount;
     String amoutform;
     String power;
+    Bitmap image;
 
     public ShortMedInfoItem(int id, String name, String expdate, String form, String purpose, String amount, String amoutform, String power) {
         Id = id;
@@ -26,6 +30,7 @@ public class ShortMedInfoItem implements Serializable {
         this.amount = amount;
         this.amoutform = amoutform;
         this.power = power;
+        //this.image = image;
     }
 
     public int getId() {
@@ -92,4 +97,12 @@ public class ShortMedInfoItem implements Serializable {
         this.power = power;
     }
 
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
 }

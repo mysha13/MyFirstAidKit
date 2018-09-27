@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -111,7 +113,7 @@ public class OneMedicineInformation extends AppCompatActivity {
                 //double amount = cursor.getDouble(5);
                 String amountform=cursor.getString(6);
                 String power= cursor.getString(7);
-
+                //Bitmap image=ConvertByteArrayToImage(cursor);
                 dbUserMed.CloseDB();
 
                 // String form = getFormName(dAForm, formInt);
@@ -122,6 +124,14 @@ public class OneMedicineInformation extends AppCompatActivity {
             }
         }
     }
+
+    private Bitmap ConvertByteArrayToImage(Cursor cur){
+        byte[] imgByte = cur.getBlob(8);
+        Log.e("Byte Object",imgByte.toString());
+        return null;
+        //return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+    }
+
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbMedInfo = new DBMedicamentInfoAdapter(this);

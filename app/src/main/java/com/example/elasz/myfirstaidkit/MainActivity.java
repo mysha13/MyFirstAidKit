@@ -169,6 +169,8 @@ private CardView cv_download;
         cv_take.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                OpenTakeMedActivity();
+
                 }
         });
 
@@ -250,8 +252,24 @@ private CardView cv_download;
             }
         });
 
+        cv_addAlarm=(CardView) findViewById(R.id.btn_addAlarms);
+        cv_addAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenActivityAlarms();
+            }
+        });
     }
 
+    private void OpenTakeMedActivity() {
+        Intent intent=new Intent(this, TakeMedicine.class);
+        startActivity(intent);
+    }
+
+    public void OpenActivityAlarms(){
+    Intent intent=new Intent(this, Alarms.class);
+    startActivity(intent);
+    }
     public void openActivityFindMedicine(){
         Intent intent=new Intent(this, FindMedicine.class);
         startActivity(intent);

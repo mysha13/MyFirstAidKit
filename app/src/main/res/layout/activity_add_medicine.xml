@@ -34,7 +34,7 @@
             <ImageView
                 android:id="@+id/imageView_add"
                 android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_columnSpan="1"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"

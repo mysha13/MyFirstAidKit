@@ -22,6 +22,7 @@ public class DatabaseConstantInformation {
     public static final String PERSON = "Id_Person";
     public static final String NOTE = "Note";
     public static final String ISTAKEN="IsTake";
+    public static final String IMAGE = "Image";
 
     public static final String FORMTABLE = "Form";
     public static final String ID_FORM = "Id_Form";
@@ -60,7 +61,8 @@ public class DatabaseConstantInformation {
             + AMOUNT_FORM + " INT, "
             + PERSON + " INT, "
             + NOTE + " TEXT, "
-            + ISTAKEN + " BOOLEAN DEFAULT 0 "
+            + ISTAKEN + " BOOLEAN DEFAULT 0, "
+            + IMAGE + " BLOB "
             + ");";
 
     public static final String CREATE_TABLE_FORM = "CREATE TABLE " + FORMTABLE + "("

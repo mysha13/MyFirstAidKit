@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -38,7 +40,8 @@
         <activity android:name=".BarcodeScanner" />
         <activity android:name=".FullScreenPhoto" />
         <activity android:name=".ViewAllInfoMedicine" />
-        <activity android:name=".UpdateMedicine"></activity>
+        <activity android:name=".UpdateMedicine" />
+        <activity android:name=".TakeMedicine"></activity>
     </application>
 
 </manifest>
