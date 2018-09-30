@@ -157,5 +157,10 @@ public class DBUserMedicamentsAdapter {
                 new String[]{code}, null, null, DatabaseConstantInformation.CODE);
     }
 
+    public void renameForm(String formId) {
+        ContentValues rowUpdate = new ContentValues();
+        rowUpdate.put(DatabaseConstantInformation.FORM, String.valueOf(1));
+        database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.FORM + "=" + String.valueOf(formId), null);
+    }
 
 }

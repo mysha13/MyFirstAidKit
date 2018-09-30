@@ -41,7 +41,9 @@
         <activity android:name=".FullScreenPhoto" />
         <activity android:name=".ViewAllInfoMedicine" />
         <activity android:name=".UpdateMedicine" />
-        <activity android:name=".TakeMedicine"></activity>
+        <activity android:name=".TakeMedicine" />
+        <activity android:name=".EditFormsList" />
+        <activity android:name=".EditAmountFormsList"></activity>
     </application>
 
 </manifest>

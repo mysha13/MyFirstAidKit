@@ -85,6 +85,9 @@ public class DBFormAdapter {
         }
         return formName;
     }
+    public void deleteOnlyForm(String id){
+        database.delete(DatabaseConstantInformation.FORMTABLE,DatabaseConstantInformation.ID_FORM +"=?", new String[]{id});
+    }
 
 
 }

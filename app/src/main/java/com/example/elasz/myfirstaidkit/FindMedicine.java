@@ -109,6 +109,7 @@ public class FindMedicine extends AppCompatActivity {
             recyclerView_find.setAdapter(shortmedadapter);
         }
     }
+
     private void getMedicamentItem() {
         setDBAdapters();
         dbUserMed.OpenDB();
@@ -156,7 +157,7 @@ public class FindMedicine extends AppCompatActivity {
     void searchMed() {
         setDBAdapters();
         meds.clear();
-        getMedicamentsList(getCursorContent(CheckIfNameOrCode()));
+        getMedicamentsList(getCursorContent(CheckName()));
         //Cursor cursor;
         //cursor=dbUserMed.FindUserMedicamentByName(autoComTV_findname.getText().toString(), DatabaseConstantInformation.NAME);
         ClearFields();
@@ -171,7 +172,7 @@ public class FindMedicine extends AppCompatActivity {
         
     }
 
-    public String[] CheckIfNameOrCode(){
+    public String[] CheckName(){
 
         String[] nameOrCode = new String[10];
         int nbArg = 0;

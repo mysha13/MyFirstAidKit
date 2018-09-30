@@ -131,7 +131,7 @@ private CardView cv_download;
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_download) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -139,9 +139,11 @@ private CardView cv_download;
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_edit_forms) {
+            Intent intent = new Intent(MainActivity.this, EditFormsList.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_edit_amountforms) {
 
         }
 
@@ -180,7 +182,9 @@ private CardView cv_download;
         cv_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkPermission();
+                Intent intent = new Intent(MainActivity.this, EditFormsList.class);
+                startActivity(intent);
+                //checkPermission();
 
     }
 });
@@ -270,6 +274,7 @@ private CardView cv_download;
     Intent intent=new Intent(this, Alarms.class);
     startActivity(intent);
     }
+
     public void openActivityFindMedicine(){
         Intent intent=new Intent(this, FindMedicine.class);
         startActivity(intent);
@@ -279,6 +284,7 @@ private CardView cv_download;
         Intent intent=new Intent(this, AddMedicine.class);
         startActivity(intent);
     }
+
     public void openActivityListOfMedicines(){
         Intent intent=new Intent(this, OneMedicineInformation.class);//ListOfMedicines
         Bundle bundle = new Bundle();
@@ -341,44 +347,7 @@ private CardView cv_download;
     }
 
 
-   /* public void DownloadFiles(){
 
-        try {
-            URL url = new URL("http://pub.rejestrymedyczne.csioz.gov.pl/pobieranie_WS/Pobieranie.ashx?filetype=XLS&regtype=RPL_FILES");
-            URLConnection conexion = url.openConnection();
-            conexion.connect();
-            int lenghtOfFile = conexion.getContentLength();
-            InputStream is = url.openStream();
-            File testDirectory = new File(Environment.getExternalStorageDirectory() + "/Folder");
-            if (!testDirectory.exists()) {
-                testDirectory.mkdir();
-            }
-            FileOutputStream fos = new FileOutputStream(testDirectory);
-            byte data[] = new byte[1024];
-            int count = 0;
-            long total = 0;
-            int progress = 0;
-            while ((count = is.read(data)) != -1) {
-                total += count;
-                int progress_temp = (int) total * 100 / lenghtOfFile;
-                if (progress_temp % 10 == 0 && progress != progress_temp) {
-                    progress = progress_temp;
-                }
-                fos.write(data, 0, count);
-            }
-            is.close();
-            fos.close();
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }*/
 
 
 }
