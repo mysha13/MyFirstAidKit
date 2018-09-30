@@ -83,4 +83,8 @@ public class DBAmountFormAdapter {
         }
         return formName;
     }
+
+    public void deleteAmountForm(String id){
+        database.delete(DatabaseConstantInformation.AMOUNTFORMTABLE,DatabaseConstantInformation.ID_AMOUNTFORM +"=?", new String[]{id});
+    }
 }

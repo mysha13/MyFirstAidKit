@@ -12,7 +12,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="Na pewno chcesz usunąć"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:text="Tak"
-            android:textColor="@android:color/white" />
+            />
 
         <Button
             android:id="@+id/bDoNotDelete"
@@ -37,7 +38,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="Nie"
-            android:textColor="@android:color/white" />
+            />
 
     </LinearLayout>
 

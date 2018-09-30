@@ -32,6 +32,14 @@
                 android:id="@+id/nav_edit_amountforms"
                 android:icon="@drawable/ic_edit_black_24dp"
                 android:title="Formy ilości" />
+            <item
+                android:id="@+id/nav_edit_purpose"
+                android:icon="@drawable/ic_edit_black_24dp"
+                android:title="Lista schorzeń" />
+            <item
+                android:id="@+id/nav_edit_person"
+                android:icon="@drawable/ic_edit_black_24dp"
+                android:title="Lista osób" />
         </menu>
     </item>
 

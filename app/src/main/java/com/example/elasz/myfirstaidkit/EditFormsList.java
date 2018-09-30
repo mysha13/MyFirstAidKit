@@ -110,7 +110,6 @@ public class EditFormsList extends AppCompatActivity {
         doNotDelete(mView, dialog);
         deleteForm(id, mView, dialog);
         dialog.show();
-
     }
     private void deleteForm(String id, View mView, AlertDialog dialog) {
         Button bYes = (Button) mView.findViewById(R.id.bDeleteContent);

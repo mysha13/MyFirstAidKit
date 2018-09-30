@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Dodaj nową formę dotyczącą ilości"
+        android:text="Dodaj nowe schorzenie/przeznaczenie"
         android:textSize="20dp"
         android:layout_marginTop="20dp"/>
     <LinearLayout
@@ -25,18 +25,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Forma ilości"
+            android:text="Schorzenie"
             android:textSize="20dp"/>
 
         <EditText
-            android:id="@+id/et_amountformsname_editamountformslist"
+            android:id="@+id/et_purposename_editpurposelist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="nazwa formy"/>
+            android:hint="nazwa schorzenia"/>
 
         <Button
-            android:id="@+id/btn_add_editamountformslist"
+            android:id="@+id/btn_add_editpurposelist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,12 +48,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Lista aktualnych form ilościowych"
+        android:text="Lista aktualnych schorzeń"
         android:textSize="20dp"
         android:layout_marginTop="20dp"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_editamountformslist"
+        android:id="@+id/recyclerView_editpurposelist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
