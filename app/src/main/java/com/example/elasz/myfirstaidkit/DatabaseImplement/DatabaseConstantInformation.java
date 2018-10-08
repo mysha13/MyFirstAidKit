@@ -58,7 +58,7 @@ public class DatabaseConstantInformation {
             + EXPDATE + " TEXT, "
             + OPENDATE + " TEXT, "
             + FORM + " INTEGER, "
-            + PURPOSE + " TEXT, "
+            + PURPOSE + " INTEGER, "
             + AMOUNT + " DOUBLE NOT NULL, "
             + AMOUNT_FORM + " INT, "
             + PERSON + " INT, "

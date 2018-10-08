@@ -28,7 +28,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
 import com.facebook.stetho.Stetho;
@@ -163,7 +165,9 @@ public class MainActivity extends AppCompatActivity {
 
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         DBFormAdapter dbForm = new DBFormAdapter(this);
-        CreateSpinnerLists(dbForm);
+        DBPurposeAdapter dbPurpose = new DBPurposeAdapter(this);
+        DBAmountFormAdapter dbAmountForm = new DBAmountFormAdapter(this);
+        CreateSpinnerLists(dbForm, dbPurpose, dbAmountForm);
         cv_take = (CardView) findViewById(R.id.btn_takeMedicine);
         cv_take.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -306,20 +310,42 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void CreateSpinnerLists(DBFormAdapter dbF) {
+    private void CreateSpinnerLists(DBFormAdapter dbF, DBPurposeAdapter dbP, DBAmountFormAdapter dbAF) {
         dbF.OpenDB();
         ContentValues cv = new ContentValues();
         String[] forms = {"czopki","inne","kapsułki","maść","pastylki","saszetki","syrop","tabletki", "tabletki musujące", "zawiesina"};
-        if(dbF.GetAllForms() != null){
+        if(dbF.GetAllForms().getCount() == 0){
             for(int i=0; i<forms.length;i++) {
-
                 // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
                 dbF.AddForm(forms[i].toString());
                 // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
                 cv.clear();
-
             }
             dbF.CloseDB();
+        }
+        dbP.OpenDB();
+        ContentValues cv1 = new ContentValues();
+        String[] purposes = {"alergia","katar","kaszel/gardło", "gorączka","przeciwbólwo", "witaminy", "od specjalisty", "inne"};
+        if(dbP.GetAllPurposes().getCount() == 0){
+            for(int i=0; i<purposes.length;i++) {
+                // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
+                dbP.AddPurpose(purposes[i].toString());
+                // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
+                cv1.clear();
+            }
+            dbP.CloseDB();
+        }
+        dbAF.OpenDB();
+        ContentValues cv2 = new ContentValues();
+        String[] amuntForms = {"ml" ,"g", "tabletek","opakowań","sztuk"};
+        if(dbAF.GetAllAmountForms().getCount() == 0){
+            for(int i=0; i<amuntForms.length;i++) {
+                // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
+                dbAF.AddAmountForm(amuntForms[i].toString());
+                // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
+                cv2.clear();
+            }
+            dbAF.CloseDB();
         }
 
     }

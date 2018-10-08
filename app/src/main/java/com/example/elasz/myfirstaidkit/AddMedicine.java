@@ -93,7 +93,7 @@ public class AddMedicine extends AppCompatActivity {
     private String todb_form;
 
     @BindView(R.id.spin_purpose_add)
-    Spinner purpose;
+    Spinner spin_purpose;
     private String todb_purpose;
 
     @BindView(R.id.et_amount_add)
@@ -101,11 +101,11 @@ public class AddMedicine extends AppCompatActivity {
     private String todb_amount;
 
     @BindView(R.id.spin_amountform_add)
-    Spinner amountForm;
+    Spinner spin_amountForm;
     private String todb_amountForm;
 
     @BindView(R.id.spin_person_add)
-    Spinner person;
+    Spinner spin_person;
     private String todb_person;
 
     @BindView(R.id.et_power_add)
@@ -142,7 +142,11 @@ public class AddMedicine extends AppCompatActivity {
     private ArrayAdapter<String> adapterForm;
     private ArrayAdapter<String> adapterAmoutForm;
     private ArrayAdapter<String> adapterPurpose;
+    private ArrayAdapter<String> adapterPerson;
     private ArrayList<String> formList;
+    private ArrayList<String> purposeList;
+    private ArrayList<String> amountFormList;
+    private ArrayList<String> personList;
 
     private byte[] convertedimage;
 
@@ -184,7 +188,11 @@ public class AddMedicine extends AppCompatActivity {
 
     private Button saveMedicine;
 
-    private int form;
+    private int formid;
+    private int purposeid;
+    private int amountformid;
+    private int personid;
+
     String mCurrentPhotoPath;
 
     @Override
@@ -193,6 +201,10 @@ public class AddMedicine extends AppCompatActivity {
         setContentView(R.layout.activity_add_medicine);
         ButterKnife.bind(this);
         spinnerForm(dbForm, formList, adapterForm, spin_form);
+        spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
+        spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
+        spinnerPerson(dbPerson, personList, adapterPerson, spin_person);
+
         if(codecode!=null){
             code.setText(codecode);
         }
@@ -206,7 +218,6 @@ public class AddMedicine extends AppCompatActivity {
                 AddMedicineClick();
             }
         });
-
 
         imageView=(ImageView) findViewById(R.id.imageView_add);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -289,7 +300,6 @@ public class AddMedicine extends AppCompatActivity {
 
             }
         };
-
         mDateSetListenerForOpen = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -305,7 +315,6 @@ public class AddMedicine extends AppCompatActivity {
     }
 
     public void spinnerForm(DBFormAdapter dAForm, ArrayList<String> formList, ArrayAdapter<String> adapterForm, Spinner spinner) {
-
         dAForm = new DBFormAdapter(this);
         formList = new ArrayList<>();
         adapterForm = new ArrayAdapter<String>(this, R.layout.spin_item, formList);
@@ -318,8 +327,50 @@ public class AddMedicine extends AppCompatActivity {
         }
         dAForm.CloseDB();
         spinner.setAdapter(adapterForm);
-
     }
+    public void spinnerPurpose(DBPurposeAdapter dbPurposeAdapter, ArrayList<String> purposeList, ArrayAdapter<String> adapterPurpose, Spinner spinner) {
+        dbPurposeAdapter = new DBPurposeAdapter(this);
+        purposeList = new ArrayList<>();
+        adapterPurpose= new ArrayAdapter<String>(this, R.layout.spin_item, purposeList);
+        dbPurposeAdapter.OpenDB();
+        purposeList.add("-");
+        Cursor cursor = dbPurposeAdapter.GetAllPurposes();
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(1);
+            purposeList.add(name);
+        }
+        dbPurposeAdapter.CloseDB();
+        spinner.setAdapter(adapterPurpose);
+    }
+    public void spinnerAmountForm(DBAmountFormAdapter dbAmountFormAdapter, ArrayList<String> amountformList, ArrayAdapter<String> adapterAmountForm, Spinner spinner) {
+        dbAmountFormAdapter = new DBAmountFormAdapter(this);
+        amountformList = new ArrayList<>();
+        adapterAmountForm = new ArrayAdapter<String>(this, R.layout.spin_item, amountformList);
+        dbAmountFormAdapter.OpenDB();
+        amountformList.add("-");
+        Cursor cursor = dbAmountFormAdapter.GetAllAmountForms();
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(1);
+            amountformList.add(name);
+        }
+        dbAmountFormAdapter.CloseDB();
+        spinner.setAdapter(adapterAmountForm);
+    }
+    public void spinnerPerson(DBPersonAdapter dbPersonAdapter, ArrayList<String> personList, ArrayAdapter<String> adapterPerson, Spinner spinner) {
+        dbPersonAdapter = new DBPersonAdapter(this);
+        personList = new ArrayList<>();
+        adapterPerson = new ArrayAdapter<String>(this, R.layout.spin_item, personList);
+        dbPersonAdapter.OpenDB();
+        personList.add("-");
+        Cursor cursor = dbPersonAdapter.GetAllPeople();
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(1);
+            personList.add(name);
+        }
+        dbPersonAdapter.CloseDB();
+        spinner.setAdapter(adapterPerson);
+    }
+
 
     @OnClick(R.id.btn_saveAddedMedicine_add)
     void AddMedicineClick(){
@@ -332,6 +383,9 @@ public class AddMedicine extends AppCompatActivity {
             CheckResult();
         }
         spinnerForm(dbForm, formList, adapterForm, spin_form);
+        spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
+        spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
+        spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
     }
 
 
@@ -343,12 +397,18 @@ public class AddMedicine extends AppCompatActivity {
             Toast.makeText(AddMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
     }
+
     private long TryToAdd() {
         IsThereAnyImage();
         CheckEmptyFields();
-        int form = getFormID(dbForm, spinnerCorrection(spin_form));
+        formid = getFormID(dbForm, spinnerCorrection(spin_form));
+        purposeid = getPurposeID(dbPurpose, spinnerCorrection(spin_purpose));
+        amountformid = getAmountFormID(dbAmountForm, spinnerCorrection(spin_amountForm));
+        personid = getPersonID(dbPerson, spinnerCorrection(spin_person));
+
         dbUserMed.OpenDB();
         long work = addMedToDB();
+        long work2 = addMedToDBMedInfo();
         dbUserMed.CloseDB();
         return work;
     }
@@ -362,10 +422,29 @@ public class AddMedicine extends AppCompatActivity {
 
     public int getFormID(DBFormAdapter dAForm, String name) {
         dAForm.OpenDB();
-        form = dAForm.GetFormId(name);
+        formid = dAForm.GetFormId(name);
         dAForm.CloseDB();
-        return form;
+        return formid;
     }
+    public int getPurposeID(DBPurposeAdapter dbPurpose, String name) {
+        dbPurpose.OpenDB();
+        purposeid = dbPurpose.GetPurposeId(name);
+        dbPurpose.CloseDB();
+        return purposeid;
+    }
+    public int getAmountFormID(DBAmountFormAdapter dbAmountForm, String name) {
+        dbAmountForm.OpenDB();
+        amountformid = dbAmountForm.GetAmountFormId(name);
+        dbAmountForm.CloseDB();
+        return amountformid;
+    }
+    public int getPersonID(DBPersonAdapter dbPersonAdapter, String name) {
+        dbPersonAdapter.OpenDB();
+        personid = dbPersonAdapter.GetPersonId(name);
+        dbPersonAdapter.CloseDB();
+        return personid;
+    }
+
     private void CheckEmptyFields() {
         if(expdate.getText()==null){
             todb_expdate=null;
@@ -381,20 +460,40 @@ public class AddMedicine extends AppCompatActivity {
             todb_opendate=opendate.getText().toString();
         }
 
-       /* if(form.getText()==null){
-            todb_form=null;
+        if(power.getText()==null){
+            todb_power=null;
         }
         else{
-            todb_form=form.getText().toString();
-        }*/
+            todb_power=power.getText().toString();
+        }
 
-       /* if(purpose.getText()==null){
-            todb_purpose=null;
+        if(subsActive.getText()==null){
+            todb_subsActive=null;
         }
         else{
-            todb_purpose=purpose.getText().toString();
-        }*/
+            todb_subsActive=subsActive.getText().toString();
+        }
 
+        if(producer.getText()==null){
+            todb_producer=null;
+        }
+        else{
+            todb_producer=producer.getText().toString();
+        }
+
+        if(code.getText()== null){
+            todb_code=null;
+        }else{
+            if(codecode!=null){
+                todb_code=codecode;
+            }else{
+                if(code.getText().toString().length()!=13){
+                    Toast.makeText(AddMedicine.this, "Nieprawidłowa długość kodu", Toast.LENGTH_LONG).show();
+                }else{
+                    todb_code=code.getText().toString();
+                }
+            }
+        }
        /* if(amountForm.getText()==null){
             todb_amountForm=null;
         }
@@ -441,14 +540,22 @@ public class AddMedicine extends AppCompatActivity {
                 0,
                 todb_expdate,//expdate.getText().toString(),
                 todb_opendate,//opendate.getText().toString(),
-                form,
-                null,
+                formid,
+                purposeid,
                 Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
-                null,
+                amountformid,
                 null,
                 todb_note, //note.getText().toString());
                 istake.isChecked(),
                 convertedimage);
+    }
+
+    private long addMedToDBMedInfo() {
+        return dbMedInfo.AddMedicamentInfoData(name.getText().toString(),
+                todb_power,
+                todb_subsActive,
+                codecode,
+                todb_producer);
     }
 
     public static byte[] ConvertImageToByteArray(Bitmap bitmap) {

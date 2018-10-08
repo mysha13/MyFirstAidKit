@@ -42,7 +42,7 @@ public class DBUserMedicamentsAdapter {
         int count = getNames().getCount();
         return count;
     }
-    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, int form, String purpose, double amount, String amount_form, String person, String note, boolean istake, byte[] image) {
+    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, String person, String note, boolean istake, byte[] image) {
         try {
             ContentValues cv = new ContentValues();
             cv.put(DatabaseConstantInformation.NAME, name);

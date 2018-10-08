@@ -33,7 +33,7 @@ public class DBMedicamentInfoAdapter {
         dbHelper.close();
     }
 
-    public long AddMedicamentInfoData(String name, String power, String activeSubs, int code, String producer){
+    public long AddMedicamentInfoData(String name, String power, String activeSubs, String code, String producer){
         try{
             ContentValues cv = new ContentValues();
             cv.put(DatabaseConstantInformation.MEDNAME, name);
