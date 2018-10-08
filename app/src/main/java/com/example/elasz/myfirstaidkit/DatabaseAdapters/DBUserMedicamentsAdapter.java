@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseHelper;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -36,7 +37,12 @@ public class DBUserMedicamentsAdapter {
         dbHelper.close();
     }
 
-    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note, boolean istake, byte[] image) {
+    public int GetAllCount() throws SQLException{
+        ArrayList<DBUserMedicamentsAdapter> list= new ArrayList<>();
+        int count = getNames().getCount();
+        return count;
+    }
+    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, int form, String purpose, double amount, String amount_form, String person, String note, boolean istake, byte[] image) {
         try {
             ContentValues cv = new ContentValues();
             cv.put(DatabaseConstantInformation.NAME, name);

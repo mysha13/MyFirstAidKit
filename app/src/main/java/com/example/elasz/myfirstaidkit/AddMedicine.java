@@ -184,7 +184,7 @@ public class AddMedicine extends AppCompatActivity {
 
     private Button saveMedicine;
 
-
+    private int form;
     String mCurrentPhotoPath;
 
     @Override
@@ -331,6 +331,7 @@ public class AddMedicine extends AppCompatActivity {
             SetDatabaseAdapters();
             CheckResult();
         }
+        spinnerForm(dbForm, formList, adapterForm, spin_form);
     }
 
 
@@ -345,12 +346,26 @@ public class AddMedicine extends AppCompatActivity {
     private long TryToAdd() {
         IsThereAnyImage();
         CheckEmptyFields();
+        int form = getFormID(dbForm, spinnerCorrection(spin_form));
         dbUserMed.OpenDB();
         long work = addMedToDB();
         dbUserMed.CloseDB();
         return work;
     }
 
+    private String spinnerCorrection(Spinner spinner) {
+        if (spinner.getSelectedItem().toString().matches("-")) {
+            return null;
+        } else
+            return spinner.getSelectedItem().toString();
+    }
+
+    public int getFormID(DBFormAdapter dAForm, String name) {
+        dAForm.OpenDB();
+        form = dAForm.GetFormId(name);
+        dAForm.CloseDB();
+        return form;
+    }
     private void CheckEmptyFields() {
         if(expdate.getText()==null){
             todb_expdate=null;
@@ -426,7 +441,7 @@ public class AddMedicine extends AppCompatActivity {
                 0,
                 todb_expdate,//expdate.getText().toString(),
                 todb_opendate,//opendate.getText().toString(),
-                null,
+                form,
                 null,
                 Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
                 null,

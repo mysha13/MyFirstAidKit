@@ -35,6 +35,7 @@ import com.facebook.stetho.Stetho;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -142,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
     ListView simpleList;
     String countryList[] = {"Leki przeterminowane", "Leki terminowe", "Wszystkie leki"};
 
+  /*  int nb= medicines.size();
+    ListView secondList;
+    String numberList[] = { " " + 0," "+ nb," " + nb };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,10 +154,16 @@ public class MainActivity extends AppCompatActivity {
         simpleList = (ListView) findViewById(R.id.listviewinformation);
         Stetho.initializeWithDefaults(this);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_infoName, countryList);
+        //secondList= (ListView) findViewById(R.id.listviewinformation);
+        //ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_number, (List<String>) secondList);
+
+        //secondList.setAdapter(arrayAdapter1);
         simpleList.setAdapter(arrayAdapter);
+        //GetMedicamentCount();
+
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         DBFormAdapter dbForm = new DBFormAdapter(this);
-        //CreateSpinnerLists(dbForm);
+        CreateSpinnerLists(dbForm);
         cv_take = (CardView) findViewById(R.id.btn_takeMedicine);
         cv_take.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
        DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
@@ -301,16 +310,18 @@ public class MainActivity extends AppCompatActivity {
         dbF.OpenDB();
         ContentValues cv = new ContentValues();
         String[] forms = {"czopki","inne","kapsułki","maść","pastylki","saszetki","syrop","tabletki", "tabletki musujące", "zawiesina"};
+        if(dbF.GetAllForms() != null){
+            for(int i=0; i<forms.length;i++) {
 
-        for(int i=0; i<forms.length;i++) {
+                // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
+                dbF.AddForm(forms[i].toString());
+                // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
+                cv.clear();
 
-           // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
-            dbF.AddForm(forms[i].toString());
-           // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
-            cv.clear();
-
+            }
+            dbF.CloseDB();
         }
-        dbF.CloseDB();
+
     }
 
     private void OpenTakeMedActivity() {
