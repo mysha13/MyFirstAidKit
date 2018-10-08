@@ -1,18 +1,16 @@
 package com.example.elasz.myfirstaidkit;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
@@ -67,9 +65,9 @@ public class OneMedicineInformation extends AppCompatActivity {
 //        if (bundle != null) {
 //            getBundleContent(bundle);
 //        } else {
-            medicaments = new ArrayList<>();
-            numberOfMeds.setText("Wszystkie leki dodane");
-            getMed();
+        medicaments = new ArrayList<>();
+        numberOfMeds.setText("Wszystkie leki dodane");
+        getMed();
         //}
     }
 
@@ -97,8 +95,9 @@ public class OneMedicineInformation extends AppCompatActivity {
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
-        CreateMedList(cursor, dbUserMed,dbForm,dbPurpose, medicaments);
+        CreateMedList(cursor, dbUserMed, dbForm, dbPurpose, medicaments);
     }
+
     public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBFormAdapter dbForm, DBPurposeAdapter dbPurpose, ArrayList<ShortMedInfoItem> medicaments) {
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -106,37 +105,39 @@ public class OneMedicineInformation extends AppCompatActivity {
                 String name = cursor.getString(1);
                 String expdate = cursor.getString(2);
                 //int formInt = cursor.getInt(3);
-                String form=cursor.getString(3);
+                String form = cursor.getString(3);
 
                 String purpose = cursor.getString(4);
                 String amount = cursor.getString(5);
                 //double amount = cursor.getDouble(5);
-                String amountform=cursor.getString(6);
-                String power= cursor.getString(7);
-                //Bitmap image=ConvertByteArrayToImage(cursor);
+                String amountform = cursor.getString(6);
+                String power = cursor.getString(7);
+                Bitmap image = ConvertByteArrayToImage(cursor);
                 dbUserMed.CloseDB();
 
                 // String form = getFormName(dAForm, formInt);
 
-                ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose,amount, amountform, power);
+                ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose, amount, amountform, power, image);
                 medicaments.add(shortmed);
 
             }
         }
     }
 
-    private Bitmap ConvertByteArrayToImage(Cursor cur){
-        byte[] imgByte = cur.getBlob(8);
-        Log.e("Byte Object",imgByte.toString());
-        return null;
-        //return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+    private Bitmap ConvertByteArrayToImage(Cursor cur) {
+        if (cur.getBlob(12)!= null) {
+            byte[] imgByte = cur.getBlob(12);
+            return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+        } else {
+            return null;
+        }
     }
 
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbMedInfo = new DBMedicamentInfoAdapter(this);
         dbForm = new DBFormAdapter(this);
-        dbPurpose = new DBPurposeAdapter( this);
+        dbPurpose = new DBPurposeAdapter(this);
     }
 
     public void initialize() {
@@ -158,12 +159,10 @@ public class OneMedicineInformation extends AppCompatActivity {
             //UpdateMedButton(id);
         } else if (btn_nb == 2) {
             //DeleteMedButton(id);
-        }
-        else if (btn_nb == 3){
+        } else if (btn_nb == 3) {
             //MoreInfoButton(id);
         }
     }
-
 
 
 }

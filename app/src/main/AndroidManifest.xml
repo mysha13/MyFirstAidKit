@@ -44,7 +44,8 @@
         <activity android:name=".TakeMedicine" />
         <activity android:name=".EditFormsList" />
         <activity android:name=".EditAmountFormsList" />
-        <activity android:name=".EditPurposeList"></activity>
+        <activity android:name=".EditPurposeList" />
+        <activity android:name=".EditPersonList"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 package com.example.elasz.myfirstaidkit.DatabaseImplement;
 
+import android.content.ContentValues;
+
 /**
  * Created by elasz on 12.09.2018.
  */
@@ -91,5 +93,4 @@ public class DatabaseConstantInformation {
             + CODE + " TEXT NOT NULL, "  //było int, text żeby wyszukiwac
             + PRODUCER + " TEXT NOT NULL, "
             + ");";
-
 }

@@ -69,7 +69,7 @@ public class AllMedInfoItemAdapter extends RecyclerView.Adapter<AllMedInfoItemAd
         @BindView(R.id.tv_id_allinfo)
         TextView tv_Id;
 
-        @BindView(R.id.et_name_allinfo)
+        @BindView(R.id.tv_name_allinfo)
         TextView tv_Name;
 
         @BindView(R.id.tv_expdate_allinfo)
@@ -78,34 +78,34 @@ public class AllMedInfoItemAdapter extends RecyclerView.Adapter<AllMedInfoItemAd
         @BindView(R.id.tv_expdate_item)
         TextView tv_OpenDate;
 
-        @BindView(R.id.spin_form_allinfo)
+        @BindView(R.id.tv_form_allinfo)
         TextView tv_Form;
 
-        @BindView(R.id.spin_purpose_allinfo)
+        @BindView(R.id.tv_purpose_allinfo)
         TextView tv_Purpose;
 
-        @BindView(R.id.et_amount_allinfo)
+        @BindView(R.id.tv_amount_allinfo)
         TextView tv_Amount;
 
-        @BindView(R.id.spin_amountform_allinfo)
+        @BindView(R.id.tv_amountform_allinfo)
         TextView tv_AmountForm;
 
-        @BindView(R.id.spin_person_allinfo)
+        @BindView(R.id.tv_person_allinfo)
         TextView tv_Person;
 
-        @BindView(R.id.et_power_allinfo)
+        @BindView(R.id.tv_power_allinfo)
         TextView tv_Power;
 
-        @BindView(R.id.et_subsActive_allinfo)
+        @BindView(R.id.tv_subsActive_allinfo)
         TextView tv_SubsActive;
 
-        @BindView(R.id.et_code_allinfo)
+        @BindView(R.id.tv_code_allinfo)
         TextView tv_Code;
 
-        @BindView(R.id.et_producer_allinfo)
+        @BindView(R.id.tv_producer_allinfo)
         TextView tv_Producer;
 
-        @BindView(R.id.et_note_allinfo)
+        @BindView(R.id.tv_note_allinfo)
         TextView tv_Note;
 
 

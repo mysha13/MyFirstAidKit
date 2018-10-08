@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_download"
@@ -20,27 +19,22 @@
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
+
+        <item
+            android:id="@+id/nav_edit_forms"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="Formy leku" />
+        <item
+            android:id="@+id/nav_edit_amountforms"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="Formy ilości" />
+        <item
+            android:id="@+id/nav_edit_purpose"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="Lista schorzeń" />
+        <item
+            android:id="@+id/nav_edit_person"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="Lista osób" />
     </group>
-
-    <item android:title="Edycja list">
-        <menu>
-            <item
-                android:id="@+id/nav_edit_forms"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="Formy leku" />
-            <item
-                android:id="@+id/nav_edit_amountforms"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="Formy ilości" />
-            <item
-                android:id="@+id/nav_edit_purpose"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="Lista schorzeń" />
-            <item
-                android:id="@+id/nav_edit_person"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="Lista osób" />
-        </menu>
-    </item>
-
 </menu>

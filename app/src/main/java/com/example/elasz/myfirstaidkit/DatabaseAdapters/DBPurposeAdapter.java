@@ -85,4 +85,9 @@ public class DBPurposeAdapter {
         return formName;
     }
 
+
+    public void deleteOnlyPurpose(String id){
+        database.delete(DatabaseConstantInformation.PURPOSETABLE,DatabaseConstantInformation.ID_PURPOSE +"=?", new String[]{id});
+    }
+
 }

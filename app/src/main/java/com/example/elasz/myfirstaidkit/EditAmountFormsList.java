@@ -152,7 +152,7 @@ public class EditAmountFormsList extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.btn_add_editformslist)
+    @OnClick(R.id.btn_add_editamountformslist)
     void ButtonAddPlace() {
         if (amountformname.getText().toString().matches("")) {
             Toast.makeText(EditAmountFormsList.this,"Nazwa formy jest pusta", Toast.LENGTH_LONG).show();

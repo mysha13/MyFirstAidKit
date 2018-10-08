@@ -174,6 +174,7 @@ public class EditFormsList extends AppCompatActivity {
             }
         });
     }
+
     @OnClick(R.id.btn_add_editformslist)
     void ButtonAddPlace() {
         if (formname.getText().toString().matches("")) {

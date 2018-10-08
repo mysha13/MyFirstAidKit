@@ -48,7 +48,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         holder.tv_Form.setText(shortMeds.get(position).getForm());
         holder.tv_Purpose.setText(shortMeds.get(position).getPurpose());
         holder.tv_Amount.setText(String.valueOf(shortMeds.get(position).getAmount()));
-        //holder.iv_Image.setImageBitmap(shortMeds.get(position).getImage());
+        holder.iv_Image.setImageBitmap(shortMeds.get(position).getImage());
         //holder.tv_Power.setText(userMeds.get(position).getPower());
     }
 

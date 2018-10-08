@@ -2,14 +2,21 @@ package com.example.elasz.myfirstaidkit.DatabaseImplement;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
+
+import java.sql.DatabaseMetaData;
 
 /**
  * Created by elasz on 12.09.2018.
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
 
     public DatabaseHelper(Context context) {
         super(context, DatabaseConstantInformation.DBName, null, DatabaseConstantInformation.DBVersion);
@@ -25,31 +32,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(DatabaseConstantInformation.CREATE_TABLE_PERSON);
             db.execSQL(DatabaseConstantInformation.CREATE_TABLE_MEDICAMENTINFO);
 
-            //placeTableStartContent(db);
             formTableStartContent(db);
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    public void formTableStartContent(SQLiteDatabase db) {
-        ContentValues cv = new ContentValues();
 
+    public void formTableStartContent(SQLiteDatabase dbs) {
         String[] forms = {"czopki","inne","kapsułki","maść","pastylki","saszetki","syrop","tabletki", "tabletki musujące", "zawiesina"};
 
+        //dbs = this.getReadableDatabase();
+        //dbs.execSQL("INSERT INTO " + DatabaseConstantInformation.FORMTABLE + "(" + DatabaseConstantInformation.FORM_NAME + ","  + ") VALUES('" + forms[1] + "','"  + "')");
+        //dbs.close();
+        dbs.isOpen();
+        ContentValues cv = new ContentValues();
+        String name=DatabaseConstantInformation.FORM_NAME;
+
         for(int i=0; i<forms.length;i++) {
-            cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
-            db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
+            cv.put(name, forms[i]);
+            dbs.insertOrThrow(DatabaseConstantInformation.FORMTABLE, null, cv);
             cv.clear();
         }
-
+        dbs.close();
+        /*
+        ContentValues cv1 = new ContentValues();
         String[] amount_forms ={"ml" ,"g", "tabletek","opakowań","sztuk"};
 
         for(int i=0; i<amount_forms.length;i++) {
-            cv.put(DatabaseConstantInformation.AMOUNT_FORM_NAME, forms[i]);
-            db.insert(DatabaseConstantInformation.AMOUNTFORMTABLE, null, cv);
-            cv.clear();
+            cv1.put(DatabaseConstantInformation.AMOUNT_FORM_NAME, amount_forms[i]);
+            db.insert(DatabaseConstantInformation.AMOUNTFORMTABLE, null, cv1);
+            cv1.clear();
         }
+        ContentValues cv2 = new ContentValues();
+        String[] purposes = {"alergia","katar","kaszel/gardło", "gorączka","przeciwbólwo", "witaminy", "od specjalisty", "inne"};
+        for(int i=0; i<purposes.length;i++) {
+            cv2.put(DatabaseConstantInformation.PURPOSE_NAME, purposes[i]);
+            db.insert(DatabaseConstantInformation.PURPOSETABLE, null, cv2);
+            cv2.clear();
+        }*/
     }
 
     @Override

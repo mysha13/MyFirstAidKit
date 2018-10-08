@@ -3,6 +3,8 @@ package com.example.elasz.myfirstaidkit;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -157,12 +159,12 @@ public class TakeMedicine extends AppCompatActivity {
                 //double amount = cursor.getDouble(5);
                 String amountform=cursor.getString(6);
                 String power= cursor.getString(7);
-                // Bitmap image=ConvertByteArrayToImage(cursor);
+                Bitmap image=ConvertByteArrayToImage(cursor);
                 dbUserMed.CloseDB();
 
                 // String form = getFormName(dAForm, formInt);
 
-                ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose,amount, amountform, power);
+                ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose,amount, amountform, power, image);
                 medicaments.add(shortmed);
                 /*if(name==autoComTV_findname.getText().toString())
                 {
@@ -171,5 +173,10 @@ public class TakeMedicine extends AppCompatActivity {
 
             }
         }
+
+    }
+    private Bitmap ConvertByteArrayToImage(Cursor cur){
+        byte[] imgByte = cur.getBlob(8);
+        return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
     }
 }

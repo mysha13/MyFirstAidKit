@@ -84,5 +84,8 @@ public class DBPersonAdapter {
         }
         return formName;
     }
+    public void deleteOnlyPerson(String id){
+        database.delete(DatabaseConstantInformation.PERSONTABLE,DatabaseConstantInformation.ID_PERSON +"=?", new String[]{id});
+    }
 
 }

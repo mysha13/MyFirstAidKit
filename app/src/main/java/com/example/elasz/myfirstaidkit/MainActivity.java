@@ -2,79 +2,60 @@ package com.example.elasz.myfirstaidkit;
 
 import android.Manifest;
 import android.app.DownloadManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.CardView;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
 import com.facebook.stetho.Stetho;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
-private CardView cv_search;
-private CardView cv_add;
-private CardView cv_take;
-private CardView cv_listOfMedicines;
-private CardView cv_addAlarm;
+    private CardView cv_search;
+    private CardView cv_add;
+    private CardView cv_take;
+    private CardView cv_listOfMedicines;
+    private CardView cv_addAlarm;
 
-private ImageButton imagebtnAdd;
-private ImageButton imagebtnSearch;
-private ImageButton imagebtnLists;
-private TextView txt_add;
-private TextView txt_search;
-private TextView txt_lists;
+    private ImageButton imagebtnAdd;
+    private ImageButton imagebtnSearch;
+    private ImageButton imagebtnLists;
+    private TextView txt_add;
+    private TextView txt_search;
+    private TextView txt_lists;
 
-private ImageButton imagebtnDownload;
-private TextView txtDownload;
-private CardView cv_download;
+    private ImageButton imagebtnDownload;
+    private TextView txtDownload;
+    private CardView cv_download;
     private static final String TAG = "Download MainActivity";
 
     private ArrayList<ShortMedInfoItem> medicines = new ArrayList<>();
@@ -91,8 +72,9 @@ private CardView cv_download;
     private DownloadManager downloadManager;
     private long refid;
     private Uri Download_Uri;
+    private DBFormAdapter dbForm;
 
-
+    SQLiteDatabase db;
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -125,7 +107,7 @@ private CardView cv_download;
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+   /* @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -140,8 +122,7 @@ private CardView cv_download;
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_edit_forms) {
-            Intent intent = new Intent(MainActivity.this, EditFormsList.class);
-            startActivity(intent);
+            openNextActivity();
 
         } else if (id == R.id.nav_edit_amountforms) {
 
@@ -150,6 +131,11 @@ private CardView cv_download;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }*/
+
+    private void openNextActivity() {
+        Intent intent = new Intent(MainActivity.this, EditFormsList.class);
+        startActivity(intent);
     }
 
     // Array of strings...
@@ -157,53 +143,99 @@ private CardView cv_download;
     String countryList[] = {"Leki przeterminowane", "Leki terminowe", "Wszystkie leki"};
 
 
-
-    @Override   protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        simpleList = (ListView)findViewById(R.id.listviewinformation);
+        simpleList = (ListView) findViewById(R.id.listviewinformation);
         Stetho.initializeWithDefaults(this);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_infoName, countryList);
         simpleList.setAdapter(arrayAdapter);
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-
-        cv_take=(CardView) findViewById(R.id.btn_takeMedicine);
+        DBFormAdapter dbForm = new DBFormAdapter(this);
+        //CreateSpinnerLists(dbForm);
+        cv_take = (CardView) findViewById(R.id.btn_takeMedicine);
         cv_take.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OpenTakeMedActivity();
 
-                }
+            }
         });
 
 
-        txtDownload=(TextView) findViewById(R.id.txt_download_file);
-        cv_download=(CardView) findViewById(R.id.btn_download_file);
+       DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        drawer.closeDrawers();
+
+                        int id = menuItem.getItemId();
+
+                        if (id == R.id.nav_download) {
+                            // Handle the camera action
+                        } else if (id == R.id.nav_gallery) {
+
+                        } else if (id == R.id.nav_slideshow) {
+
+                        } else if (id == R.id.nav_manage) {
+
+                        } else if (id == R.id.nav_edit_forms) {
+                            //openNextActivity();
+                            Intent intent = new Intent(MainActivity.this, EditFormsList.class);
+                            startActivity(intent);
+
+                        } else if (id == R.id.nav_edit_amountforms) {
+                            Intent intent = new Intent(MainActivity.this, EditAmountFormsList.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_edit_purpose){
+                            Intent intent = new Intent(MainActivity.this, EditPurposeList.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_edit_person){
+                            Intent intent = new Intent(MainActivity.this, EditPersonList.class);
+                            startActivity(intent);
+
+                        }
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+
+                        return true;
+                    }
+                });
+
+
+        txtDownload = (TextView) findViewById(R.id.txt_download_file);
+        cv_download = (CardView) findViewById(R.id.btn_download_file);
         cv_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EditFormsList.class);
-                startActivity(intent);
+                openNextActivity();
                 //checkPermission();
 
-    }
-});
+            }
+        });
 
-        imagebtnSearch=(ImageButton) findViewById(R.id.imagebtn_search);
+        imagebtnSearch = (ImageButton) findViewById(R.id.imagebtn_search);
         imagebtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openActivityFindMedicine();
             }
         });
-        txt_search=(TextView) findViewById(R.id.txt_search);
+        txt_search = (TextView) findViewById(R.id.txt_search);
         txt_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openActivityFindMedicine();
             }
         });
-        cv_search=(CardView) findViewById(R.id.btn_search);
+        cv_search = (CardView) findViewById(R.id.btn_search);
         cv_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,21 +244,21 @@ private CardView cv_download;
         });
 
 
-        imagebtnAdd=(ImageButton) findViewById(R.id.imagebtn_add);
+        imagebtnAdd = (ImageButton) findViewById(R.id.imagebtn_add);
         imagebtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openActivityAddMedicine();
             }
         });
-        txt_add=(TextView) findViewById(R.id.txt_add);
+        txt_add = (TextView) findViewById(R.id.txt_add);
         txt_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openActivityAddMedicine();
             }
         });
-        cv_add=(CardView) findViewById(R.id.btn_addMedicine);
+        cv_add = (CardView) findViewById(R.id.btn_addMedicine);
         cv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -234,29 +266,29 @@ private CardView cv_download;
             }
         });
 
-        imagebtnLists=(ImageButton) findViewById(R.id.imagebtn_lists);
+        imagebtnLists = (ImageButton) findViewById(R.id.imagebtn_lists);
         imagebtnLists.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openActivityListOfMedicines();
             }
         });
-        txt_lists=(TextView) findViewById(R.id.txt_lists);
+        txt_lists = (TextView) findViewById(R.id.txt_lists);
         txt_lists.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openActivityListOfMedicines();
             }
         });
-        cv_listOfMedicines=(CardView) findViewById(R.id.btn_listOfMedicines);
+        cv_listOfMedicines = (CardView) findViewById(R.id.btn_listOfMedicines);
         cv_listOfMedicines.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               openActivityListOfMedicines();
+                openActivityListOfMedicines();
             }
         });
 
-        cv_addAlarm=(CardView) findViewById(R.id.btn_addAlarms);
+        cv_addAlarm = (CardView) findViewById(R.id.btn_addAlarms);
         cv_addAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,28 +297,44 @@ private CardView cv_download;
         });
     }
 
+    private void CreateSpinnerLists(DBFormAdapter dbF) {
+        dbF.OpenDB();
+        ContentValues cv = new ContentValues();
+        String[] forms = {"czopki","inne","kapsułki","maść","pastylki","saszetki","syrop","tabletki", "tabletki musujące", "zawiesina"};
+
+        for(int i=0; i<forms.length;i++) {
+
+           // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
+            dbF.AddForm(forms[i].toString());
+           // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
+            cv.clear();
+
+        }
+        dbF.CloseDB();
+    }
+
     private void OpenTakeMedActivity() {
-        Intent intent=new Intent(this, TakeMedicine.class);
+        Intent intent = new Intent(this, TakeMedicine.class);
         startActivity(intent);
     }
 
-    public void OpenActivityAlarms(){
-    Intent intent=new Intent(this, Alarms.class);
-    startActivity(intent);
-    }
-
-    public void openActivityFindMedicine(){
-        Intent intent=new Intent(this, FindMedicine.class);
+    public void OpenActivityAlarms() {
+        Intent intent = new Intent(this, Alarms.class);
         startActivity(intent);
     }
 
-    public void openActivityAddMedicine(){
-        Intent intent=new Intent(this, AddMedicine.class);
+    public void openActivityFindMedicine() {
+        Intent intent = new Intent(this, FindMedicine.class);
         startActivity(intent);
     }
 
-    public void openActivityListOfMedicines(){
-        Intent intent=new Intent(this, OneMedicineInformation.class);//ListOfMedicines
+    public void openActivityAddMedicine() {
+        Intent intent = new Intent(this, AddMedicine.class);
+        startActivity(intent);
+    }
+
+    public void openActivityListOfMedicines() {
+        Intent intent = new Intent(this, OneMedicineInformation.class);//ListOfMedicines
         Bundle bundle = new Bundle();
         bundle.putSerializable("ListOfMedicines", (Serializable) medicines);
         intent.putExtras(bundle);
@@ -303,16 +351,16 @@ private CardView cv_download;
             return false;
     }
 
-    private void checkPermission(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 if (isConnectingToInternet())
                     new DownloadTasks(MainActivity.this, cv_download, txtDownload, HttpLink.MedicalsRegister);
                 else
                     Toast.makeText(MainActivity.this, "Oops!! There is no internet connection. Please enable internet connection and try again.", Toast.LENGTH_SHORT).show();
 
             } else {
-                Log.e(TAG,"Permission is revoked");
+                Log.e(TAG, "Permission is revoked");
 
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
@@ -324,30 +372,27 @@ private CardView cv_download;
         switch (requestCode) {
             case 0:
                 boolean permissionsGranted = true;
-                if (grantResults.length > 0 && permissions.length==grantResults.length) {
-                    for (int i = 0; i < permissions.length; i++){
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
-                            permissionsGranted=false;
+                if (grantResults.length > 0 && permissions.length == grantResults.length) {
+                    for (int i = 0; i < permissions.length; i++) {
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                            permissionsGranted = false;
                         }
                     }
 
                 } else {
-                    permissionsGranted=false;
+                    permissionsGranted = false;
                 }
-                if(permissionsGranted){
+                if (permissionsGranted) {
                     //createFile();
                     if (isConnectingToInternet())
-                    new DownloadTasks(MainActivity.this, cv_download, txtDownload, HttpLink.MedicalsRegister);
-                else
-                    Toast.makeText(MainActivity.this, "Oops!! There is no internet connection. Please enable internet connection and try again.", Toast.LENGTH_SHORT).show();
+                        new DownloadTasks(MainActivity.this, cv_download, txtDownload, HttpLink.MedicalsRegister);
+                    else
+                        Toast.makeText(MainActivity.this, "Oops!! There is no internet connection. Please enable internet connection and try again.", Toast.LENGTH_SHORT).show();
 
                 }
                 break;
         }
     }
-
-
-
 
 
 }

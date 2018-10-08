@@ -55,7 +55,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/et_name_allinfo"
+                android:id="@+id/tv_name_allinfo"
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginLeft="10dp"
@@ -119,7 +119,7 @@
                 android:textSize="13dp" />-->
 
             <TextView
-                android:id="@+id/spin_form_allinfo"
+                android:id="@+id/tv_form_allinfo"
                 android:layout_width="250dp"
                 android:layout_columnSpan="3"
                 android:gravity="center"
@@ -140,7 +140,7 @@
 
 
             <TextView
-                android:id="@+id/spin_purpose_allinfo"
+                android:id="@+id/tv_purpose_allinfo"
                 android:layout_width="250dp"
                 android:layout_columnSpan="3"
                 android:gravity="center"
@@ -159,7 +159,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/et_amount_allinfo"
+                android:id="@+id/tv_amount_allinfo"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="10dp"
                 android:hint="Liczba"
@@ -180,7 +180,7 @@
                 android:textSize="13dp" />-->
 
             <TextView
-                android:id="@+id/spin_amountform_allinfo"
+                android:id="@+id/tv_amountform_allinfo"
                 android:layout_width="160dp"
                 android:layout_columnSpan="2"
                 android:layout_gravity="right"
@@ -199,7 +199,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/spin_person_allinfo"
+                android:id="@+id/tv_person_allinfo"
                 android:layout_width="160dp"
                 android:layout_columnSpan="2"
                 android:layout_gravity="right"
@@ -217,7 +217,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/et_power_allinfo"
+                android:id="@+id/tv_power_allinfo"
                 android:layout_width="155dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
@@ -244,7 +244,7 @@
                 android:textSize="13dp"
                 />-->
             <TextView
-                android:id="@+id/et_subsActive_allinfo"
+                android:id="@+id/tv_subsActive_allinfo"
                 android:layout_width="155dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
@@ -262,7 +262,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/et_code_allinfo"
+                android:id="@+id/tv_code_allinfo"
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
@@ -280,7 +280,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/et_producer_allinfo"
+                android:id="@+id/tv_producer_allinfo"
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
@@ -297,7 +297,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/et_note_allinfo"
+                android:id="@+id/tv_note_allinfo"
                 android:layout_width="154dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"

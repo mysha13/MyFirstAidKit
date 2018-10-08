@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -48,6 +50,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -86,7 +89,7 @@ public class AddMedicine extends AppCompatActivity {
     private String todb_opendate;
 
     @BindView(R.id.spin_form_add)
-    Spinner form;
+    Spinner spin_form;
     private String todb_form;
 
     @BindView(R.id.spin_purpose_add)
@@ -136,6 +139,10 @@ public class AddMedicine extends AppCompatActivity {
 
     /*@BindView(R.id.imageView2)
     ImageView imageView;*/
+    private ArrayAdapter<String> adapterForm;
+    private ArrayAdapter<String> adapterAmoutForm;
+    private ArrayAdapter<String> adapterPurpose;
+    private ArrayList<String> formList;
 
     private byte[] convertedimage;
 
@@ -185,6 +192,7 @@ public class AddMedicine extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
         ButterKnife.bind(this);
+        spinnerForm(dbForm, formList, adapterForm, spin_form);
         if(codecode!=null){
             code.setText(codecode);
         }
@@ -293,6 +301,23 @@ public class AddMedicine extends AppCompatActivity {
 
             }
         };
+
+    }
+
+    public void spinnerForm(DBFormAdapter dAForm, ArrayList<String> formList, ArrayAdapter<String> adapterForm, Spinner spinner) {
+
+        dAForm = new DBFormAdapter(this);
+        formList = new ArrayList<>();
+        adapterForm = new ArrayAdapter<String>(this, R.layout.spin_item, formList);
+        dAForm.OpenDB();
+        formList.add("-");
+        Cursor cursor = dAForm.GetAllForms();
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(1);
+            formList.add(name);
+        }
+        dAForm.CloseDB();
+        spinner.setAdapter(adapterForm);
 
     }
 

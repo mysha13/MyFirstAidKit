@@ -1,161 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:columnCount="4"
+    android:rowCount="6">
 
-<GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="4"
-        android:rowCount="6"
-        android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:id="@+id/tv_id_item"
-            android:textSize="8dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="3dp"
-            android:visibility="invisible"/>
+    <TextView
+        android:id="@+id/tv_id_item"
+        android:layout_gravity="center"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="3dp"
+        android:textSize="8dp"
+        android:visibility="invisible" />
 
 
-        <TextView
-            android:text="@string/oneInformationMedicine_txt_name"
-            android:textSize="10dp"
-            android:layout_marginTop="3dp"
-            android:id="@+id/txtview_name"
-            android:layout_marginLeft="10dp"
-            android:textColor="@android:color/black"/>
+    <TextView
+        android:id="@+id/txtview_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/oneInformationMedicine_txt_name"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
 
-        <TextView
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/tv_name_item"
-            android:layout_columnSpan="1"
-            android:textSize="10dp"
-            android:text="Nazwa edit" />
+    <TextView
+        android:id="@+id/tv_name_item"
+        android:layout_columnSpan="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="Nazwa edit"
+        android:textSize="10dp" />
 
-        <Button
-            android:id="@+id/btn_update_item"
-            android:layout_width="74dp"
-            android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:layout_rowSpan="2"
-            android:textSize="7dp"
-            android:text="Edytuj" />
+    <Button
+        android:id="@+id/btn_update_item"
+        android:layout_width="74dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+        android:layout_rowSpan="2"
+        android:text="Edytuj"
+        android:textSize="7dp" />
 
-        <ImageView
-            android:id="@+id/imageView_oneMedicineItem"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_rowSpan="5"
-            android:layout_gravity="center"
-            android:layout_marginLeft="7dp"
-            android:src="@drawable/ic_photo_camera_black_24dp" />
+    <ImageView
+        android:id="@+id/imageView_oneMedicineItem"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="7dp"
+        android:layout_rowSpan="5"
+        android:src="@drawable/ic_photo_camera_black_24dp" />
 
-        <TextView
-            android:textColor="@android:color/black"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:text="@string/oneInformationMedicine_txt_exp"
-            android:id="@+id/txtview_expdate"/>
+    <TextView
+        android:id="@+id/txtview_expdate"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/oneInformationMedicine_txt_exp"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
 
-        <TextView
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:text="02/01/2020"
-            android:textSize="10dp"
-            android:id="@+id/tv_expdate_item"/>
+    <TextView
+        android:id="@+id/tv_expdate_item"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="02/01/2020"
+        android:textSize="10dp" />
 
-        <TextView
-            android:textColor="@android:color/black"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:text="@string/oneInformationMedicine_txt_form"
-            android:id="@+id/txtview_form"/>
+    <TextView
+        android:id="@+id/txtview_form"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/oneInformationMedicine_txt_form"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
 
-        <TextView
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:text="Tabletki powlekane"
-            android:textSize="10dp"
-            android:id="@+id/tv_form_item"/>
+    <TextView
+        android:id="@+id/tv_form_item"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="Tabletki powlekane"
+        android:textSize="10dp" />
 
-        <Button
-            android:id="@+id/btn_delete_item"
-            android:layout_width="74dp"
-            android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:layout_rowSpan="2"
-            android:textSize="7dp"
-            android:text="Usuń" />
+    <Button
+        android:id="@+id/btn_delete_item"
+        android:layout_width="74dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+        android:layout_rowSpan="2"
+        android:text="Usuń"
+        android:textSize="7dp" />
 
-        <TextView
-            android:textColor="@android:color/black"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:text="@string/oneInformationMedicine_txt_disease"
-            android:id="@+id/txtview_sickness"/>
+    <TextView
+        android:id="@+id/txtview_sickness"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/oneInformationMedicine_txt_disease"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
 
-        <TextView
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:text="katar"
-            android:textSize="10dp"
-            android:id="@+id/tv_purpose_item"/>
+    <TextView
+        android:id="@+id/tv_purpose_item"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="katar"
+        android:textSize="10dp" />
 
-        <TextView
-            android:textColor="@android:color/black"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:text="@string/oneInformationMedicine_txt_number"
-            android:id="@+id/txtview_numberofmedicine"/>
+    <TextView
+        android:id="@+id/txtview_numberofmedicine"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/oneInformationMedicine_txt_number"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
 
-        <TextView
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:text="5 opakowań"
-            android:id="@+id/tv_amount_item"/>
+    <TextView
+        android:id="@+id/tv_amount_item"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="5 opakowań"
+        android:textSize="10dp" />
 
-        <!--<CheckBox
-            android:layout_marginTop="2dp"
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:layout_column="3"
-            android:layout_row="2"
-            android:text="@string/oneInformationMedicine_checkb_taken"
-            android:layout_columnSpan="1"
-            android:textSize="10dp" />-->
+    <!--<CheckBox
+        android:layout_marginTop="2dp"
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_column="3"
+        android:layout_row="2"
+        android:text="@string/oneInformationMedicine_checkb_taken"
+        android:layout_columnSpan="1"
+        android:textSize="10dp" />-->
 
-        <Button
-            android:id="@+id/btn_moreInfo_item"
-            android:layout_width="74dp"
-            android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:textSize="7dp"
-            android:layout_rowSpan="2"
-            android:text="Więcej >>"
-            />
+    <Button
+        android:id="@+id/btn_moreInfo_item"
+        android:layout_width="74dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+        android:layout_rowSpan="2"
+        android:text="Więcej >>"
+        android:textSize="7dp" />
 
-        <TextView
-            android:textColor="@android:color/black"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:text="Moc"
-            android:id="@+id/txtview_power"/>
+    <TextView
+        android:id="@+id/txtview_power"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="Moc"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
 
-        <TextView
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:text="200mg"
-            android:id="@+id/tv_power_item"/>
+    <TextView
+        android:id="@+id/tv_power_item"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:text="200mg"
+        android:textSize="10dp" />
 
-    </GridLayout>
+</GridLayout>
