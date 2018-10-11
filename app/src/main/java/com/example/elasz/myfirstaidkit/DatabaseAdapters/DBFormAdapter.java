@@ -30,7 +30,7 @@ public class DBFormAdapter {
     }
 
     public void OpenDB() throws SQLException{
-        database=dbHelper.getWritableDatabase();
+     database=dbHelper.getWritableDatabase();
     }
 
     public void CloseDB() throws SQLException{

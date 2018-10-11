@@ -33,6 +33,7 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
 
     private static final int request_camera=1;
     private ZXingScannerView scannerView;
+    public String PUBLIC_STATIC_STRING_IDENTIFIER;
 
     public static String getCode() {
         return code;
@@ -147,12 +148,19 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //scannerView.resumeCameraPreview(BarcodeScanner.this);
-                finish();
-                Intent in= new Intent(BarcodeScanner.this, AddMedicine.class);
-                startActivity(in);
                 AddMedicine addmed=new AddMedicine();
                 addmed.setCodecode(result.getText());
+                //scannerView.resumeCameraPreview(BarcodeScanner.this);
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra(PUBLIC_STATIC_STRING_IDENTIFIER, result.getText());
+                setResult(BarcodeScanner.RESULT_OK, resultIntent);
+                
+                
+                finish();
+                
+                //Intent in= new Intent(BarcodeScanner.this, AddMedicine.class);
+                //startActivity(in);
+
 
             }
         });

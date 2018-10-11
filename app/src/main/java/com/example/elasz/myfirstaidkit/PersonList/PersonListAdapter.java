@@ -58,7 +58,7 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
         @BindView(R.id.tv_personname)
         TextView tvPersonName;
 
-        @OnClick(R.id.btn_delete_editformslist)
+        @OnClick(R.id.btn_delete_editpersonlist)
         void delete(){
             bNumber = 2;
             onClick(itemView);

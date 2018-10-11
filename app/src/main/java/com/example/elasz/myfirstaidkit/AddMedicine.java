@@ -73,6 +73,7 @@ public class AddMedicine extends AppCompatActivity {
         AddMedicine.codecode = codecode;
     }
 
+   public static int codefromscanner;
     public static String codecode;
 
    // private DatabaseFormAdapter dAForm;
@@ -181,7 +182,6 @@ public class AddMedicine extends AppCompatActivity {
     private int GALLERY = 1, CAMERA = 2;
     private File filename = null;
 
-
     boolean isImageFitToScreen;
     private String fullScreenInd;
     private ImageView imageView;
@@ -192,6 +192,7 @@ public class AddMedicine extends AppCompatActivity {
     private int purposeid;
     private int amountformid;
     private int personid;
+    private int medinfoid;
 
     String mCurrentPhotoPath;
 
@@ -390,25 +391,59 @@ public class AddMedicine extends AppCompatActivity {
 
 
     private void CheckResult() {
-        long work = TryToAdd();
-        if (work > 0) {
+        long work = TryToAddToUser();
+        long work2=TryToAddToMedInfo();
+        if (work > 0 && work2 >0 ) {
             Toast.makeText(AddMedicine.this, "Dodano lek", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(AddMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
+
     }
 
-    private long TryToAdd() {
+    private long TryToAddToMedInfo(){
+        CheckEmptyFields();
+        dbMedInfo.OpenDB();
+        long work2 = addMedToDBMedInfo();
+        dbMedInfo.CloseDB();
+        return work2;
+    }
+
+    private long TryToAddToUser() {
         IsThereAnyImage();
         CheckEmptyFields();
-        formid = getFormID(dbForm, spinnerCorrection(spin_form));
-        purposeid = getPurposeID(dbPurpose, spinnerCorrection(spin_purpose));
-        amountformid = getAmountFormID(dbAmountForm, spinnerCorrection(spin_amountForm));
-        personid = getPersonID(dbPerson, spinnerCorrection(spin_person));
+        if(name.getText() != null){
+            medinfoid = getMedInfoID(dbMedInfo, name.getText().toString());
+        }
+        if(spinnerCorrection(spin_form) == null)
+        {
+            formid = 0;
+        }
+        else{
+            formid = getFormID(dbForm, spinnerCorrection(spin_form));
+        }
+        if(spinnerCorrection(spin_purpose) == null) {
+            purposeid = 0;
+        }
+        else{
+            purposeid = getPurposeID(dbPurpose, spinnerCorrection(spin_purpose));
+        }
+        if(spinnerCorrection(spin_amountForm) == null) {
+            amountformid = 0;
+        }
+        else{
+            amountformid = getAmountFormID(dbAmountForm, spinnerCorrection(spin_amountForm));
+        }
+        if(spinnerCorrection(spin_person) == null) {
+            personid = 0;
+        }
+        else{
+            personid = getPersonID(dbPerson, spinnerCorrection(spin_person));
+        }
 
         dbUserMed.OpenDB();
         long work = addMedToDB();
-        long work2 = addMedToDBMedInfo();
+        //long work2 = addMedToDBMedInfo();
         dbUserMed.CloseDB();
         return work;
     }
@@ -426,6 +461,14 @@ public class AddMedicine extends AppCompatActivity {
         dAForm.CloseDB();
         return formid;
     }
+
+    public int getMedInfoID(DBMedicamentInfoAdapter dbMed, String name){
+        dbMed.OpenDB();
+        medinfoid = dbMed.GetMedId(name);
+        dbMed.CloseDB();
+        return medinfoid;
+
+    }
     public int getPurposeID(DBPurposeAdapter dbPurpose, String name) {
         dbPurpose.OpenDB();
         purposeid = dbPurpose.GetPurposeId(name);
@@ -439,6 +482,7 @@ public class AddMedicine extends AppCompatActivity {
         return amountformid;
     }
     public int getPersonID(DBPersonAdapter dbPersonAdapter, String name) {
+
         dbPersonAdapter.OpenDB();
         personid = dbPersonAdapter.GetPersonId(name);
         dbPersonAdapter.CloseDB();
@@ -481,7 +525,7 @@ public class AddMedicine extends AppCompatActivity {
             todb_producer=producer.getText().toString();
         }
 
-        if(code.getText()== null){
+        if(code.getText().length() == 0){
             todb_code=null;
         }else{
             if(codecode!=null){
@@ -494,30 +538,15 @@ public class AddMedicine extends AppCompatActivity {
                 }
             }
         }
-       /* if(amountForm.getText()==null){
-            todb_amountForm=null;
-        }
-        else{
-            todb_amountForm=amountForm.getText().toString();
-        }*/
-
-        /* if(person.getText()==null){
-            todb_person=null;
-        }
-        else{
-            todb_person=person.getText().toString();
-        }*/
         if(note.getText()==null){
             todb_note=null;
         }
         else{
             todb_note=note.getText().toString();
         }
-
     }
 
-    private void IsThereAnyImage()
-    {
+    private void IsThereAnyImage() {
         try{
             Bitmap mybitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
             if(mybitmap == null){
@@ -537,7 +566,7 @@ public class AddMedicine extends AppCompatActivity {
 
     private long addMedToDB() {
         return dbUserMed.AddUserMedicamentData(name.getText().toString(),
-                0,
+                medinfoid,
                 todb_expdate,//expdate.getText().toString(),
                 todb_opendate,//opendate.getText().toString(),
                 formid,
@@ -625,8 +654,15 @@ public class AddMedicine extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == codefromscanner){
+            if (resultCode == Activity.RESULT_OK) {
+                BarcodeScanner bar= new BarcodeScanner();
+                String newText = data.getStringExtra(bar.PUBLIC_STATIC_STRING_IDENTIFIER);
+                code.setText(newText);
+            }
+        }
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
@@ -758,7 +794,7 @@ public class AddMedicine extends AppCompatActivity {
     @OnClick(R.id.btn_scanBarcode_add)
     public void OpenBarcodeScannerActivity(){
         Intent intent= new Intent(this, BarcodeScanner.class);
-        startActivity(intent);
+        startActivityForResult(intent, codefromscanner);
         BarcodeScanner bar= new BarcodeScanner();
         code.setText(bar.getCode().toString());
     }

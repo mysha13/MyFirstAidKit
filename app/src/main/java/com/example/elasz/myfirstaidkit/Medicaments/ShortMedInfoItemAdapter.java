@@ -36,7 +36,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.one_medicine_item, null);
+                .inflate(R.layout.one_medicine_newitem, null);
         return new ViewHolder(itemLayoutView, listener);
     }
 
@@ -49,7 +49,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         holder.tv_Purpose.setText(shortMeds.get(position).getPurpose());
         holder.tv_Amount.setText(String.valueOf(shortMeds.get(position).getAmount()));
         holder.iv_Image.setImageBitmap(shortMeds.get(position).getImage());
-        //holder.tv_Power.setText(userMeds.get(position).getPower());
+        holder.tv_Power.setText(shortMeds.get(position).getPower());
     }
 
     @Override
@@ -86,7 +86,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
        /* @BindView(R.id.spin_amountform_allinfo)
         TextView tv_AmountForm;*/
 
-        @BindView(R.id.tv_power_item)
+        @BindView(R.id.tv_poweronemed_item)
         TextView tv_Power;
 
         @OnClick(R.id.btn_update_item)
@@ -111,7 +111,6 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.listener = listener;
-
         }
 
         @Override

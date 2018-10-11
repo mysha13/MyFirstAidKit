@@ -134,6 +134,35 @@ public class DBMedicamentInfoAdapter {
         database.delete(DatabaseConstantInformation.MEDICAMENTINFOTABLE, DatabaseConstantInformation.ID_MED + "=?", new String[]{id});
     }
 
+    public String GetPower(long id){
+        String powerName = "";
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.POWER},
+                DatabaseConstantInformation.ID_MED + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
 
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            powerName = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.POWER));
+        }
+        return powerName;
+    }
+
+    public int GetMedId(String name){
+        int medid = 1;
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.ID_MED},
+                DatabaseConstantInformation.MEDNAME + "=?",
+                new String[]{name},
+                null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            medid = cursor.getInt(cursor.getColumnIndex(DatabaseConstantInformation.ID_MED));
+        }
+        return medid;
+    }
 
 }

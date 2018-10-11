@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:id="@+id/base">
+
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/tv_idtakeMed_item"
+        android:layout_gravity="center"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="3dp"
+        android:textSize="8dp"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/imageView_takenMed_item"
+        android:layout_width="90dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_rowSpan="5"
+        android:src="@drawable/ic_photo_camera_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/line1"
+        android:weightSum="2"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/imageView_takenMed_item"
+        app:layout_constraintStart_toEndOf="@id/imageView_takenMed_item"
+        app:layout_constraintRight_toLeftOf="@+id/btn_update_item">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/oneInformationMedicine_txt_name"
+            android:textSize="12dp"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:id="@+id/txtview_name_item"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:id="@+id/tv_takenMed_name_item"
+            android:layout_columnSpan="2"
+            android:textSize="12dp"
+            android:text="Nazwa edit" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_takeMen_item"
+        android:layout_width="74dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+        android:layout_rowSpan="2"
+        android:text="Zażyj"
+        android:textSize="7dp"
+        app:layout_constraintRight_toRightOf="@+id/base"/>
+
+    <LinearLayout
+        android:id="@+id/line2"
+        android:weightSum="2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@id/imageView_takenMed_item"
+        app:layout_constraintTop_toBottomOf="@+id/line1"
+        app:layout_constraintRight_toLeftOf="@+id/btn_update_item">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Moc"
+            android:textSize="12dp"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:id="@+id/txtview_power_item"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:id="@+id/tv_takenMed_power_item"
+            android:layout_columnSpan="2"
+            android:textSize="12dp"
+            android:text="Moc edit" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_editamount_item"
+        android:layout_width="74dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+        android:layout_rowSpan="2"
+        android:text="Edytuj ilość"
+        android:textSize="7dp"
+        app:layout_constraintRight_toRightOf="@+id/base"
+        app:layout_constraintTop_toBottomOf="@+id/btn_takeMen_item"/>
+
+    <LinearLayout
+        android:id="@+id/line3"
+        android:weightSum="3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@id/imageView_takenMed_item"
+        app:layout_constraintTop_toBottomOf="@+id/line2"
+        app:layout_constraintRight_toLeftOf="@+id/btn_delete_item">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+            android:text="@string/oneInformationMedicine_txt_number"
+            android:id="@+id/txtview_numberofmedicine"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+            android:text="5 "
+            android:layout_gravity="center"
+            android:layout_columnSpan="1"
+            android:id="@+id/tv_takenMed_amount_item"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+            android:text="opakowań"
+            android:layout_columnSpan="1"
+            android:id="@+id/tv_takenMed_amountform_item"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_cancelMed_item"
+        android:layout_width="74dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+        android:layout_rowSpan="2"
+        android:text="Anuluj"
+        android:textSize="7dp"
+        app:layout_constraintRight_toRightOf="@+id/base"
+        app:layout_constraintTop_toBottomOf="@+id/btn_editamount_item"/>
+
+    <LinearLayout
+        android:id="@+id/line4"
+        android:weightSum="3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@id/imageView_takenMed_item"
+        app:layout_constraintTop_toBottomOf="@+id/line3"
+        app:layout_constraintRight_toLeftOf="@+id/btn_delete_item">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+            android:layout_columnSpan="1"
+            android:text="Zażyj"
+            android:id="@+id/txtview_takeText"/>
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+            android:id="@+id/et_takenMed_amount_item"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+            android:text="opakowań"
+            android:layout_columnSpan="1"
+            android:id="@+id/tv_takenMed_amountForm_item"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

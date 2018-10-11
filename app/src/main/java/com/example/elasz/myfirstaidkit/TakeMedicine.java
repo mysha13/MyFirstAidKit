@@ -15,13 +15,15 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
 import com.example.elasz.myfirstaidkit.Interfaces.RecyclerViewClickListener;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
-import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItemAdapter;
+import com.example.elasz.myfirstaidkit.Medicaments.TakeMedItem;
+import com.example.elasz.myfirstaidkit.Medicaments.TakeMedItemAdapter;
 
 import java.util.ArrayList;
 
@@ -35,12 +37,13 @@ public class TakeMedicine extends AppCompatActivity {
     private DBFormAdapter dbForm;
     private DBPurposeAdapter dbPurpose;
     private DBMedicamentInfoAdapter dbMedInfo;
+    private DBAmountFormAdapter dbAmountForm;
 
     private ArrayList<String> medicamentsName;
     private ArrayAdapter<String> adapterMedicamentsName;
 
-    private ArrayList<ShortMedInfoItem> meds = new ArrayList<>();
-    ShortMedInfoItemAdapter shortmedadapter;
+    private ArrayList<TakeMedItem> meds = new ArrayList<>();
+    TakeMedItemAdapter takemedadapter;
     private ArrayList<String> medNames;
     // ArrayList<ShortMedInfoItem> medicaments;
     private ArrayAdapter<String> adapterMedName;
@@ -74,8 +77,8 @@ public class TakeMedicine extends AppCompatActivity {
         RecyclerViewClickListener listener = (view, position, id, bNumber) -> {
             ButtonNumber(id, bNumber);
         };
-        shortmedadapter = new ShortMedInfoItemAdapter(meds, listener);
-        recyclerView.setAdapter(shortmedadapter);
+        takemedadapter = new TakeMedItemAdapter(meds, listener);
+        recyclerView.setAdapter(takemedadapter);
     }
     private void ButtonNumber(String id, int btn_nb) {
         if (btn_nb == 1) {
@@ -128,7 +131,7 @@ public class TakeMedicine extends AppCompatActivity {
         getMedicamentItem();
 
         if (!(meds.size() < 1)) {
-            recyclerView.setAdapter(shortmedadapter);
+            recyclerView.setAdapter(takemedadapter);
         }
     }
     private void getMedicamentItem() {
@@ -136,7 +139,7 @@ public class TakeMedicine extends AppCompatActivity {
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
-        CreateMedList(cursor, dbUserMed,dbForm,dbPurpose, meds);
+        CreateMedList(cursor, dbUserMed,dbMedInfo,dbAmountForm, meds);
     }
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
@@ -145,26 +148,23 @@ public class TakeMedicine extends AppCompatActivity {
         dbPurpose = new DBPurposeAdapter( this);
     }
 
-    public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBFormAdapter dbForm, DBPurposeAdapter dbPurpose, ArrayList<ShortMedInfoItem> medicaments) {
+    public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBMedicamentInfoAdapter dbMedInfo, DBAmountFormAdapter dbAmountForm, ArrayList<TakeMedItem> medicaments) {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
-                String expdate = cursor.getString(2);
-                //int formInt = cursor.getInt(3);
-                String form=cursor.getString(3);
+                int powerid = cursor.getInt(2);
 
-                String purpose = cursor.getString(4);
-                String amount = cursor.getString(5);
-                //double amount = cursor.getDouble(5);
-                String amountform=cursor.getString(6);
-                String power= cursor.getString(7);
+                String amount = cursor.getString(7);
+                int amountformid = cursor.getInt(8);
+
                 Bitmap image=ConvertByteArrayToImage(cursor);
                 dbUserMed.CloseDB();
 
-                // String form = getFormName(dAForm, formInt);
+                String amountform = getAmountFormName(dbAmountForm,amountformid);
 
-                ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose,amount, amountform, power, image);
+                String power = getPowerName(dbMedInfo, powerid);
+                TakeMedItem shortmed = new TakeMedItem(id, name, power, amountform, amount, image);
                 medicaments.add(shortmed);
                 /*if(name==autoComTV_findname.getText().toString())
                 {
@@ -176,7 +176,27 @@ public class TakeMedicine extends AppCompatActivity {
 
     }
     private Bitmap ConvertByteArrayToImage(Cursor cur){
-        byte[] imgByte = cur.getBlob(8);
-        return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+        if (cur.getBlob(12)!= null) {
+            byte[] imgByte = cur.getBlob(12);
+            return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+        } else {
+            return null;
+        }
+       // byte[] imgByte = cur.getBlob(12);
+        //return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+    }
+
+    public String getAmountFormName(DBAmountFormAdapter dAForm, int id) {
+        dAForm.OpenDB();
+        String form = dAForm.GetAmountFormName(id);
+        dAForm.CloseDB();
+        return form;
+    }
+
+    public String getPowerName(DBMedicamentInfoAdapter dAForm, int id) {
+        dAForm.OpenDB();
+        String form = dAForm.GetPower(id);
+        dAForm.CloseDB();
+        return form;
     }
 }

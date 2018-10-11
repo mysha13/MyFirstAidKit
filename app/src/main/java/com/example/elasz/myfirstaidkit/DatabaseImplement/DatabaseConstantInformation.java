@@ -88,9 +88,9 @@ public class DatabaseConstantInformation {
     public static final String CREATE_TABLE_MEDICAMENTINFO = "CREATE TABLE " + MEDICAMENTINFOTABLE + "("
             + ID_MED + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + MEDNAME + " TEXT NOT NULL, "
-            + POWER + " TEXT NOT NULL, "
-            + ACTIVESUBS + " TEXT , "
-            + CODE + " TEXT NOT NULL, "  //było int, text żeby wyszukiwac
-            + PRODUCER + " TEXT NOT NULL, "
+            + POWER + " TEXT  NULL, "
+            + ACTIVESUBS + " TEXT, "
+            + CODE + " TEXT  NULL, "  //było int, text żeby wyszukiwac
+            + PRODUCER + " TEXT  NULL "
             + ");";
 }

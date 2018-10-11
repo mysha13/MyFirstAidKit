@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         DBFormAdapter dbForm = new DBFormAdapter(this);
         DBPurposeAdapter dbPurpose = new DBPurposeAdapter(this);
         DBAmountFormAdapter dbAmountForm = new DBAmountFormAdapter(this);
-        CreateSpinnerLists(dbForm, dbPurpose, dbAmountForm);
+        //CreateSpinnerLists(dbForm, dbPurpose, dbAmountForm);
         cv_take = (CardView) findViewById(R.id.btn_takeMedicine);
         cv_take.setOnClickListener(new View.OnClickListener() {
             @Override
