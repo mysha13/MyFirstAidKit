@@ -113,7 +113,7 @@ public class OneMedicineInformation extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
-                String expdate = cursor.getString(2);
+                String expdate = cursor.getString(3);
                 int formid = cursor.getInt(5);
                 //String form = cursor.getString(3);
 

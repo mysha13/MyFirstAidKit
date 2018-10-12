@@ -391,8 +391,9 @@ public class AddMedicine extends AppCompatActivity {
 
 
     private void CheckResult() {
+        long work2 = TryToAddToMedInfo();
         long work = TryToAddToUser();
-        long work2=TryToAddToMedInfo();
+
         if (work > 0 && work2 >0 ) {
             Toast.makeText(AddMedicine.this, "Dodano lek", Toast.LENGTH_LONG).show();
         } else {
