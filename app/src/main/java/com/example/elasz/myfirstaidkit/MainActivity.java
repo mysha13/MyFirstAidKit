@@ -16,37 +16,43 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
-import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
 import com.facebook.stetho.Stetho;
+import com.karan.churi.PermissionManager.PermissionManager;
 
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Toolbar toolBar;
+    private DrawerLayout drawerLayout;
+
 
     private DBMedicamentInfoAdapter dbMedInfo;
     private DBUserMedicamentsAdapter dbUserMed;
@@ -90,12 +96,14 @@ public class MainActivity extends AppCompatActivity {
     TextView nboverduemed;
 
 
+    PermissionManager permissionManager;
     private DownloadManager downloadManager;
     private long refid;
     private Uri Download_Uri;
     private DBFormAdapter dbForm;
 
     SQLiteDatabase db;
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -172,8 +180,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        toolBar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolBar);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        toolbarInitialize();
+
         //simpleList = (ListView) findViewById(R.id.listviewinformation);
         Stetho.initializeWithDefaults(this);
+        permissionManager = new PermissionManager() {
+        };
+        permissionManager.checkAndRequestPermissions(this);
+
         //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_infoName, countryList);
         //secondList= (ListView) findViewById(R.id.listviewinformation);
         //ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_number, (List<String>) secondList);
@@ -198,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -228,10 +250,10 @@ public class MainActivity extends AppCompatActivity {
                         } else if (id == R.id.nav_edit_amountforms) {
                             Intent intent = new Intent(MainActivity.this, EditAmountFormsList.class);
                             startActivity(intent);
-                        } else if (id == R.id.nav_edit_purpose){
+                        } else if (id == R.id.nav_edit_purpose) {
                             Intent intent = new Intent(MainActivity.this, EditPurposeList.class);
                             startActivity(intent);
-                        } else if (id == R.id.nav_edit_person){
+                        } else if (id == R.id.nav_edit_person) {
                             Intent intent = new Intent(MainActivity.this, EditPersonList.class);
                             startActivity(intent);
 
@@ -329,7 +351,30 @@ public class MainActivity extends AppCompatActivity {
                 OpenActivityAlarms();
             }
         });
+
+
     }
+
+    private void toolbarInitialize() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+
+
+
+
+
 
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
@@ -438,8 +483,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        permissionManager.checkResult(requestCode, permissions, grantResults);
+
+        ArrayList<String> granted = permissionManager.getStatus().get(0).granted;
+        ArrayList<String> denied = permissionManager.getStatus().get(0).denied;
+
+        if(denied.size() > 0){
+            Toast.makeText(MainActivity.this, "Aplikacja nie będzie działać bez pozwoleń, przyznaj pozwolenia", Toast.LENGTH_SHORT).show();
+        }
         switch (requestCode) {
             case 0:
                 boolean permissionsGranted = true;
@@ -464,6 +517,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
 
 
 }

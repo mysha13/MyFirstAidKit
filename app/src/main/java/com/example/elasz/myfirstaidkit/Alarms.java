@@ -227,6 +227,7 @@ public class Alarms extends AppCompatActivity {
         // ends 60 minutes from now
         values.put(CalendarContract.Events.DTEND, datetoend.getTime() + 2 * 60 * 1000);
         values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
+        values.put(CalendarContract.Events.RRULE,"FREQ=DAILY, COUNT=");
         values.put(CalendarContract.Events.HAS_ALARM, 1);
         Uri event = cr.insert(EVENTS_URI, values);
 
