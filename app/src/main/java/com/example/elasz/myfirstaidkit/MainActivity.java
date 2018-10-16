@@ -30,18 +30,26 @@ import android.widget.Toast;
 
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
 import com.facebook.stetho.Stetho;
+
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DBMedicamentInfoAdapter dbMedInfo;
+    private DBUserMedicamentsAdapter dbUserMed;
 
     private CardView cv_search;
     private CardView cv_add;
@@ -71,6 +79,16 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_listOfMedicines)
     CardView btnForListOfMedicinesActivity;
+
+    @BindView(R.id.tv_nbAllMed)
+    TextView nballmed;
+
+    @BindView(R.id.tv_nbTimelyMed)
+    TextView nbtimelymed;
+
+    @BindView(R.id.tv_nbOverdueMed)
+    TextView nboverduemed;
+
 
     private DownloadManager downloadManager;
     private long refid;
@@ -153,16 +171,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        simpleList = (ListView) findViewById(R.id.listviewinformation);
+        ButterKnife.bind(this);
+        //simpleList = (ListView) findViewById(R.id.listviewinformation);
         Stetho.initializeWithDefaults(this);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_infoName, countryList);
+        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_infoName, countryList);
         //secondList= (ListView) findViewById(R.id.listviewinformation);
         //ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_number, (List<String>) secondList);
 
         //secondList.setAdapter(arrayAdapter1);
-        simpleList.setAdapter(arrayAdapter);
+        //simpleList.setAdapter(arrayAdapter);
         //GetMedicamentCount();
 
+        setDBAdapters();
+        getAllNumbersToSet();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         DBFormAdapter dbForm = new DBFormAdapter(this);
         DBPurposeAdapter dbPurpose = new DBPurposeAdapter(this);
@@ -308,6 +329,19 @@ public class MainActivity extends AppCompatActivity {
                 OpenActivityAlarms();
             }
         });
+    }
+
+    private void setDBAdapters() {
+        dbUserMed = new DBUserMedicamentsAdapter(this);
+        dbMedInfo = new DBMedicamentInfoAdapter(this);
+    }
+
+    private void getAllNumbersToSet() {
+        dbUserMed.OpenDB();
+        long nball = dbUserMed.medCount();
+        dbUserMed.CloseDB();
+        String nbText = Long.toString(nball);
+        nballmed.setText(nbText);
     }
 
     private void CreateSpinnerLists(DBFormAdapter dbF, DBPurposeAdapter dbP, DBAmountFormAdapter dbAF) {

@@ -6,6 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,14 +26,18 @@ import butterknife.OnClick;
  * Created by elasz on 19.09.2018.
  */
 
-public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoItemAdapter.ViewHolder>{
+public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoItemAdapter.ViewHolder>  {
 
     private ArrayList<ShortMedInfoItem> shortMeds = new ArrayList<>();
+    private ArrayList<ShortMedInfoItem> filteredList;
     private RecyclerViewClickListener listener;
+    //private CustomFilter mFilter;
 
     public ShortMedInfoItemAdapter(ArrayList<ShortMedInfoItem> shortMeds, RecyclerViewClickListener listener) {
         this.shortMeds = shortMeds;
         this.listener = listener;
+        filteredList = shortMeds;
+       // mFilter = new CustomFilter(ShortMedInfoItemAdapter.this);
     }
 
     @Override
@@ -42,20 +49,34 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
 
     @Override
     public void onBindViewHolder(ShortMedInfoItemAdapter.ViewHolder holder, int position) {
-        holder.tv_Id.setText(String.valueOf(shortMeds.get(position).getId()));
-        holder.tv_Name.setText(shortMeds.get(position).getName());
-        holder.tv_EXPDate.setText(shortMeds.get(position).getExpdate());
-        holder.tv_Form.setText(shortMeds.get(position).getForm());
-        holder.tv_Purpose.setText(shortMeds.get(position).getPurpose());
-        holder.tv_Amount.setText(String.valueOf(shortMeds.get(position).getAmount()));
-        holder.iv_Image.setImageBitmap(shortMeds.get(position).getImage());
-        holder.tv_Power.setText(shortMeds.get(position).getPower());
+        holder.tv_Id.setText(String.valueOf(filteredList.get(position).getId()));
+        holder.tv_Name.setText(filteredList.get(position).getName());
+        holder.tv_EXPDate.setText(filteredList.get(position).getExpdate());
+        holder.tv_Form.setText(filteredList.get(position).getForm());
+        holder.tv_Purpose.setText(filteredList.get(position).getPurpose());
+        holder.tv_Amount.setText(String.valueOf(filteredList.get(position).getAmount()));
+        holder.iv_Image.setImageBitmap(filteredList.get(position).getImage());
+        holder.tv_Power.setText(filteredList.get(position).getPower());
     }
 
     @Override
     public int getItemCount() {
-        return shortMeds.size();
+        //return shortMeds.size();
+        return filteredList.size();
     }
+
+    public void filter(String query){
+
+        filteredList = new ArrayList<>();
+        for (ShortMedInfoItem shortMed : shortMeds) {
+
+            if(shortMed.name.toLowerCase().contains(query.toLowerCase())){
+                filteredList.add(shortMed);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -118,4 +139,6 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
             listener.onClick(view, getAdapterPosition(), tv_Id.getText().toString(),bNumber);
         }
     }
+
+
 }

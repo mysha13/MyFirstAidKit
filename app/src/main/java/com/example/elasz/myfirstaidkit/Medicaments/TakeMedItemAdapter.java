@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,22 +30,23 @@ public class TakeMedItemAdapter extends RecyclerView.Adapter<TakeMedItemAdapter.
         this.takeMeds = takeMeds;
         this.listener = listener;
     }
-
     @Override
-    public TakeMedItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.takemedicine_newitem, null);
-        return new TakeMedItemAdapter.ViewHolder(itemLayoutView, listener);
+        return new ViewHolder(itemLayoutView, listener);
     }
+
     @Override
     public void onBindViewHolder(TakeMedItemAdapter.ViewHolder holder, int position) {
         holder.tv_Id.setText(String.valueOf(takeMeds.get(position).getId()));
         holder.tv_Name.setText(takeMeds.get(position).getName());
         holder.tv_Power.setText(takeMeds.get(position).getPower());
         holder.tv_AmountForm.setText(takeMeds.get(position).getAmoutform());
-        holder.tv_AmountForm2.setText(takeMeds.get(position).getAmoutform());
+       // holder.tv_AmountForm2.setText(takeMeds.get(position).getAmoutform());
         holder.tv_Amount.setText(String.valueOf(takeMeds.get(position).getAmount()));
         holder.iv_Image.setImageBitmap(takeMeds.get(position).getImage());
+
 
     }
 
@@ -75,9 +77,11 @@ public class TakeMedItemAdapter extends RecyclerView.Adapter<TakeMedItemAdapter.
         @BindView(R.id.tv_takenMed_amountform_item)
         TextView tv_AmountForm;
 
-        @BindView(R.id.tv_takenMed_amountForm_item)
-        TextView tv_AmountForm2;
+     /*   @BindView(R.id.tv_takenMed_amountForm_item)
+        TextView tv_AmountForm2;*/
 
+       /* @BindView(R.id.et_takenMed_amount_item)
+        EditText et_Amout;*/
 
         @OnClick(R.id.btn_takeMen_item)
         void TakeMedItem(){
@@ -90,11 +94,11 @@ public class TakeMedItemAdapter extends RecyclerView.Adapter<TakeMedItemAdapter.
             onClick(itemView);
         }
 
-        @OnClick(R.id.btn_cancelMed_item)
+        /*@OnClick(R.id.btn_cancelMed_item)
         void CancelItem(){
             bNumber = 3;
             onClick(itemView);
-        }
+        }*/
 
         public ViewHolder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);

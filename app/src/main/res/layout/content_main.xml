@@ -20,7 +20,8 @@
         android:columnOrderPreserved="false"
         android:columnCount="2"
         android:rowCount="3"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_marginTop="20dp">
 
         <!-- Row 1 -->
         <!-- Column 1 -->
@@ -38,7 +39,7 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
+                android:layout_margin="14dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -51,7 +52,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Inne"
+                    android:text="Leki terminowe i przeterminnowane"
                     android:id="@+id/txt_download_file"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -274,13 +275,97 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-        <ListView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:id="@+id/line1"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/txt_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liczba wszystkich leków: "
+                android:textSize="20dp"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:id="@+id/tv_nbAllMed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="20dp"
+                android:layout_toEndOf="@+id/txt_text1"
+                android:gravity="right"
+                android:layout_weight="1"
+                android:layout_marginRight="30dp"
+                android:textAlignment="gravity"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_below="@+id/line1"
+            android:id="@+id/line2"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/txt_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liczba terminowych leków: "
+                android:textSize="20dp"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:id="@+id/tv_nbTimelyMed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="20dp"
+                android:layout_toEndOf="@+id/txt_text2"
+                android:gravity="right"
+                android:layout_weight="1"
+                android:layout_marginRight="30dp"
+                android:textAlignment="gravity"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_below="@+id/line2"
+            android:id="@+id/line3"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/txt_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liczba przeterminowanych leków: "
+                android:textSize="20dp"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:id="@+id/tv_nbOverdueMed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="20dp"
+                android:layout_toEndOf="@+id/txt_text2"
+                android:gravity="right"
+                android:layout_weight="1"
+                android:layout_marginRight="30dp"
+                android:textAlignment="gravity"/>
+        </LinearLayout>
+
+        <!--<ListView
             android:id="@+id/listviewinformation"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:divider="#56a0d9"
-            android:dividerHeight="0.5dp"></ListView>
+            android:dividerHeight="0.5dp"></ListView>-->
+
     </RelativeLayout>
 
 </LinearLayout>

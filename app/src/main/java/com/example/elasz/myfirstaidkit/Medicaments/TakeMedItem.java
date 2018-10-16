@@ -15,6 +15,8 @@ public class TakeMedItem {
     String amount;
     Bitmap image;
 
+    String editAmount;
+
     public TakeMedItem(int id, String name, String power, String amoutform, String amount, Bitmap image) {
         Id = id;
         this.name = name;
@@ -22,6 +24,7 @@ public class TakeMedItem {
         this.amoutform = amoutform;
         this.amount = amount;
         this.image = image;
+        //this.editAmount = editAmount;
     }
 
     public int getId() {
@@ -71,4 +74,13 @@ public class TakeMedItem {
     public void setImage(Bitmap image) {
         this.image = image;
     }
+
+    public String getEditAmount() {
+        return editAmount;
+    }
+
+    public void setEditAmount(String editAmount) {
+        this.editAmount = editAmount;
+    }
+
 }

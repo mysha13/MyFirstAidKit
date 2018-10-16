@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -66,10 +68,34 @@ public class FindMedicine extends AppCompatActivity {
         setContentView(R.layout.activity_find_medicine);
         ButterKnife.bind(this);
         setRecyclerView();
+
         autoCompleteFindByName();
         getBundle();
         initialize();
+
+
+        autoComTV_findname.addTextChangedListener(mQueryWatcher);
+
+
     }
+
+    private TextWatcher mQueryWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            shortmedadapter.filter(s.toString());
+        }
+    };
+
     public void initialize() {
         /*RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
@@ -262,7 +288,11 @@ public class FindMedicine extends AppCompatActivity {
     }
 
     private Bitmap ConvertByteArrayToImage(Cursor cur){
-        byte[] imgByte = cur.getBlob(13);
-        return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+        if (cur.getBlob(12)!= null) {
+            byte[] imgByte = cur.getBlob(12);
+            return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+        } else {
+            return null;
+        }
     }
 }

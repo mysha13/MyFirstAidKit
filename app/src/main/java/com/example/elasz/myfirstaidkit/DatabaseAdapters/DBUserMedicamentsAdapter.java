@@ -3,6 +3,7 @@ package com.example.elasz.myfirstaidkit.DatabaseAdapters;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
@@ -42,6 +43,12 @@ public class DBUserMedicamentsAdapter {
         int count = getNames().getCount();
         return count;
     }
+
+    public long medCount() throws SQLException{
+        long count = DatabaseUtils.queryNumEntries(database, DatabaseConstantInformation.USERMEDICAMENTSTABLE);
+        return count;
+    }
+
     public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, String person, String note, boolean istake, byte[] image) {
         try {
             ContentValues cv = new ContentValues();
@@ -122,6 +129,7 @@ public class DBUserMedicamentsAdapter {
         return database.query(true, DatabaseConstantInformation.USERMEDICAMENTSTABLE, new String[]{DatabaseConstantInformation.NAME}, null, null, DatabaseConstantInformation.NAME, null, null, null);
 
     }
+
     public Cursor FindUserMedicamentByName(String name, String columnName) {
 
         String[] columns = new String[]{DatabaseConstantInformation.ID_USERMED,
@@ -168,5 +176,13 @@ public class DBUserMedicamentsAdapter {
         rowUpdate.put(DatabaseConstantInformation.FORM, String.valueOf(1));
         database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.FORM + "=" + String.valueOf(formId), null);
     }
+
+    public void updateAmount(String id, double newvalue){
+        ContentValues rowUpdate = new ContentValues();
+        rowUpdate.put(DatabaseConstantInformation.AMOUNT, Double.valueOf(newvalue));
+        database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.AMOUNT + "=" + String.valueOf(id), null);
+
+    }
+
 
 }

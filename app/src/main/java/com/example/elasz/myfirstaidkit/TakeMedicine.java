@@ -1,8 +1,11 @@
 package com.example.elasz.myfirstaidkit;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -12,14 +15,19 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.Interfaces.RecyclerViewClickListener;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
 import com.example.elasz.myfirstaidkit.Medicaments.TakeMedItem;
@@ -42,11 +50,12 @@ public class TakeMedicine extends AppCompatActivity {
     private ArrayList<String> medicamentsName;
     private ArrayAdapter<String> adapterMedicamentsName;
 
-    private ArrayList<TakeMedItem> meds = new ArrayList<>();
+    private ArrayList<TakeMedItem> meds ;//= new ArrayList<>();
     TakeMedItemAdapter takemedadapter;
     private ArrayList<String> medNames;
     // ArrayList<ShortMedInfoItem> medicaments;
     private ArrayAdapter<String> adapterMedName;
+    SQLiteDatabase database;
 
     Context context = this;
 
@@ -55,6 +64,9 @@ public class TakeMedicine extends AppCompatActivity {
 
     @BindView(R.id.recyclerView_takeMed)
     RecyclerView recyclerView;
+
+    //@BindView(R.id.et_takenMed_amount_item)
+    //EditText et_amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +94,72 @@ public class TakeMedicine extends AppCompatActivity {
     }
     private void ButtonNumber(String id, int btn_nb) {
         if (btn_nb == 1) {
-            //TakeMedButton(id);
+            TakeMedButton(id);
+        } else if (btn_nb == 2)
+        {
+            //editAmmountButton(id);
         } else if (btn_nb == 2) {
             //CancelMedButton(id);
         }
     }
+
+    private void TakeMedButton(String id) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.alert_takemedicine_item, null);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        doNotTake(mView,dialog);
+        changeAmountOfMed(id,mView,dialog);
+        dialog.show();
+
+
+    }
+
+    private void doNotTake(View mView, AlertDialog dialog) {
+        Button cancel = (Button) mView.findViewById(R.id.btnCancelTakeMed);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+            }
+        });
+    }
+
+    private void changeAmountOfMed(String id, View mView, AlertDialog dialog) {
+        EditText editText = (EditText) mView.findViewById(R.id.et_takenMed_amount_item);
+        double takeValue;
+       // try{
+            takeValue = Double.parseDouble(editText.getText().toString());
+            Button takeMed = (Button) mView.findViewById(R.id.btnTakeTakeMed);
+            takeMed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long id1 = Long.parseLong(id);
+                    dbUserMed.OpenDB();
+                    String lastAmount = dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT, id1);
+                    double doubleLastAmount= Double.parseDouble(lastAmount);
+                    double newValue= doubleLastAmount-takeValue;
+                    dbUserMed.CloseDB();
+                    updateAmount(id,newValue);
+                    getMed();
+                }
+            });
+
+        //}catch (NumberFormatException e){
+
+
+        //}
+
+    }
+
+
+    private void updateAmount(String id, Double newValue){
+        dbUserMed.OpenDB();
+        dbUserMed.updateAmount(id, newValue);
+        dbUserMed.CloseDB();
+    }
+
     private void setRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
@@ -109,6 +182,7 @@ public class TakeMedicine extends AppCompatActivity {
         medicamentsName.clear();
         CreateMedicamentsList();
     }
+
     private void CreateMedicamentsList() {
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.getNames();
@@ -120,6 +194,7 @@ public class TakeMedicine extends AppCompatActivity {
         }
         dbUserMed.CloseDB();
     }
+
     private void getBundle() {
         meds = new ArrayList<>();
         //numberOfMeds.setText("Wszystkie leki dodane");
@@ -146,6 +221,7 @@ public class TakeMedicine extends AppCompatActivity {
         dbMedInfo = new DBMedicamentInfoAdapter(this);
         dbForm = new DBFormAdapter(this);
         dbPurpose = new DBPurposeAdapter( this);
+        dbAmountForm = new DBAmountFormAdapter(this);
     }
 
     public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBMedicamentInfoAdapter dbMedInfo, DBAmountFormAdapter dbAmountForm, ArrayList<TakeMedItem> medicaments) {
