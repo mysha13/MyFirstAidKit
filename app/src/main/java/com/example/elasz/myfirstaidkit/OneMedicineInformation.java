@@ -1,6 +1,8 @@
 package com.example.elasz.myfirstaidkit;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
@@ -12,12 +14,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPersonAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
 import com.example.elasz.myfirstaidkit.Interfaces.RecyclerViewClickListener;
@@ -37,6 +42,7 @@ public class OneMedicineInformation extends AppCompatActivity {
     private DBPurposeAdapter dbPurpose;
     private DBMedicamentInfoAdapter dbMedInfo;
     private DBAmountFormAdapter dbAmountForm;
+    private DBPersonAdapter dbPerson;
 
     ShortMedInfoItemAdapter shortmedadapter;
     ArrayList<ShortMedInfoItem> medicaments;
@@ -156,6 +162,7 @@ public class OneMedicineInformation extends AppCompatActivity {
         dbForm = new DBFormAdapter(this);
         dbPurpose = new DBPurposeAdapter(this);
         dbAmountForm = new DBAmountFormAdapter(this);
+        dbPurpose = new DBPurposeAdapter(this);
     }
 
     public void initialize() {
@@ -176,11 +183,54 @@ public class OneMedicineInformation extends AppCompatActivity {
         if (btn_nb == 1) {
             //UpdateMedButton(id);
         } else if (btn_nb == 2) {
-            //DeleteMedButton(id);
+            DeleteMedButton(id);
         } else if (btn_nb == 3) {
-            //MoreInfoButton(id);
+            MoreInfoButton(id);
         }
     }
+
+    private void MoreInfoButton(String id) {
+        Intent intent = new Intent(OneMedicineInformation.this, ViewAllInfoMedicine.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("MedId", Integer.parseInt(id));
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void DeleteMedButton(String id) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_delete, null);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        Button bNo = (Button) mView.findViewById(R.id.bDoNotDelete);
+        bNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+            }
+        });
+
+        Button bYes = (Button) mView.findViewById(R.id.bDeleteContent);
+        bYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteMed(id);
+                dialog.dismiss();
+                getMed();
+            }
+        });
+        dialog.show();
+
+    }
+    private void deleteMed(String id) {
+        DBUserMedicamentsAdapter dbMed = new DBUserMedicamentsAdapter(getBaseContext());
+        dbMed.OpenDB();
+        dbMed.deleteMed(String.valueOf(id));
+        dbMed.CloseDB();
+
+    }
+
 
     public String getFormName(DBFormAdapter dbFormAdapter, int id){
         dbFormAdapter.OpenDB();
@@ -202,6 +252,7 @@ public class OneMedicineInformation extends AppCompatActivity {
         dAForm.CloseDB();
         return power;
     }
+
     public String getPurposeName(DBPurposeAdapter dAForm, int id) {
         dAForm.OpenDB();
         String purpose = dAForm.GetPurposeName(id);

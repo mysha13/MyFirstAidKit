@@ -24,11 +24,13 @@ import butterknife.OnClick;
 public class TakeMedItemAdapter extends RecyclerView.Adapter<TakeMedItemAdapter.ViewHolder>{
 
     private ArrayList<TakeMedItem> takeMeds = new ArrayList<>();
+    private ArrayList<TakeMedItem> filteredList;
     private RecyclerViewClickListener listener;
 
     public TakeMedItemAdapter(ArrayList<TakeMedItem> takeMeds, RecyclerViewClickListener listener) {
         this.takeMeds = takeMeds;
         this.listener = listener;
+        filteredList = takeMeds;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,20 +41,32 @@ public class TakeMedItemAdapter extends RecyclerView.Adapter<TakeMedItemAdapter.
 
     @Override
     public void onBindViewHolder(TakeMedItemAdapter.ViewHolder holder, int position) {
-        holder.tv_Id.setText(String.valueOf(takeMeds.get(position).getId()));
-        holder.tv_Name.setText(takeMeds.get(position).getName());
-        holder.tv_Power.setText(takeMeds.get(position).getPower());
-        holder.tv_AmountForm.setText(takeMeds.get(position).getAmoutform());
+        holder.tv_Id.setText(String.valueOf(filteredList.get(position).getId()));
+        holder.tv_Name.setText(filteredList.get(position).getName());
+        holder.tv_Power.setText(filteredList.get(position).getPower());
+        holder.tv_AmountForm.setText(filteredList.get(position).getAmoutform());
        // holder.tv_AmountForm2.setText(takeMeds.get(position).getAmoutform());
-        holder.tv_Amount.setText(String.valueOf(takeMeds.get(position).getAmount()));
-        holder.iv_Image.setImageBitmap(takeMeds.get(position).getImage());
+        holder.tv_Amount.setText(String.valueOf(filteredList.get(position).getAmount()));
+        holder.iv_Image.setImageBitmap(filteredList.get(position).getImage());
 
 
     }
 
+    public void filter(String query){
+
+        filteredList = new ArrayList<>();
+        for (TakeMedItem  Med : takeMeds) {
+
+            if(Med.name.toLowerCase().contains(query.toLowerCase())){
+                filteredList.add(Med);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return takeMeds.size();
+        return filteredList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

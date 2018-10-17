@@ -559,9 +559,9 @@ public class AddMedicine extends AppCompatActivity {
         }
         catch(Exception ex){
             Log.e("No Image", ex.toString());
-        }finally {
+        }/*finally {
             convertedimage=null;
-        }
+        }*/
 
     }
 

@@ -180,8 +180,28 @@ public class DBUserMedicamentsAdapter {
     public void updateAmount(String id, double newvalue){
         ContentValues rowUpdate = new ContentValues();
         rowUpdate.put(DatabaseConstantInformation.AMOUNT, Double.valueOf(newvalue));
-        database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.AMOUNT + "=" + String.valueOf(id), null);
+        database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.ID_MEDICAMENT + "=" + String.valueOf(id), null);
 
+    }
+
+    public void deleteMed(String id) {
+        database.delete(DatabaseConstantInformation.USERMEDICAMENTSTABLE, DatabaseConstantInformation.ID_MEDICAMENT + "=?", new String[]{id});
+    }
+
+    public byte[] getImageByteArray(long id){
+        byte[] image = null;
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE,
+                new String[]{DatabaseConstantInformation.IMAGE},
+                DatabaseConstantInformation.ID_MED + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            image = cursor.getBlob(cursor.getColumnIndex(DatabaseConstantInformation.IMAGE));
+        }
+        return image;
     }
 
 

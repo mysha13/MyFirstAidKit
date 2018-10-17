@@ -134,6 +134,8 @@ public class DBMedicamentInfoAdapter {
         database.delete(DatabaseConstantInformation.MEDICAMENTINFOTABLE, DatabaseConstantInformation.ID_MED + "=?", new String[]{id});
     }
 
+
+
     public String GetPower(long id){
         String powerName = "";
         Cursor cursor;
@@ -148,6 +150,54 @@ public class DBMedicamentInfoAdapter {
             powerName = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.POWER));
         }
         return powerName;
+    }
+
+    public String GetCode(long id){
+        String code = "";
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.CODE},
+                DatabaseConstantInformation.ID_MED + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            code = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.CODE));
+        }
+        return code;
+    }
+
+    public String GetSubsActive(long id){
+        String subsActive = "";
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.ACTIVESUBS},
+                DatabaseConstantInformation.ID_MED + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            subsActive = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.ACTIVESUBS));
+        }
+        return subsActive;
+    }
+
+    public String GetProducer(long id){
+        String producer = "";
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.PRODUCER},
+                DatabaseConstantInformation.ID_MED + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            producer = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.PRODUCER));
+        }
+        return producer;
     }
 
     public int GetMedId(String name){

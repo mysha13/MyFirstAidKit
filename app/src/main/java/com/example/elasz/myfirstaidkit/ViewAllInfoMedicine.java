@@ -1,6 +1,9 @@
 package com.example.elasz.myfirstaidkit;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -13,6 +16,7 @@ import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPersonAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
+import com.facebook.stetho.inspector.protocol.module.Database;
 
 import java.util.ArrayList;
 
@@ -85,23 +89,71 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
         dbMed = new DBMedicamentInfoAdapter(this);
         dbPerson = new DBPersonAdapter(this);
     }
+
     private void setTextView() {
         int id = getID();
         dbUser.OpenDB();
+        Bitmap imageBitmap = ConvertByteArrayToImage(id);
+        image.setImageBitmap(imageBitmap);
         name.setText(dbUser.GetColumnContent(DatabaseConstantInformation.NAME, id));
+        int idmed = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.ID_MEDICAMENT, id));
         //image.setImageBitmap(dbUser.GetColumnContent(DatabaseConstantInformation.IMAGE, id));
-        amount.setText(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT, id));
+
         expdate.setText(dbUser.GetColumnContent(DatabaseConstantInformation.EXPDATE, id));
         opendate.setText(dbUser.GetColumnContent(DatabaseConstantInformation.OPENDATE, id));
         int formid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.FORM, id));
-        //int place = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PLACE, id));
+        int purposeid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PURPOSE, id));
+        amount.setText(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
+        int amountformid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
+        //int personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+        note.setText(dbUser.GetColumnContent(DatabaseConstantInformation.NOTE, id));
+
         dbUser.CloseDB();
+
 
         dbFrom.OpenDB();   // tak dla kazdej tabeli
         form.setText(dbFrom.GetFormName(formid));
         dbFrom.CloseDB();
 
+        dbMed.OpenDB();
+        power.setText(dbMed.GetPower(idmed));
+        subsactive.setText(dbMed.GetSubsActive(idmed));
+        code.setText(dbMed.GetCode(idmed));
+        producer.setText(dbMed.GetProducer(idmed));
+        dbMed.CloseDB();
 
+        if(purposeid == 0){
+            purpose.setText("-");
+        }else{
+            dbPurpose.OpenDB();
+            purpose.setText(dbPurpose.GetPurposeName(purposeid));
+            dbPurpose.CloseDB();
+        }
+
+
+        dbAmountForm.OpenDB();
+        amountform.setText(dbAmountForm.GetAmountFormName(amountformid));
+        dbAmountForm.CloseDB();
+
+        /*if(personid == 0){
+            person.setText("-");
+        }
+        else{
+            dbPerson.OpenDB();
+            person.setText(dbPerson.GetPersonName(personid));
+            dbPerson.CloseDB();
+        }*/
+
+
+    }
+    private Bitmap ConvertByteArrayToImage(int id) {
+        dbUser.OpenDB();
+        byte[] imagebyte = dbUser.getImageByteArray(id);
+        if (imagebyte != null) {
+            return BitmapFactory.decodeByteArray(imagebyte, 0, imagebyte.length);
+        } else {
+            return null;
+        }
     }
 
     private int getID() {
@@ -110,6 +162,7 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
             return bundle.getInt("MedId");
         } else {
             return 0;
+
         }
     }
 

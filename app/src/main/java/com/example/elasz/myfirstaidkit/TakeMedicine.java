@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -56,7 +58,7 @@ public class TakeMedicine extends AppCompatActivity {
     // ArrayList<ShortMedInfoItem> medicaments;
     private ArrayAdapter<String> adapterMedName;
     SQLiteDatabase database;
-
+    private double takeValue ;
     Context context = this;
 
     @BindView(R.id.autoCompletetv_find_takeMed)
@@ -77,7 +79,24 @@ public class TakeMedicine extends AppCompatActivity {
         autoCompleteFindByName();
         getBundle();
         initialize();
+        autoComTV_findname.addTextChangedListener(mQueryWatcher);
     }
+    private TextWatcher mQueryWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            takemedadapter.filter(s.toString());
+        }
+    };
 
     public void initialize() {
         /*RecyclerViewClickListener listener = new RecyclerViewClickListener() {
@@ -108,9 +127,10 @@ public class TakeMedicine extends AppCompatActivity {
         View mView = getLayoutInflater().inflate(R.layout.alert_takemedicine_item, null);
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
+        dialog.show();
         doNotTake(mView,dialog);
         changeAmountOfMed(id,mView,dialog);
-        dialog.show();
+
 
 
     }
@@ -128,29 +148,28 @@ public class TakeMedicine extends AppCompatActivity {
 
     private void changeAmountOfMed(String id, View mView, AlertDialog dialog) {
         EditText editText = (EditText) mView.findViewById(R.id.et_takenMed_amount_item);
-        double takeValue;
-       // try{
-            takeValue = Double.parseDouble(editText.getText().toString());
+
+       try{
             Button takeMed = (Button) mView.findViewById(R.id.btnTakeTakeMed);
             takeMed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    takeValue = Double.parseDouble(editText.getText().toString());
                     long id1 = Long.parseLong(id);
                     dbUserMed.OpenDB();
                     String lastAmount = dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT, id1);
                     double doubleLastAmount= Double.parseDouble(lastAmount);
                     double newValue= doubleLastAmount-takeValue;
+                    updateAmount(id, newValue);
                     dbUserMed.CloseDB();
-                    updateAmount(id,newValue);
                     getMed();
+                    dialog.dismiss();
                 }
             });
 
-        //}catch (NumberFormatException e){
-
-
-        //}
-
+        }catch (NumberFormatException e){
+           Log.e("Expetion ", e.toString());
+        }
     }
 
 
