@@ -57,6 +57,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         holder.tv_Amount.setText(String.valueOf(filteredList.get(position).getAmount()));
         holder.iv_Image.setImageBitmap(filteredList.get(position).getImage());
         holder.tv_Power.setText(filteredList.get(position).getPower());
+        holder.tv_Code.setText(filteredList.get(position).getCode());
     }
 
     @Override
@@ -71,6 +72,8 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         for (ShortMedInfoItem shortMed : shortMeds) {
 
             if(shortMed.name.toLowerCase().contains(query.toLowerCase())){
+                filteredList.add(shortMed);
+            } else if (shortMed.code.toLowerCase().contains(query.toLowerCase())){
                 filteredList.add(shortMed);
             }
         }
@@ -104,6 +107,8 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         @BindView(R.id.tv_amount_item)
         TextView tv_Amount;
 
+        @BindView(R.id.tv_code_item)
+        TextView tv_Code;
        /* @BindView(R.id.spin_amountform_allinfo)
         TextView tv_AmountForm;*/
 

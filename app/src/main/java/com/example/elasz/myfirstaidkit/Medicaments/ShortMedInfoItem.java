@@ -20,8 +20,9 @@ public class ShortMedInfoItem implements Serializable {
     String amoutform;
     String power;
     Bitmap image;
+    String code;
 
-    public ShortMedInfoItem(int id, String name, String expdate, String form, String purpose, String amount, String amoutform, String power, Bitmap image) {
+    public ShortMedInfoItem(int id, String name, String expdate, String form, String purpose, String amount, String amoutform, String power, Bitmap image, String code) {
         Id = id;
         this.name = name;
         this.expdate = expdate;
@@ -31,6 +32,7 @@ public class ShortMedInfoItem implements Serializable {
         this.amoutform = amoutform;
         this.power = power;
         this.image = image;
+        this.code = code;
     }
 
     public int getId() {
@@ -105,4 +107,13 @@ public class ShortMedInfoItem implements Serializable {
     public void setImage(Bitmap image) {
         this.image = image;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 }

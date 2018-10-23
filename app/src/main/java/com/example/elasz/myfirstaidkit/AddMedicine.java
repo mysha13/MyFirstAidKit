@@ -652,8 +652,9 @@ public class AddMedicine extends AppCompatActivity {
     private  void ClearImageView(){
        // imageView.setImageBitmap(null);
         //imageView.setImageDrawable(null);
+        imageView.setImageBitmap(null);
         imageView.setImageResource(0);
-        imageView.setImageURI(null);
+        //imageView.setImageURI(null);
     }
 
     @Override

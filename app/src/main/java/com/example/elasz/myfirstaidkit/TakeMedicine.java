@@ -3,6 +3,7 @@ package com.example.elasz.myfirstaidkit;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -115,12 +116,19 @@ public class TakeMedicine extends AppCompatActivity {
     private void ButtonNumber(String id, int btn_nb) {
         if (btn_nb == 1) {
             TakeMedButton(id);
-        } else if (btn_nb == 2)
-        {
-            //editAmmountButton(id);
-        } else if (btn_nb == 2) {
+        } else if (btn_nb == 2){
+            editAmountButton(id);
+        } /*else if (btn_nb == 2) {
             //CancelMedButton(id);
-        }
+        }*/
+    }
+
+    private void editAmountButton(String id) {
+        Intent intent = new Intent(TakeMedicine.this, UpdateMedicine.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("MedIdUpdate", Integer.parseInt(id));
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void TakeMedButton(String id) {

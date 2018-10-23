@@ -193,7 +193,7 @@ public class ListView_InformationList extends AppCompatActivity {
                 //double amount = cursor.getDouble(5);
                 int amountformid = cursor.getInt(8);
                 // String amountform = cursor.getString(8);
-                int powerid = cursor.getInt(2);
+                int idmedinfo = cursor.getInt(2);
 
                 //String power = cursor.getString(7);
                 Bitmap image = ConvertByteArrayToImage(cursor);
@@ -201,10 +201,11 @@ public class ListView_InformationList extends AppCompatActivity {
 
                 String form = getFormName(dbForm, formid);
                 String amountform = getAmountFormName(dbAmountForm, amountformid);
-                String power = getPowerName(dbMedInfo, powerid);
+                String power = getPowerName(dbMedInfo, idmedinfo);
                 String purpose = getPurposeName(dbPurpose, purposeid);
+                String code = getCode(dbMedInfo, idmedinfo);
 
-                ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose, amount, amountform, power, image);
+                ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose, amount, amountform, power, image, code);
                 medicaments.add(shortmed);
 
             }
@@ -254,5 +255,11 @@ public class ListView_InformationList extends AppCompatActivity {
         return purpose;
     }
 
+    public String getCode(DBMedicamentInfoAdapter dAForm, int id) {
+        dAForm.OpenDB();
+        String power = dAForm.GetCode(id);
+        dAForm.CloseDB();
+        return power;
+    }
 
 }
