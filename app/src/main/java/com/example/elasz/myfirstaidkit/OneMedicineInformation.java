@@ -181,12 +181,20 @@ public class OneMedicineInformation extends AppCompatActivity {
 
     private void ButtonNumber(String id, int btn_nb) {
         if (btn_nb == 1) {
-            //UpdateMedButton(id);
+            UpdateMedButton(id);
         } else if (btn_nb == 2) {
             DeleteMedButton(id);
         } else if (btn_nb == 3) {
             MoreInfoButton(id);
         }
+    }
+
+    private void UpdateMedButton(String id) {
+        Intent intent = new Intent(OneMedicineInformation.this, UpdateMedicine.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("MedIdUpdate", Integer.parseInt(id));
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void MoreInfoButton(String id) {

@@ -60,7 +60,7 @@ public class DBMedicamentInfoAdapter {
         return database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE, columns, null, null, null, null, null);
     }
 
-    public long UpdateRowMedInfo(int id, String name, String power, String activeSubs, int code, String producer){
+    public long UpdateRowMedInfo(int id, String name, String power, String activeSubs, String code, String producer){
         ContentValues cvUpdateRow = new ContentValues();
         cvUpdateRow.put(DatabaseConstantInformation.MEDNAME, name);
         cvUpdateRow.put(DatabaseConstantInformation.POWER, power);

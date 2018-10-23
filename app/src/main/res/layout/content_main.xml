@@ -275,18 +275,28 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/txt_text0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liczba leków: "
+            android:textSize="20dp"
+            android:layout_weight="2"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="3"
+            android:layout_below="@+id/txt_text0"
             android:id="@+id/line1"
             android:layout_marginTop="10dp">
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30dp"
                 android:id="@+id/txt_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Liczba wszystkich leków: "
+                android:text="ogółem: "
                 android:textSize="20dp"
                 android:layout_weight="2"/>
 
@@ -311,11 +321,11 @@
             android:id="@+id/line2"
             android:layout_marginTop="10dp">
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30dp"
                 android:id="@+id/txt_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Liczba terminowych leków: "
+                android:text="zbliżającyh się do terminu: "
                 android:textSize="20dp"
                 android:layout_weight="2"/>
 
@@ -340,11 +350,11 @@
             android:id="@+id/line3"
             android:layout_marginTop="10dp">
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30dp"
                 android:id="@+id/txt_text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Liczba przeterminowanych \nleków: "
+                android:text="przeterminowanych:  "
                 android:textSize="20dp"
                 android:layout_weight="2"/>
 

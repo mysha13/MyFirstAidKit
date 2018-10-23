@@ -43,7 +43,10 @@ import com.karan.churi.PermissionManager.PermissionManager;
 
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -236,13 +239,13 @@ public class MainActivity extends AppCompatActivity {
 
                         if (id == R.id.nav_download) {
                             // Handle the camera action
-                        } else if (id == R.id.nav_gallery) {
+                        } /*else if (id == R.id.nav_gallery) {
 
                         } else if (id == R.id.nav_slideshow) {
 
                         } else if (id == R.id.nav_manage) {
 
-                        } else if (id == R.id.nav_edit_forms) {
+                        }*/ else if (id == R.id.nav_edit_forms) {
                             //openNextActivity();
                             Intent intent = new Intent(MainActivity.this, EditFormsList.class);
                             startActivity(intent);
@@ -387,6 +390,23 @@ public class MainActivity extends AppCompatActivity {
         dbUserMed.CloseDB();
         String nbText = Long.toString(nball);
         nballmed.setText(nbText);
+
+
+        Calendar cal= Calendar.getInstance();
+        Date currentTime = cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //"dd/MM/yyyy_HHmmss");
+        String currentDateandTime = sdf.format(currentTime);
+        cal.add(Calendar.DAY_OF_MONTH, 7);
+        String newdate = sdf.format(cal.getTime());
+
+        dbUserMed.OpenDB();
+        ArrayList<String> a =dbUserMed.medNear(newdate);
+        dbUserMed.CloseDB();
+        nbtimelymed.setText(String.valueOf(a.size()));
+
+
+
+
     }
 
     private void CreateSpinnerLists(DBFormAdapter dbF, DBPurposeAdapter dbP, DBAmountFormAdapter dbAF) {

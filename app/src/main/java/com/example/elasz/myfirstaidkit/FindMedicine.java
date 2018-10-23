@@ -49,7 +49,7 @@ public class FindMedicine extends AppCompatActivity {
     ShortMedInfoItemAdapter shortmedadapter;
     private ArrayList<String> medNames;
    // ArrayList<ShortMedInfoItem> medicaments;
-   private ArrayAdapter<String> adapterMedName;
+    private ArrayAdapter<String> adapterMedName;
 
     Context context = this;
 

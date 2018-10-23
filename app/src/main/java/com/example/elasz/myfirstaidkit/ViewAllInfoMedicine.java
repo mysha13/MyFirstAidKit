@@ -72,12 +72,12 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String id = intent.getStringExtra("MedId");
+        setDBAdapter();
         setAllTextView();
 
     }
 
     private void setAllTextView() {
-        setDBAdapter();
         setTextView();
     }
 

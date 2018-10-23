@@ -7,12 +7,16 @@ import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by elasz on 12.09.2018.
@@ -47,6 +51,63 @@ public class DBUserMedicamentsAdapter {
     public long medCount() throws SQLException{
         long count = DatabaseUtils.queryNumEntries(database, DatabaseConstantInformation.USERMEDICAMENTSTABLE);
         return count;
+    }
+
+    public ArrayList<String> medNear(String date) throws  SQLException{
+        String colName = DatabaseConstantInformation.ID_USERMED ;
+        ArrayList<String> meds  = new ArrayList<String>();
+        Cursor cursor;
+
+        Calendar cal= Calendar.getInstance();
+        Date currentTime = cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //"dd/MM/yyyy_HHmmss");
+        String currentDateandTime = sdf.format(currentTime);
+        cal.add(Calendar.DAY_OF_MONTH, 7);
+        String newdate = sdf.format(cal.getTime());
+
+        Cursor c = database.rawQuery("select Id_UserMed, EXP from " + DatabaseConstantInformation.USERMEDICAMENTSTABLE + " where EXP BETWEEN '" + currentDateandTime + "' AND '" + newdate + "' ORDER BY EXP ASC", null);
+ //https://stackoverflow.com/questions/14207494/android-sqlite-select-between-date1-and-date2
+        if (c != null ) {
+            if  (c.moveToFirst()) {
+                do {
+                    int tempId = c.getInt(c.getColumnIndex("Id_UserMed"));
+                    long tempUnixTime = c.getLong(c.getColumnIndex("EXP"));
+
+                    //convert tempUnixTime to Date
+                    java.util.Date startDateDate = new java.util.Date(tempUnixTime);
+
+                    //create SimpleDateFormat formatter
+                    SimpleDateFormat formatter1;
+                    formatter1 = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
+
+                    //convert Date to SimpleDateFormat and convert to String
+                    String tempStringStartDate = formatter1.format(startDateDate);
+
+                    //int tempHours = c.getInt(c.getColumnIndex("Hours"));
+                   // meds.add(c.getString(0));
+                    meds.add(+ tempId + "    Date: " + tempStringStartDate);// + "    Hours: " + tempHours);
+                }while (c.moveToNext());
+            }
+        }
+
+
+
+
+        /*cursor = database.rawQuery("SELECT " + colName + " FROM " + DatabaseConstantInformation.USERMEDICAMENTSTABLE +
+                " WHERE " + DatabaseConstantInformation.EXPDATE + " < ?", new String[]{String.valueOf(date)});
+
+        cursor = database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE,
+                new String[]{colName},
+                DatabaseConstantInformation.EXPDATE + "<?",
+                new String[]{String.valueOf(date)},
+                null, null, null);
+
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            meds.add(String.valueOf(cursor.getColumnIndex(colName)));
+            Log.v("Cursor DB", DatabaseUtils.dumpCursorToString(cursor));
+        }*/
+        return meds;
     }
 
     public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, String person, String note, boolean istake, byte[] image) {
@@ -89,7 +150,7 @@ public class DBUserMedicamentsAdapter {
         return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE, columns, null, null, null, null, null);
     }
 
-    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, String form, String purpose, double amount, String amount_form, String person, String note, int istake, byte[] image){
+    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, String person, String note, boolean istake, byte[] image){
         ContentValues cvUpdateRow = new ContentValues();
         cvUpdateRow.put(DatabaseConstantInformation.NAME, name);
         cvUpdateRow.put(DatabaseConstantInformation.ID_MEDICAMENT, id_medicament);

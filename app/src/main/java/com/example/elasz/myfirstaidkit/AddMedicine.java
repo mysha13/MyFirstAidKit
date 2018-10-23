@@ -49,6 +49,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -73,7 +74,7 @@ public class AddMedicine extends AppCompatActivity {
         AddMedicine.codecode = codecode;
     }
 
-   public static int codefromscanner;
+    public static int codefromscanner;
     public static String codecode;
 
    // private DatabaseFormAdapter dAForm;
@@ -92,6 +93,7 @@ public class AddMedicine extends AppCompatActivity {
     @BindView(R.id.spin_form_add)
     Spinner spin_form;
     private String todb_form;
+
 
     @BindView(R.id.spin_purpose_add)
     Spinner spin_purpose;
@@ -297,6 +299,7 @@ public class AddMedicine extends AppCompatActivity {
                 Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
 
                 String date = day + "/" + month + "/" + year;
+
                 expdate.setText(date);
 
             }

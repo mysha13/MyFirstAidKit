@@ -4,21 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="6"
     tools:context="com.example.elasz.myfirstaidkit.ListView_InformationList">
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
 
     <TextView
-        android:id="@+id/txtInfoView_infoName"
+        android:id="@+id/txtInfoView_tnumberNearOverdueMeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="Nazwa informacji"
+        android:text="Leki zbliające się do terminu"
         android:layout_marginLeft="10dp"/>
 
     <TextView
-        android:id="@+id/txtInfoView_number"
+        android:id="@+id/tv_numberNearOverdueMeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
@@ -27,7 +33,57 @@
         android:textSize="20dp"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:text="TextView" />
+        android:text="10" />
+</LinearLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recView_nearOverdueMed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="2"
+        android:clipToPadding="false"
+        android:padding="5dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtInfoView_numberOverdueMeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="Leki przeterminowane"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_numberOverdueMeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:text="10" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recView_overdueMed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="2"
+        android:clipToPadding="false"
+        android:padding="5dp">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

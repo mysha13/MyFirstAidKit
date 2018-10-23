@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
@@ -127,6 +128,16 @@ public class TakeMedicine extends AppCompatActivity {
         View mView = getLayoutInflater().inflate(R.layout.alert_takemedicine_item, null);
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
+        TextView tv_name=mView.findViewById(R.id.tv_takenMed_name_item);
+        TextView tv_amountform=mView.findViewById(R.id.tv_takenMed_amountForm_item);
+        long id1 = Long.parseLong(id);
+        dbUserMed.OpenDB();
+        tv_name.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.NAME, id1));
+        String idamountform = dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id1);
+        dbUserMed.CloseDB();
+        dbAmountForm.OpenDB();
+        tv_amountform.setText(dbAmountForm.GetAmountFormName(Long.parseLong(idamountform)));
+        dbAmountForm.CloseDB();
         dialog.show();
         doNotTake(mView,dialog);
         changeAmountOfMed(id,mView,dialog);
@@ -168,7 +179,7 @@ public class TakeMedicine extends AppCompatActivity {
             });
 
         }catch (NumberFormatException e){
-           Log.e("Expetion ", e.toString());
+           Log.e("Exception ", e.toString());
         }
     }
 
