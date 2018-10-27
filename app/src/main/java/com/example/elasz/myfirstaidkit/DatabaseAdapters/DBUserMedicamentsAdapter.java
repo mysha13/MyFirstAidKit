@@ -89,10 +89,6 @@ public class DBUserMedicamentsAdapter {
                 }while (c.moveToNext());
             }
         }
-
-
-
-
         /*cursor = database.rawQuery("SELECT " + colName + " FROM " + DatabaseConstantInformation.USERMEDICAMENTSTABLE +
                 " WHERE " + DatabaseConstantInformation.EXPDATE + " < ?", new String[]{String.valueOf(date)});
 
@@ -217,7 +213,7 @@ public class DBUserMedicamentsAdapter {
         database.delete(DatabaseConstantInformation.USERMEDICAMENTSTABLE, DatabaseConstantInformation.ID_USERMED + "=?", new String[]{id});
     }
 
-    public Cursor FindUserMedicamentByCode(String code, String columnName) {
+    /*public Cursor FindUserMedicamentByCode(String code, String columnName) {
 
         String[] columns = new String[]{DatabaseConstantInformation.ID_USERMED,
                 DatabaseConstantInformation.MEDNAME,
@@ -230,7 +226,7 @@ public class DBUserMedicamentsAdapter {
                 columns,
                 columnName + "=?" + " COLLATE NOCASE",
                 new String[]{code}, null, null, DatabaseConstantInformation.CODE);
-    }
+    }*/
 
     public void renameForm(String formId) {
         ContentValues rowUpdate = new ContentValues();

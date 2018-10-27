@@ -296,7 +296,7 @@ public class AddMedicine extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+                Log.d(TAG, "onDateSet: dd/MM/yyyyy: " + day + "/" + month + "/" + year);
 
                 String date = day + "/" + month + "/" + year;
 
@@ -308,7 +308,7 @@ public class AddMedicine extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+                Log.d(TAG, "onDateSet: dd/MM/yyyy: " + day + "/" + month + "/" + year);
 
                 String date = day + "/" + month + "/" + year;
                 opendate.setText(date);
@@ -399,10 +399,24 @@ public class AddMedicine extends AppCompatActivity {
 
         if (work > 0 && work2 >0 ) {
             Toast.makeText(AddMedicine.this, "Dodano lek", Toast.LENGTH_LONG).show();
+            clearTextViews();
         } else {
             Toast.makeText(AddMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private void clearTextViews() {
+        name.setText("");
+        expdate.setText("dd/MM/yyyy");
+        opendate.setText("dd/MM/yyyy");
+       amount.setText("");
+        power.setText("");
+        subsActive.setText("");
+        code.setText("");
+        producer.setText("");
+        note.setText("");
+        istake.setChecked(false);
     }
 
     private long TryToAddToMedInfo(){

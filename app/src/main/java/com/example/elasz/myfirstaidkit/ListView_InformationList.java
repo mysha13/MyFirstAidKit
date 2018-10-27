@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ListView_InformationList extends AppCompatActivity {
 
@@ -68,8 +69,27 @@ public class ListView_InformationList extends AppCompatActivity {
         //medicamentsOver = new ArrayList<>();
         getMed();
         initialize();
-
     }
+
+
+    @OnClick(R.id.btn_dropdown_nearMed)
+    void openNearMedsList(){
+        if(recView_near.getVisibility()==View.GONE){
+            recView_near.setVisibility(View.VISIBLE);
+        } else if (recView_near.getVisibility()==View.VISIBLE){
+            recView_near.setVisibility(View.GONE);
+        }
+    }
+
+    private void setDBAdapters() {
+        dbUserMed = new DBUserMedicamentsAdapter(this);
+        dbMedInfo = new DBMedicamentInfoAdapter(this);
+        dbForm = new DBFormAdapter(this);
+        dbPurpose = new DBPurposeAdapter( this);
+        dbAmountForm = new DBAmountFormAdapter(this);
+        dbPerson = new DBPersonAdapter(this);
+    }
+
     public void initialize() {
 
         RecyclerViewClickListener listener = (view, position, id, bNumber) -> {
@@ -92,7 +112,7 @@ public class ListView_InformationList extends AppCompatActivity {
     private void UpdateMedButton(String id) {
         Intent intent = new Intent(ListView_InformationList.this, UpdateMedicine.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("MedId", Integer.parseInt(id));
+        bundle.putInt("MedIdUpdate", Integer.parseInt(id));
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -139,7 +159,6 @@ public class ListView_InformationList extends AppCompatActivity {
         dbMed.CloseDB();
 
     }
-
 
     private void setRecyclerViews() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
@@ -219,12 +238,6 @@ public class ListView_InformationList extends AppCompatActivity {
         } else {
             return null;
         }
-    }
-    private void setDBAdapters() {
-        dbUserMed = new DBUserMedicamentsAdapter(this);
-        dbMedInfo = new DBMedicamentInfoAdapter(this);
-        dbForm = new DBFormAdapter(this);
-        dbPurpose = new DBPurposeAdapter( this);
     }
 
     public String getFormName(DBFormAdapter dbFormAdapter, int id){

@@ -75,6 +75,7 @@ public class FindMedicine extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_medicine);
         ButterKnife.bind(this);
+        setDBAdapters();
         setRecyclerView();
 
         autoCompleteFindByName();
@@ -84,10 +85,27 @@ public class FindMedicine extends AppCompatActivity {
 
         autoComTV_findname.addTextChangedListener(mQueryWatcher);
 
-        et_findcode.addTextChangedListener(mQueryWatcher);
+        et_findcode.addTextChangedListener(mQueryWatcher1);
 
     }
     private TextWatcher mQueryWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            shortmedadapter.filter(s.toString());
+        }
+    };
+
+    private TextWatcher mQueryWatcher1 = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -192,7 +210,7 @@ public class FindMedicine extends AppCompatActivity {
     }
 
     private void getMedicamentItem() {
-        setDBAdapters();
+        //setDBAdapters();
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
@@ -295,8 +313,8 @@ public class FindMedicine extends AppCompatActivity {
         Cursor cursor;
         if (Integer.valueOf(byWhich[0]) == 1) {
             cursor = dbUserMed.FindUserMedicamentByName(byWhich[1], byWhich[2]);
-        } else if (Integer.valueOf(byWhich[0]) == 2) {
-            cursor = dbUserMed.FindUserMedicamentByCode(byWhich[4], byWhich[3]);}
+        } //else if (Integer.valueOf(byWhich[0]) == 2) {
+            //cursor = dbUserMed.FindUserMedicamentByCode(byWhich[4], byWhich[3]);}
          else {
             cursor = null;
         }

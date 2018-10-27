@@ -210,37 +210,76 @@ public class Alarms extends AppCompatActivity {
     }
 
     private void addReminderInCalendar() {
+        long oddTime = datetoend.getTime()-datetostart.getTime();
+        long dayCount=oddTime/86400000;
+
         Calendar cal = Calendar.getInstance();
         Uri EVENTS_URI = Uri.parse(getCalendarUriBase(true) + "events");
         ContentResolver cr = getContentResolver();
         TimeZone timeZone = TimeZone.getDefault();
 
-        //** Inserting an event in calendar. *//*
+        for(int i = 0;i<=dayCount;i++){
+            //** Inserting an event in calendar. *//*
+            ContentValues values = new ContentValues();
+            values.put(CalendarContract.Events.CALENDAR_ID, 1);
+            values.put(CalendarContract.Events.TITLE, title);
+            values.put(CalendarContract.Events.DESCRIPTION, description);
+            values.put(CalendarContract.Events.ALL_DAY, 0);
+
+            values.put(CalendarContract.Events.DTSTART, datetostart.getTime() +0);// 1 * 60 * 1000);
+            // ends 60 minutes from now
+            values.put(CalendarContract.Events.DTEND, datetostart.getTime() + 0);//2 * 60 * 1000);
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
+            //values.put(CalendarContract.Events.RRULE,"FREQ=DAILY, COUNT=");
+            values.put(CalendarContract.Events.HAS_ALARM, 1);
+            Uri event = cr.insert(EVENTS_URI, values);
+
+            // Display event id.
+            Toast.makeText(getApplicationContext(), "Event added :: ID :: " + event.getLastPathSegment(), Toast.LENGTH_SHORT).show();
+
+            //** Adding reminder for event added. *//*
+            Uri REMINDERS_URI = Uri.parse(getCalendarUriBase(true) + "reminders");
+            values = new ContentValues();
+            values.put(CalendarContract.Reminders.EVENT_ID, Long.parseLong(event.getLastPathSegment()));
+            values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+            values.put(CalendarContract.Reminders.MINUTES, 0);
+            cr.insert(REMINDERS_URI, values);
+
+
+            datetostart.setTime(datetostart.getTime() + 86400000);
+
+        }
+
+        /*Calendar cal = Calendar.getInstance();
+        Uri EVENTS_URI = Uri.parse(getCalendarUriBase(true) + "events");
+        ContentResolver cr = getContentResolver();
+        TimeZone timeZone = TimeZone.getDefault();*/
+
+       /* /*//** Inserting an event in calendar. *//**//*
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Events.CALENDAR_ID, 1);
         values.put(CalendarContract.Events.TITLE, title);
         values.put(CalendarContract.Events.DESCRIPTION, description);
         values.put(CalendarContract.Events.ALL_DAY, 0);
 
-        // event starts at 11 minutes from now
         values.put(CalendarContract.Events.DTSTART, datetostart.getTime() + 1 * 60 * 1000);
         // ends 60 minutes from now
         values.put(CalendarContract.Events.DTEND, datetoend.getTime() + 2 * 60 * 1000);
         values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
-        values.put(CalendarContract.Events.RRULE,"FREQ=DAILY, COUNT=");
+        //values.put(CalendarContract.Events.RRULE,"FREQ=DAILY, COUNT=");
         values.put(CalendarContract.Events.HAS_ALARM, 1);
         Uri event = cr.insert(EVENTS_URI, values);
 
         // Display event id.
         Toast.makeText(getApplicationContext(), "Event added :: ID :: " + event.getLastPathSegment(), Toast.LENGTH_SHORT).show();
 
-        //** Adding reminder for event added. *//*
+        /*//** Adding reminder for event added. *//**//*
         Uri REMINDERS_URI = Uri.parse(getCalendarUriBase(true) + "reminders");
         values = new ContentValues();
         values.put(CalendarContract.Reminders.EVENT_ID, Long.parseLong(event.getLastPathSegment()));
         values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
         values.put(CalendarContract.Reminders.MINUTES, 10);
-        cr.insert(REMINDERS_URI, values);
+        cr.insert(REMINDERS_URI, values);*/
     }
 
     //** Returns Calendar Base URI, supports both new and old OS. *//*

@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private void openNextActivity() {
-        Intent intent = new Intent(MainActivity.this, EditFormsList.class);
+        Intent intent = new Intent(MainActivity.this, ListView_InformationList.class);
         startActivity(intent);
     }
 
