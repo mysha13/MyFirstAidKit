@@ -43,7 +43,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.one_medicine_newitem, null);
+                .inflate(R.layout.cardview_recycler_onemedicine, null);
         return new ViewHolder(itemLayoutView, listener);
     }
 
@@ -80,6 +80,18 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         notifyDataSetChanged();
     }
 
+    public void filterDate(String query){
+        filteredList = new ArrayList<>();
+        for (ShortMedInfoItem shortMed : shortMeds) {
+
+            if(shortMed.expdate.toLowerCase().contains(query.toLowerCase())){
+                filteredList.add(shortMed);
+            } /*else if (shortMed.code.toLowerCase().contains(query.toLowerCase())){
+                filteredList.add(shortMed);
+            }*/
+        }
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

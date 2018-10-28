@@ -42,11 +42,12 @@ public class ListView_InformationList extends AppCompatActivity {
     private DBAmountFormAdapter dbAmountForm;
     private DBPersonAdapter dbPerson;
 
-    ShortMedInfoItemAdapter shortmedadapter;
+    ShortMedInfoItemAdapter shortmedadapterNearMeds;
+    ShortMedInfoItemAdapter shortmedadapterOverDueMeds;
     ArrayList<ShortMedInfoItem> medicamentsNear;
     ArrayList<ShortMedInfoItem> medicamentsOver;
     Context context = this;
-
+    Context context1 = this;
     @BindView(R.id.recView_nearOverdueMed)
     RecyclerView recView_near;
 
@@ -66,7 +67,7 @@ public class ListView_InformationList extends AppCompatActivity {
         ButterKnife.bind(this);
         setRecyclerViews();
         medicamentsNear = new ArrayList<>();
-        //medicamentsOver = new ArrayList<>();
+        medicamentsOver = new ArrayList<>();
         getMed();
         initialize();
     }
@@ -80,6 +81,16 @@ public class ListView_InformationList extends AppCompatActivity {
             recView_near.setVisibility(View.GONE);
         }
     }
+
+    @OnClick(R.id.btn_dropdown_overDueMed)
+    void openOverDueMedsList(){
+        if(recView_over.getVisibility()==View.GONE){
+            recView_over.setVisibility(View.VISIBLE);
+        } else if (recView_over.getVisibility()==View.VISIBLE){
+            recView_over.setVisibility(View.GONE);
+        }
+    }
+
 
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
@@ -95,8 +106,15 @@ public class ListView_InformationList extends AppCompatActivity {
         RecyclerViewClickListener listener = (view, position, id, bNumber) -> {
             ButtonNumber(id, bNumber);
         };
-        shortmedadapter = new ShortMedInfoItemAdapter(medicamentsNear, listener);
-        recView_near.setAdapter(shortmedadapter);
+        shortmedadapterNearMeds = new ShortMedInfoItemAdapter(medicamentsNear, listener);
+        recView_near.setAdapter(shortmedadapterNearMeds);
+
+        RecyclerViewClickListener listener1 = (view, position, id, bNumber) -> {
+            ButtonNumber(id, bNumber);
+        };
+        shortmedadapterOverDueMeds = new ShortMedInfoItemAdapter(medicamentsOver,listener1);
+        recView_over.setAdapter(shortmedadapterOverDueMeds);
+
     }
 
     private void ButtonNumber(String id, int btn_nb) {
@@ -176,25 +194,38 @@ public class ListView_InformationList extends AppCompatActivity {
 
     private void getBundle() {
         medicamentsNear = new ArrayList<>();
+        medicamentsOver = new ArrayList<>();
         //numberOfMeds.setText("Wszystkie leki dodane");
         getMed();
     }
 
     private void getMed() {
         medicamentsNear.clear();
+        medicamentsOver.clear();
         getMedicamentItem();
 
         if (!(medicamentsNear.size() < 1)) {
-            recView_near.setAdapter(shortmedadapter);
+            recView_near.setAdapter(shortmedadapterNearMeds);
+        }
+
+
+
+        if (!(medicamentsOver.size() < 1)) {
+            recView_over.setAdapter(shortmedadapterOverDueMeds);
         }
     }
 
     private void getMedicamentItem() {
         setDBAdapters();
         dbUserMed.OpenDB();
-        Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
-        Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
-        CreateMedList(cursor, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsNear);
+        //Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
+        Cursor cursorNear = dbUserMed.medNear();
+        Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursorNear));
+        CreateMedList(cursorNear, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsNear);
+
+        dbUserMed.OpenDB();
+        Cursor cursorOver = dbUserMed.medOverDue();
+        CreateMedList(cursorOver, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsOver);
     }
 
     public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBFormAdapter dbForm, DBPurposeAdapter dbPurpose, DBAmountFormAdapter dbAmountForm, DBMedicamentInfoAdapter dbMedInfo, ArrayList<ShortMedInfoItem> medicaments) {

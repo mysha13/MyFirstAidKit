@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -47,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -394,16 +396,22 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar cal= Calendar.getInstance();
         Date currentTime = cal.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //"dd/MM/yyyy_HHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK); //"dd/MM/yyyy_HHmmss");
         String currentDateandTime = sdf.format(currentTime);
         cal.add(Calendar.DAY_OF_MONTH, 7);
         String newdate = sdf.format(cal.getTime());
 
         dbUserMed.OpenDB();
-        ArrayList<String> a =dbUserMed.medNear(newdate);
+        Cursor a =dbUserMed.medNear();
+        nbtimelymed.setText(String.valueOf(a.getCount()));
         dbUserMed.CloseDB();
-        nbtimelymed.setText(String.valueOf(a.size()));
 
+
+
+        dbUserMed.OpenDB();
+        Cursor a1= dbUserMed.medOverDue();
+        nboverduemed.setText(String.valueOf(a1.getCount()));
+        dbUserMed.CloseDB();
 
 
 

@@ -53,19 +53,19 @@ public class DBUserMedicamentsAdapter {
         return count;
     }
 
-    public ArrayList<String> medNear(String date) throws  SQLException{
+    public Cursor medNear() throws  SQLException{
         String colName = DatabaseConstantInformation.ID_USERMED ;
         ArrayList<String> meds  = new ArrayList<String>();
         Cursor cursor;
 
         Calendar cal= Calendar.getInstance();
         Date currentTime = cal.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //"dd/MM/yyyy_HHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK); //"dd/MM/yyyy_HHmmss");
         String currentDateandTime = sdf.format(currentTime);
         cal.add(Calendar.DAY_OF_MONTH, 7);
         String newdate = sdf.format(cal.getTime());
 
-        Cursor c = database.rawQuery("select Id_UserMed, EXP from " + DatabaseConstantInformation.USERMEDICAMENTSTABLE + " where EXP BETWEEN '" + currentDateandTime + "' AND '" + newdate + "' ORDER BY EXP ASC", null);
+        Cursor c = database.rawQuery("select * from " + DatabaseConstantInformation.USERMEDICAMENTSTABLE + " where EXP BETWEEN '" + currentDateandTime + "' AND '" + newdate + "' ORDER BY EXP ASC", null);
  //https://stackoverflow.com/questions/14207494/android-sqlite-select-between-date1-and-date2
         if (c != null ) {
             if  (c.moveToFirst()) {
@@ -78,14 +78,15 @@ public class DBUserMedicamentsAdapter {
 
                     //create SimpleDateFormat formatter
                     SimpleDateFormat formatter1;
-                    formatter1 = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
+                    formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
 
                     //convert Date to SimpleDateFormat and convert to String
                     String tempStringStartDate = formatter1.format(startDateDate);
 
                     //int tempHours = c.getInt(c.getColumnIndex("Hours"));
                    // meds.add(c.getString(0));
-                    meds.add(+ tempId + "    Date: " + tempStringStartDate);// + "    Hours: " + tempHours);
+                    meds.add(+ tempId +  "    Date: " + tempStringStartDate);// + "    Hours: " + tempHours);
+
                 }while (c.moveToNext());
             }
         }
@@ -103,8 +104,73 @@ public class DBUserMedicamentsAdapter {
             meds.add(String.valueOf(cursor.getColumnIndex(colName)));
             Log.v("Cursor DB", DatabaseUtils.dumpCursorToString(cursor));
         }*/
-        return meds;
+        return database.rawQuery("select * from " + DatabaseConstantInformation.USERMEDICAMENTSTABLE + " where EXP BETWEEN '" + currentDateandTime + "' AND '" + newdate + "' ORDER BY EXP ASC", null);
+
     }
+
+    public Cursor medOverDue() throws  SQLException{
+        String colName = DatabaseConstantInformation.ID_USERMED ;
+        ArrayList<String> meds  = new ArrayList<String>();
+        Cursor cursor;
+
+        Calendar cal= Calendar.getInstance();
+        Date currentTime = cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK); //"dd/MM/yyyy_HHmmss");
+        String currentDateandTime = sdf.format(currentTime);
+        cal.add(Calendar.DAY_OF_MONTH, 7);
+        String newdate = sdf.format(cal.getTime());
+
+        Cursor c = database.rawQuery("select * from " + DatabaseConstantInformation.USERMEDICAMENTSTABLE + " where EXP < '" + currentDateandTime + "' ORDER BY EXP ASC", null);
+        //https://stackoverflow.com/questions/14207494/android-sqlite-select-between-date1-and-date2
+        if (c != null ) {
+            if  (c.moveToFirst()) {
+                do {
+                    int tempId = c.getInt(c.getColumnIndex("Id_UserMed"));
+                    long tempUnixTime = c.getLong(c.getColumnIndex("EXP"));
+
+                    //convert tempUnixTime to Date
+                    java.util.Date startDateDate = new java.util.Date(tempUnixTime);
+
+                    //create SimpleDateFormat formatter
+                    SimpleDateFormat formatter1;
+                    formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+
+                    //convert Date to SimpleDateFormat and convert to String
+                    String tempStringStartDate = formatter1.format(startDateDate);
+
+                    //int tempHours = c.getInt(c.getColumnIndex("Hours"));
+                    // meds.add(c.getString(0));
+                    meds.add(+ tempId + "    Date: " + tempStringStartDate);// + "    Hours: " + tempHours);
+
+                }while (c.moveToNext());
+            }
+        }
+        //return c;
+        /*String[] columns= new String[]{DatabaseConstantInformation.ID_USERMED,
+                DatabaseConstantInformation.NAME,
+                DatabaseConstantInformation.ID_MEDICAMENT,
+                DatabaseConstantInformation.EXPDATE,
+                DatabaseConstantInformation.OPENDATE,
+                DatabaseConstantInformation.FORM,
+                DatabaseConstantInformation.PURPOSE,
+                DatabaseConstantInformation.AMOUNT,
+                DatabaseConstantInformation.AMOUNT_FORM,
+                DatabaseConstantInformation.PERSON,
+                DatabaseConstantInformation.NOTE,
+                DatabaseConstantInformation.ISTAKEN,
+                DatabaseConstantInformation.IMAGE};
+
+        return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE,
+                columns,
+                DatabaseConstantInformation.ID_USERMED + "=?" + " COLLATE NOCASE",
+                new String[]{meds.get(0)},
+                null, null, DatabaseConstantInformation.ID_USERMED);*/
+        return database.rawQuery("select * from " + DatabaseConstantInformation.USERMEDICAMENTSTABLE + " where EXP < '" + currentDateandTime + "' ORDER BY EXP ASC", null);
+
+    }
+
+
+
 
     public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, String person, String note, boolean istake, byte[] image) {
         try {
@@ -185,6 +251,27 @@ public class DBUserMedicamentsAdapter {
     public Cursor getNames() {
         return database.query(true, DatabaseConstantInformation.USERMEDICAMENTSTABLE, new String[]{DatabaseConstantInformation.NAME}, null, null, DatabaseConstantInformation.NAME, null, null, null);
 
+    }
+
+    public Cursor searchMedById(String name, String columnName) {
+
+        String[] columns = new String[]{DatabaseConstantInformation.ID_USERMED,
+                DatabaseConstantInformation.NAME,
+                DatabaseConstantInformation.ID_MEDICAMENT,
+                DatabaseConstantInformation.EXPDATE,
+                DatabaseConstantInformation.OPENDATE,
+                DatabaseConstantInformation.FORM,
+                DatabaseConstantInformation.PURPOSE,
+                DatabaseConstantInformation.AMOUNT,
+                DatabaseConstantInformation.AMOUNT_FORM,
+                DatabaseConstantInformation.PERSON,
+                DatabaseConstantInformation.NOTE};
+
+        return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE,
+                columns,
+                columnName + "=?" + " COLLATE NOCASE",
+                new String[]{name},
+                null, null, DatabaseConstantInformation.ID_USERMED);
     }
 
     public Cursor FindUserMedicamentByName(String name, String columnName) {

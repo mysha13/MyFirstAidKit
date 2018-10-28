@@ -296,9 +296,9 @@ public class AddMedicine extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/MM/yyyyy: " + day + "/" + month + "/" + year);
+                Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
 
-                String date = day + "/" + month + "/" + year;
+                String date = year + "-" + month + "-" + day;//+ "-" + month + "-" + year;
 
                 expdate.setText(date);
 
@@ -308,9 +308,9 @@ public class AddMedicine extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/MM/yyyy: " + day + "/" + month + "/" + year);
-
-                String date = day + "/" + month + "/" + year;
+                //Log.d(TAG, "onDateSet: dd-MM-yyyy: " + day + "-" + month + "-" + year);
+                Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
+                String date =  year + "-" + month + "-" + day;//day + "-" + month + "-" + year;
                 opendate.setText(date);
 
             }
@@ -512,7 +512,10 @@ public class AddMedicine extends AppCompatActivity {
             todb_expdate=null;
         }
         else{
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             todb_expdate=expdate.getText().toString();
+
         }
 
         if(opendate.getText()==null){

@@ -2,6 +2,7 @@ package com.example.elasz.myfirstaidkit;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -251,6 +253,16 @@ public class UpdateMedicine extends AppCompatActivity {
                 year,month,day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+    }
+
+    @OnClick(R.id.btn_addPhoto_update)
+    public void addPhotoUpdate(){
+        showPictureDialog();
+    }
+
+    @OnClick(R.id.btn_removePhoto_update)
+    public void removePhotoUpdate(){
+        ClearImageView();
     }
 
     private void setSpinners(){
@@ -780,6 +792,57 @@ public class UpdateMedicine extends AppCompatActivity {
             e1.printStackTrace();
         }
         return "";
+    }
+
+    private void showPictureDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Wybierz czynność");
+        String[] pictureDialogItems = {
+                "Wybierz zdjęcia z galerii",
+                "Zrób zdjęcie aparatem",
+                "Anuluj"};
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                choosePhotoFromGallery();
+                                //Toast.makeText(AddMedicine.this, "Kliknięto o galeria", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 1:
+                                takePhotoFromCamera();
+                                //Toast.makeText(AddMedicine.this, "Kliknięto 1 camera", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 3:
+                                dialog.dismiss();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
+
+    public void choosePhotoFromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, GALLERY);
+    }
+
+    private void takePhotoFromCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, CAMERA);
+        }
+    }
+
+    private  void ClearImageView(){
+        // imageView.setImageBitmap(null);
+        //imageView.setImageDrawable(null);
+        imageView.setImageBitmap(null);
+        imageView.setImageResource(0);
+        //imageView.setImageURI(null);
     }
 
 
