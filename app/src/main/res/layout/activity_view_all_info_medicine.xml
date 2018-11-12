@@ -63,7 +63,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:hint="Nazwa edit"
+                android:hint="@string/findmedicine_name"
                 android:textSize="18dp" />
 
             <TextView
@@ -80,7 +80,7 @@
                 android:layout_columnSpan="2"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:text="dd/mm/rrrr"
+                android:text="@string/popular_date"
                 android:textSize="18dp" />
 
 
@@ -99,7 +99,7 @@
                 android:layout_columnSpan="2"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:text="dd/mm/rrrr"
+                android:text="@string/popular_date"
                 android:textSize="18dp" />
 
             <TextView
@@ -124,7 +124,7 @@
                 android:layout_width="250dp"
                 android:layout_columnSpan="3"
                 android:gravity="center"
-                android:hint="Tabletki"
+                android:hint=" ---- "
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:textSize="18dp"></TextView>
@@ -147,7 +147,7 @@
                 android:gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:hint="gorączka"
+                android:hint=" ---- "
                 android:textSize="18dp"></TextView>
 
             <TextView
@@ -163,7 +163,7 @@
                 android:id="@+id/tv_amount_allinfo"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="10dp"
-                android:hint="Liczba"
+                android:hint=" ---- "
                 android:textSize="18dp" />
 
             <!--<TextView
@@ -186,7 +186,7 @@
                 android:layout_columnSpan="2"
                 android:layout_gravity="right"
                 android:layout_marginLeft="10dp"
-                android:hint="ml"
+                android:hint=" ---- "
                 android:textSize="18dp"></TextView>
 
             <TextView
@@ -205,7 +205,7 @@
                 android:layout_columnSpan="2"
                 android:layout_gravity="right"
                 android:layout_marginTop="3dp"
-                android:hint="Osoba"
+                android:hint=" ---- "
                 android:textSize="18dp"></TextView>
 
             <TextView
@@ -222,7 +222,7 @@
                 android:layout_width="155dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Dawka"
+                android:hint=" ---- "
                 android:textSize="18dp" />
 
 
@@ -249,7 +249,7 @@
                 android:layout_width="155dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Substancje czynne "
+                android:hint=" ---- "
                 android:textSize="18dp" />
 
 
@@ -267,7 +267,7 @@
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="BARCODE"
+                android:hint=" ---- "
                 android:textSize="18dp" />
 
             <TextView
@@ -285,7 +285,7 @@
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Odpowiedzialny"
+                android:hint=" ---- "
                 android:textSize="18dp" />
 
             <TextView
@@ -302,7 +302,7 @@
                 android:layout_width="154dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Natatka dodatkowa, własna"
+                android:hint=" ---- "
                 android:textSize="18dp" />
 
 

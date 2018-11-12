@@ -12,6 +12,8 @@
     <string name="popular_form">Postać</string>
     <string name="popular_disease">Schorzenie</string>
     <string name="popular_number">Ilość</string>
+    <string name="popular_date">rrrr-mm-dd</string>
+
 
     <string name="mainActivity_search">Szukaj leku</string>
     <string name="mainActivity_add">Dodaj</string>
@@ -27,6 +29,7 @@
     <string name="oneInformationMedicine_checkb_taken">Zażywane</string>
 
     <string name="addMedicine_btn_scanCode">Skanuj kod leku</string>
+    <string name="addMedicine_btn_save">Zapisz</string>
     <string name="addMedicine_txt_name">Nazwa</string>
     <string name="addMedicine_txt_opened">Otwarto</string>
     <string name="addMedicine_txt_forperson">Przepisane dla</string>
@@ -35,8 +38,81 @@
     <string name="addMedicine_txt_code">Kod</string>
     <string name="addMedicine_txt_producer">Producent</string>
     <string name="addMedicine_txt_note">Notka</string>
+    <string name="addMedicine_txt_istake">Zażywane</string>
+    <string name="addMedicine_et_number">Liczba</string>
+    <string name="addMedicine_et_power">Dawka</string>
+    <string name="addMedicine_et_barcode">Kod kreskowy</string>
+    <string name="addMedicine_et_note">Natatka dodatkowa, własna</string>
 
     <string name="addMedicine_dialog_selectfromgallery">Wybierz zdjęcie z galerii</string>
     <string name="addMedicine_dialog_selectfromcamera">Zrób zdjęcia aparatem</string>
+
+
+    <string name="alarm_txt_pagetitle">Dodaj alarm do kalendarza</string>
+    <string name="alarm_txt_title">Tytuł alarmu</string>
+    <string name="alarm_txt_description">Opis alarmu</string>
+    <string name="alarm_txt_startdate">Wybierz datę rozpoczęcia</string>
+    <string name="alarm_txt_enddate">Wybierz datę zakończenia</string>
+    <string name="alarm_txt_hour">Godzina alarmu</string>
+    <string name="alarm_btn_setalarm">Ustaw alarm</string>
+
+    <string name="editlists_amount_title">Dodaj nową formę dotyczącą ilości</string>
+    <string name="editlists_amount_form">Forma ilości</string>
+    <string name="editlists_amount_name">nazwa formy</string>
+    <string name="editlists_amountlist_title">Lista aktualnych form ilościowych</string>
+
+
+    <string name="editlists_form_title">Dodaj nową formę leku</string>
+    <string name="editlists_form_form">Forma</string>
+    <string name="editlists_form_name">nazwa formy</string>
+    <string name="editlists_formlist_title">Lista aktualnych form leków</string>
+
+    <string name="editlists_person_title">Dodaj nową osobę</string>
+    <string name="editlists_person_name">Imię</string>
+    <string name="editlists_personlist_title">Lista aktualnych osób</string>
+
+    <string name="editlists_purpose_title">Dodaj nowe schorzenie/przeznaczenie</string>
+    <string name="editlists_purpose_form">Schorzenie</string>
+    <string name="editlists_purpose_name">nazwa schorzenia</string>
+    <string name="editlists_purposelist_title">Lista aktualnych schorzeń</string>
+
+    <string name="findmedicine_name">Wpisz nazwę leku</string>
+    <string name="findmedicine_code">Skanuj lub wpisz kod </string>
+
+    <string name="addMedicine_btn_saveUpdate">Zapisz zmiany</string>
+    <string name="lists_nearMeds_title">Leki zbliające się do terminu</string>
+    <string name="lists_overdueMeds_title">Leki przeterminowane</string>
+
+
+    <string name="editlists_btn_delete">Usuń</string>
+    <string name="editlists_btn_add">Dodaj</string>
+
+
+    <string name="txt_numberOfMeds">Liczba leków:</string>
+
+    <string name="txt_infoForUserColorUpdate">Tekst zapisany kolorem czerwonym pokazuje obecną wersję informacji dotyczące</string>
+
+
+    <string name="takeMed_txt_takeMed">Zażyj</string>
+
+    <string name="takeMed_txt_writeNumber">Wpisz liczbę</string>
+
+    <string name="cancel">Anuluj</string>
+    <string name="edit">Edytuj</string>
+    <string name="emptyfields"> ---- </string>
+    <string name="delete">Usuń</string>
+    <string name="moreinfo">Więcej >></string>
+
+    <string name="main_termMeds">Leki terminowe i przeterminnowane</string>
+    <string name="general">ogółem: </string>
+    <string name="terminatedMeds">zbliżających się do terminu: </string>
+    <string name="overDueMeds">przeterminowanych: </string>
+    <string name="sureToDelete">Czy na pewno chcesz usunąć</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+
+
+
+
 
 </resources>

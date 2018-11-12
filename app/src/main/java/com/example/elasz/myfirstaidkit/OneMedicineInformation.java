@@ -47,10 +47,6 @@ public class OneMedicineInformation extends AppCompatActivity {
     ShortMedInfoItemAdapter shortmedadapter;
     ArrayList<ShortMedInfoItem> medicaments;
     Context context = this;
-    //DBUserMedicamentsAdapter dbUserMed;
-    //DBMedicamentInfoAdapter dbMedInfo;
-    //DBFormAdapter dbForm;
-    //DBPurposeAdapter dbPurpose;
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -145,6 +141,11 @@ public class OneMedicineInformation extends AppCompatActivity {
                 String power = getPowerName(dbMedInfo, idmedinfo);
                 String purpose = getPurposeName(dbPurpose, purposeid);
                 String code = getCode(dbMedInfo, idmedinfo);
+
+                if(image==null)
+                {
+                    image=BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_photo_camera_black_24dp);
+                }
 
                 ShortMedInfoItem shortmed = new ShortMedInfoItem(id, name, expdate, form, purpose, amount, amountform, power, image, code);
                 medicaments.add(shortmed);

@@ -1,13 +1,17 @@
 package com.example.elasz.myfirstaidkit;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.CalendarContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -112,11 +116,10 @@ public class Alarms extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+                Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
 
-                String date = day + "/" + month + "/" + year;
+                String date = year + "-" + month + "-" + day;//+ "-" + month + "-" + year;
                 enddate.setText(date);
-
             }
         };
 
@@ -124,37 +127,76 @@ public class Alarms extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+                Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
 
-                String date = day + "/" + month + "/" + year;
+                String date = year + "-" + month + "-" + day;//+ "-" + month + "-" + year;
                 startdate.setText(date);
-
             }
         };
 
     }
 
     private void AddAlarmToCalendar() {
-        GetFieldsValue();
-        addReminderInCalendar();
+        //GetFieldsValue();
+        if(GetFieldsValue()){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(Alarms.this, "Pozwolenie przyznane", Toast.LENGTH_SHORT).show();
+                    try{
+                        addReminderInCalendar();
+                        clearFields();
+                    }catch (Exception e){
+                        Toast.makeText(Alarms.this, "błąd połączenia z kalendarzem", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e(TAG, "Pozwolenie odwołane");
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR}, 10);
+                }
+            }
+        }/*else {
+            Toast.makeText(Alarms.this, "Błędne wartości w polach", Toast.LENGTH_SHORT).show();
+
+        }*/
+
     }
 
-    private void GetFieldsValue() {
-        title = titleAlarm.getText().toString();
-        description = descriptionAlarm.getText().toString();
-        end_date_text= enddate.getText().toString();
-        start_date_text = startdate.getText().toString();
-        hour=et_hour.getText().toString();
-        String startconctedate=start_date_text + "," + hour;
-        String endconctedate=end_date_text + "," + hour;
-        try {
-            datetostart= new SimpleDateFormat("dd/MM/yyyy,HH:mm").parse(startconctedate);
-            datetoend= new SimpleDateFormat("dd/MM/yyyy,HH:mm").parse(endconctedate);
-        } catch (ParseException e) {
-            e.printStackTrace();
+    private void clearFields() {
+        titleAlarm.setText(null);
+        descriptionAlarm.setText(null);
+        enddate.setText(null);
+        startdate.setText(null);
+        et_hour.setText(null);
+    }
+
+
+    private boolean GetFieldsValue() {
+        boolean resultValue=false;
+        if(titleAlarm.getText().length() == 0){
+            Toast.makeText(Alarms.this, "Błędna wartość w polu tytułu!", Toast.LENGTH_SHORT).show();
+        }else if(startdate.getText().toString() == ""){
+            Toast.makeText(Alarms.this, "Błędna wartość w polu daty rozpoczęcia!", Toast.LENGTH_SHORT).show();
+        }else if(enddate.getText().toString() == ""){
+            Toast.makeText(Alarms.this, "Błędna wartość w polu daty zakończenia!", Toast.LENGTH_SHORT).show();
+        }else if(et_hour.getText().toString() == ""){
+            Toast.makeText(Alarms.this, "Błędna wartość w polu godziny!", Toast.LENGTH_SHORT).show();
+        } else{
+            title = titleAlarm.getText().toString();
+            description = descriptionAlarm.getText().toString();
+            end_date_text= enddate.getText().toString();
+            start_date_text = startdate.getText().toString();
+            hour=et_hour.getText().toString();
+
+            String startconctedate=start_date_text + "," + hour;
+            String endconctedate=end_date_text + "," + hour;
+            try {
+                datetostart= new SimpleDateFormat("yyyy-MM-dd,HH:mm").parse(startconctedate);
+                datetoend= new SimpleDateFormat("yyyy-MM-dd,HH:mm").parse(endconctedate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            resultValue=true;
         }
-
-
+        return resultValue;
         //String concat=start_date_text+hour;
         //String eventDate = new SimpleDateFormat("dd/MM/yyyy").parse(start_date_text);
     }
@@ -235,7 +277,7 @@ public class Alarms extends AppCompatActivity {
             Uri event = cr.insert(EVENTS_URI, values);
 
             // Display event id.
-            Toast.makeText(getApplicationContext(), "Event added :: ID :: " + event.getLastPathSegment(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Dodano wydarzenie :: ID :: " + event.getLastPathSegment(), Toast.LENGTH_SHORT).show();
 
             //** Adding reminder for event added. *//*
             Uri REMINDERS_URI = Uri.parse(getCalendarUriBase(true) + "reminders");

@@ -70,26 +70,63 @@ public class ListView_InformationList extends AppCompatActivity {
         medicamentsOver = new ArrayList<>();
         getMed();
         initialize();
+
+        dbUserMed.OpenDB();
+        Cursor a =dbUserMed.medNear();
+        nbNear.setText(String.valueOf(a.getCount()));
+        dbUserMed.CloseDB();
+
+
+
+        dbUserMed.OpenDB();
+        Cursor a1= dbUserMed.medOverDue();
+        nbOver.setText(String.valueOf(a1.getCount()));
+        dbUserMed.CloseDB();
     }
 
 
     @OnClick(R.id.btn_dropdown_nearMed)
     void openNearMedsList(){
+        Button btnUp = (Button)  findViewById(R.id.btn_dropup_nearMed);
+        Button btnDown = (Button) findViewById(R.id.btn_dropdown_nearMed);
+
         if(recView_near.getVisibility()==View.GONE){
             recView_near.setVisibility(View.VISIBLE);
+            btnUp.setVisibility(View.VISIBLE);
+            btnDown.setVisibility(View.GONE);
         } else if (recView_near.getVisibility()==View.VISIBLE){
             recView_near.setVisibility(View.GONE);
+            btnUp.setVisibility(View.GONE);
+            btnDown.setVisibility(View.VISIBLE);
         }
+    }
+
+    @OnClick(R.id.btn_dropup_nearMed)
+    void openNearMedList2(){
+        openNearMedsList();
     }
 
     @OnClick(R.id.btn_dropdown_overDueMed)
     void openOverDueMedsList(){
+        Button btnUp = (Button)  findViewById(R.id.btn_dropup_overDueMed);
+        Button btnDown = (Button) findViewById(R.id.btn_dropdown_overDueMed);
+
         if(recView_over.getVisibility()==View.GONE){
             recView_over.setVisibility(View.VISIBLE);
+            btnUp.setVisibility(View.VISIBLE);
+            btnDown.setVisibility(View.GONE);
         } else if (recView_over.getVisibility()==View.VISIBLE){
             recView_over.setVisibility(View.GONE);
+            btnUp.setVisibility(View.GONE);
+            btnDown.setVisibility(View.VISIBLE);
         }
     }
+
+    @OnClick(R.id.btn_dropup_overDueMed)
+    void openOverDueMedsList2(){
+        openOverDueMedsList();
+    }
+
 
 
     private void setDBAdapters() {
@@ -207,8 +244,6 @@ public class ListView_InformationList extends AppCompatActivity {
         if (!(medicamentsNear.size() < 1)) {
             recView_near.setAdapter(shortmedadapterNearMeds);
         }
-
-
 
         if (!(medicamentsOver.size() < 1)) {
             recView_over.setAdapter(shortmedadapterOverDueMeds);

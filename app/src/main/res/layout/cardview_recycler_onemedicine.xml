@@ -7,14 +7,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_margin="10dp"
-    android:padding="10dp"
     card_view:cardBackgroundColor="#c4e1e9"
     card_view:cardCornerRadius="12dp"
     android:foreground="?selectableItemBackground"
-    android:clickable="true">
+    android:clickable="true"
+    app:cardUseCompatPadding="true">
 
     <!--card_view:contentPadding="4dp"
     card_view:cardElevation="3dp"-->
+
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -83,7 +84,7 @@
                 android:layout_columnSpan="1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:text="Nazwa edit"
+                android:text="@string/emptyfields"
                 android:textSize="12dp" />
         </LinearLayout>
 
@@ -93,7 +94,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_rowSpan="2"
-            android:text="Edytuj"
+            android:text="@string/edit"
             android:textSize="10dp"
             app:layout_constraintRight_toRightOf="@+id/base"/>
 
@@ -119,14 +120,14 @@
                 android:textSize="12dp" />
 
             <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tv_expdate_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:text="02/01/2020"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/popular_date"
                 android:textSize="12dp" />
         </LinearLayout>
         <Button
@@ -135,7 +136,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_rowSpan="2"
-            android:text="Usuń"
+            android:text="@string/delete"
             android:textSize="10dp"
             app:layout_constraintRight_toRightOf="@+id/base"
             app:layout_constraintTop_toBottomOf="@+id/btn_update_item"/>
@@ -168,7 +169,7 @@
                 android:id="@+id/tv_form_item"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:text="Tabletki powlekane"
+                android:text="@string/emptyfields"
                 android:textSize="12dp" />
         </LinearLayout>
 
@@ -178,7 +179,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_rowSpan="2"
-            android:text="Więcej >>"
+            android:text="@string/moreinfo"
             android:textSize="10dp"
             app:layout_constraintRight_toRightOf="@+id/base"
             app:layout_constraintTop_toBottomOf="@+id/btn_delete_item"/>
@@ -210,7 +211,7 @@
                 android:id="@+id/tv_purpose_item"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:text="katar"
+                android:text="@string/emptyfields"
                 android:textSize="12dp" />
         </LinearLayout>
 
@@ -241,7 +242,7 @@
                 android:id="@+id/tv_amount_item"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:text="5 opakowań"
+                android:text="@string/emptyfields"
                 android:textSize="12dp" />
         </LinearLayout>
 
@@ -261,7 +262,7 @@
                 android:id="@+id/txtview_power"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:text="Moc"
+                android:text="@string/addMedicine_txt_power"
                 android:textColor="@android:color/black"
                 android:textSize="12dp" />
 
@@ -273,7 +274,7 @@
                 android:id="@+id/tv_poweronemed_item"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:hint="200mg"
+                android:hint="@string/emptyfields"
                 android:textSize="12dp" />
         </LinearLayout>
 

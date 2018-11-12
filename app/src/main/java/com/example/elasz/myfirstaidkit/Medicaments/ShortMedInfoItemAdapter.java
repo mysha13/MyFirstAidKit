@@ -73,9 +73,9 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
 
             if(shortMed.name.toLowerCase().contains(query.toLowerCase())){
                 filteredList.add(shortMed);
-            } /*else if (shortMed.code.toLowerCase().contains(query.toLowerCase())){
+            } else if (shortMed.code.toLowerCase().contains(query.toLowerCase())){
                 filteredList.add(shortMed);
-            }*/
+            }
         }
         notifyDataSetChanged();
     }

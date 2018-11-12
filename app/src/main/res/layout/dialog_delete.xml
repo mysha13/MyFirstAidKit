@@ -13,7 +13,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textStyle="bold"
-        android:text="Na pewno chcesz usunąć"/>
+        android:text="Czy na pewno chcesz usunąć"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:text="Tak"
+            android:text="@string/yes"
             />
 
         <Button
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="Nie"
+            android:text="@string/no"
             />
 
     </LinearLayout>

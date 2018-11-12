@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Dodaj nowe schorzenie/przeznaczenie"
+        android:text="@string/editlists_purpose_title"
         android:textSize="20dp"
         android:layout_marginTop="20dp"/>
     <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Schorzenie"
+            android:text="@string/editlists_purpose_form"
             android:textSize="20dp"/>
 
         <EditText
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="nazwa schorzenia"/>
+            android:hint="@string/editlists_purpose_name"/>
 
         <Button
             android:id="@+id/btn_add_editpurposelist"
@@ -41,14 +41,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="20dp"
-            android:text="Dodaj"/>
+            android:text="@string/editlists_btn_add"/>
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Lista aktualnych schorzeń"
+        android:text="@string/editlists_purposelist_title"
         android:textSize="20dp"
         android:layout_marginTop="20dp"/>
 

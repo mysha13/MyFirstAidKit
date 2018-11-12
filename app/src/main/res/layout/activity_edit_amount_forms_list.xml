@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Dodaj nową formę dotyczącą ilości"
+        android:text="@string/editlists_amount_title"
         android:textSize="20dp"
         android:layout_marginTop="20dp"/>
     <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Forma ilości"
+            android:text="@string/editlists_amount_form"
             android:textSize="20dp"/>
 
         <EditText
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="nazwa formy"/>
+            android:hint="@string/editlists_amount_name"/>
 
         <Button
             android:id="@+id/btn_add_editamountformslist"
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Lista aktualnych form ilościowych"
+        android:text="@string/editlists_amountlist_title"
         android:textSize="20dp"
         android:layout_marginTop="20dp"/>
 

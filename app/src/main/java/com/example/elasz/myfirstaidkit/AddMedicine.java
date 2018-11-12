@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -260,7 +261,7 @@ public class AddMedicine extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showPictureDialog();
-               // Toast.makeText(AddMedicine.this, "Kliknięto", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(AddMedicine.this, "Kliknięto", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -316,6 +317,16 @@ public class AddMedicine extends AppCompatActivity {
             }
         };
 
+    }
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(AddMedicine.this, "Pozwolenie przyznane", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.e(TAG, "Pozwolenie odwołane");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10);
+            }
+        }
     }
 
     public void spinnerForm(DBFormAdapter dAForm, ArrayList<String> formList, ArrayAdapter<String> adapterForm, Spinner spinner) {
@@ -417,6 +428,8 @@ public class AddMedicine extends AppCompatActivity {
         producer.setText("");
         note.setText("");
         istake.setChecked(false);
+        imageView.setImageBitmap(null);
+        imageView.setImageResource(0);
     }
 
     private long TryToAddToMedInfo(){
@@ -660,10 +673,18 @@ public class AddMedicine extends AppCompatActivity {
     }
 
     private void takePhotoFromCamera() {
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        try{
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(intent, CAMERA);
+            }
+        }catch(Exception e){
+            Toast.makeText(AddMedicine.this, "Brak pozwolenia na aparat", Toast.LENGTH_SHORT).show();
+        }
+       /* Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, CAMERA);
-        }
+        }*/
     }
 
     private  void ClearImageView(){

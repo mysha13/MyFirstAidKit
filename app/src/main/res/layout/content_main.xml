@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Leki terminowe i przeterminnowane"
+                    android:text="@string/main_termMeds"
                     android:id="@+id/txt_download_file"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -280,7 +280,7 @@
             android:id="@+id/txt_text0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Liczba leków: "
+            android:text="@string/txt_numberOfMeds"
             android:textSize="20dp"
             android:layout_weight="2"/>
 
@@ -296,7 +296,7 @@
                 android:id="@+id/txt_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ogółem: "
+                android:text="@string/general"
                 android:textSize="20dp"
                 android:layout_weight="2"/>
 
@@ -304,7 +304,7 @@
                 android:id="@+id/tv_nbAllMed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
+                android:text="@string/emptyfields"
                 android:textSize="20dp"
                 android:layout_toEndOf="@+id/txt_text1"
                 android:gravity="right"
@@ -325,7 +325,7 @@
                 android:id="@+id/txt_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="zbliżających się do terminu: "
+                android:text="@string/terminatedMeds"
                 android:textSize="20dp"
                 android:layout_weight="2"/>
 
@@ -333,7 +333,7 @@
                 android:id="@+id/tv_nbTimelyMed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
+                android:text="@string/emptyfields"
                 android:textSize="20dp"
                 android:layout_toEndOf="@+id/txt_text2"
                 android:gravity="right"
@@ -354,7 +354,7 @@
                 android:id="@+id/txt_text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="przeterminowanych:  "
+                android:text="@string/overDueMeds"
                 android:textSize="20dp"
                 android:layout_weight="2"/>
 
@@ -363,7 +363,7 @@
                 android:id="@+id/tv_nbOverdueMed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
+                android:text="@string/emptyfields"
                 android:textSize="20dp"
                 android:layout_toEndOf="@+id/txt_text2"
                 android:gravity="right"

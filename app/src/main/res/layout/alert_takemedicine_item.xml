@@ -47,7 +47,7 @@
             android:id="@+id/tv_takenMed_name_item"
             android:layout_columnSpan="2"
             android:textSize="16dp"
-            android:text="Nazwa edit" />
+            android:text=" ---- " />
     </LinearLayout>
 
    <!-- <Button
@@ -101,7 +101,7 @@
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
             android:layout_columnSpan="1"
-            android:text="Zażyj"
+            android:text="@string/takeMed_txt_takeMed"
             android:id="@+id/txtview_takeText"/>
 
         <EditText
@@ -112,7 +112,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
-            android:hint="Wpisz liczbę"
+            android:hint="@string/takeMed_txt_writeNumber"
             android:id="@+id/et_takenMed_amount_item"
             android:inputType="number"/>
 
@@ -124,7 +124,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
-            android:text="opakowań"
+            android:text=" ---- "
             android:layout_columnSpan="1"
             android:id="@+id/tv_takenMed_amountForm_item"/>
     </LinearLayout>
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:text="Zażyj" />
+            android:text="@string/takeMed_txt_takeMed" />
 
         <Button
             android:id="@+id/btnCancelTakeMed"
@@ -151,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="Anuluj" />
+            android:text="@string/cancel" />
 
     </LinearLayout>
 

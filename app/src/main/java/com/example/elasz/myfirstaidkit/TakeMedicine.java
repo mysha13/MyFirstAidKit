@@ -278,8 +278,8 @@ public class TakeMedicine extends AppCompatActivity {
                 String amountform = getAmountFormName(dbAmountForm,amountformid);
 
                 String power = getPowerName(dbMedInfo, powerid);
-                TakeMedItem shortmed = new TakeMedItem(id, name, power, amountform, amount, image);
-                medicaments.add(shortmed);
+                TakeMedItem tekaMedItem = new TakeMedItem(id, name, power, amountform, amount, image);
+                medicaments.add(tekaMedItem);
                 /*if(name==autoComTV_findname.getText().toString())
                 {
                     medicaments.add(shortmed);

@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="4"
                 android:textColor="@android:color/holo_red_dark"
-                android:text="Tekst zapisany kolorem czerwonym pokazuje obecną wersję informacji dotyczące"/>
+                android:text="@string/txt_infoForUserColorUpdate"/>
             <TextView
                 android:layout_columnSpan="4"
                 android:id="@+id/tv_id_update"
@@ -74,7 +74,7 @@
                 android:layout_columnSpan="2"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:hint="Nazwa edit"
+                android:hint="@string/findmedicine_name"
                 android:textSize="16dp" />
 
             <TextView
@@ -91,7 +91,7 @@
                 android:layout_columnSpan="2"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:text="dd/mm/rrrr"
+                android:text="@string/popular_date"
                 android:textSize="16dp" />
 
             <LinearLayout
@@ -137,7 +137,7 @@
                 android:layout_columnSpan="2"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:text="dd/mm/rrrr"
+                android:text="@string/popular_date"
                 android:textSize="16dp" />
 
             <TextView
@@ -219,7 +219,7 @@
                 android:id="@+id/et_amount_update"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="10dp"
-                android:hint="Liczba"
+                android:hint="@string/addMedicine_et_number"
                 android:textSize="16dp" />
 
             <!--<TextView
@@ -267,7 +267,7 @@
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
-                android:text="Przepisane dla"
+                android:text="@string/addMedicine_txt_forperson"
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
@@ -304,7 +304,7 @@
                 android:layout_width="155dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Dawka"
+                android:hint="@string/addMedicine_et_power"
                 android:textSize="16dp" />
 
 
@@ -331,7 +331,7 @@
                 android:layout_width="155dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Substancje czynne"
+                android:hint="@string/addMedicine_txt_activeSubs"
                 android:textSize="16dp" />
 
 
@@ -349,7 +349,7 @@
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="BARCODE"
+                android:hint="@string/addMedicine_et_barcode"
                 android:textSize="16dp" />
 
             <TextView
@@ -367,7 +367,7 @@
                 android:layout_width="153dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Odpowiedzialny"
+                android:hint="@string/addMedicine_txt_producer"
                 android:textSize="16dp" />
 
             <TextView
@@ -384,15 +384,24 @@
                 android:layout_width="154dp"
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
-                android:hint="Natatka dodatkowa, własna"
+                android:hint="@string/addMedicine_et_note"
                 android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtview_istaken"
+                android:layout_width="153dp"
+                android:layout_columnSpan="2"
+                android:layout_marginLeft="10dp"
+                android:text="@string/addMedicine_txt_istake"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
 
             <CheckBox
                 android:id="@+id/cb_istaken_update"/>
 
             <Button
                 android:id="@+id/btn_saveMedicine_update"
-                android:text="Zapisz zmiany"
+                android:text="@string/addMedicine_btn_save"
                 android:layout_columnSpan="4"
                 android:layout_width="match_parent"/>
 

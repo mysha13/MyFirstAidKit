@@ -30,7 +30,7 @@
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Wpisz nazwę leku">
+            android:hint="@string/findmedicine_name">
             <requestFocus />
         </AutoCompleteTextView>
 
@@ -62,7 +62,7 @@
             android:ems="9"
             android:gravity="center_vertical"
             android:textSize="20dp"
-            android:hint="Skanuj lub wpisz kod  " />
+            android:hint="@string/findmedicine_code" />
 
         <ImageButton
             android:id="@+id/btn_scanBarcode_find"

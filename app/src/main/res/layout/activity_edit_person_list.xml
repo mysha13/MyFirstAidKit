@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Dodaj nową osobę"
+        android:text="@string/editlists_person_title"
         android:textSize="20dp"
         android:layout_marginTop="20dp"/>
     <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Imię"
+            android:text="@string/editlists_person_name"
             android:textSize="20dp"/>
 
         <EditText
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="imię"/>
+            android:hint="@string/editlists_person_name"/>
 
         <Button
             android:id="@+id/btn_add_editpersonlist"
@@ -41,14 +41,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="20dp"
-            android:text="Dodaj"/>
+            android:text="@string/editlists_btn_add"/>
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Lista aktualnych osób"
+        android:text="@string/editlists_personlist_title"
         android:textSize="20dp"
         android:layout_marginTop="20dp"/>
 
