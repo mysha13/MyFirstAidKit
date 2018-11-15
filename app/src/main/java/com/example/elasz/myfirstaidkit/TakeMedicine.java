@@ -83,6 +83,16 @@ public class TakeMedicine extends AppCompatActivity {
         initialize();
         autoComTV_findname.addTextChangedListener(mQueryWatcher);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        autoCompleteFindByName();
+        getBundle();
+        initialize();
+        autoComTV_findname.addTextChangedListener(mQueryWatcher);
+    }
+
     private TextWatcher mQueryWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -79,7 +79,7 @@
     <string name="findmedicine_name">Wpisz nazwę leku</string>
     <string name="findmedicine_code">Skanuj lub wpisz kod </string>
 
-    <string name="addMedicine_btn_saveUpdate">Zapisz zmiany</string>
+    <string name="addMedicine_btn_addMed">Dodaj lek</string>
     <string name="lists_nearMeds_title">Leki zbliające się do terminu</string>
     <string name="lists_overdueMeds_title">Leki przeterminowane</string>
 

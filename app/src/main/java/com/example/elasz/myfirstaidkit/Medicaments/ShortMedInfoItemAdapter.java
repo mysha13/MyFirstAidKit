@@ -55,6 +55,7 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         holder.tv_Form.setText(filteredList.get(position).getForm());
         holder.tv_Purpose.setText(filteredList.get(position).getPurpose());
         holder.tv_Amount.setText(String.valueOf(filteredList.get(position).getAmount()));
+        holder.tv_AmountForm.setText(String.valueOf(filteredList.get(position).getAmoutform()));
         holder.iv_Image.setImageBitmap(filteredList.get(position).getImage());
         holder.tv_Power.setText(filteredList.get(position).getPower());
         holder.tv_Code.setText(filteredList.get(position).getCode());
@@ -121,8 +122,9 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
 
         @BindView(R.id.tv_code_item)
         TextView tv_Code;
-       /* @BindView(R.id.spin_amountform_allinfo)
-        TextView tv_AmountForm;*/
+
+        @BindView(R.id.tv_amountform_item)
+        TextView tv_AmountForm;
 
         @BindView(R.id.tv_poweronemed_item)
         TextView tv_Power;

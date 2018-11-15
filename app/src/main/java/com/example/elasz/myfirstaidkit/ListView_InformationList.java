@@ -154,6 +154,8 @@ public class ListView_InformationList extends AppCompatActivity {
 
     }
 
+
+
     private void ButtonNumber(String id, int btn_nb) {
         if (btn_nb == 1) {
             UpdateMedButton(id);
@@ -213,6 +215,20 @@ public class ListView_InformationList extends AppCompatActivity {
         dbMed.deleteMed(String.valueOf(id));
         dbMed.CloseDB();
 
+        medicamentsNear = new ArrayList<>();
+        medicamentsOver = new ArrayList<>();
+        getMed();
+        initialize();
+
+        dbUserMed.OpenDB();
+        Cursor a =dbUserMed.medNear();
+        nbNear.setText(String.valueOf(a.getCount()));
+        dbUserMed.CloseDB();
+
+        dbUserMed.OpenDB();
+        Cursor a1= dbUserMed.medOverDue();
+        nbOver.setText(String.valueOf(a1.getCount()));
+        dbUserMed.CloseDB();
     }
 
     private void setRecyclerViews() {

@@ -192,14 +192,13 @@ public class UpdateMedicine extends AppCompatActivity {
         name.addTextChangedListener(mQueryWatcher); // dla kazdego edittexta tak
 
 
-
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+                Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
 
-                String date = day + "/" + month + "/" + year;
+                String date = year + "-" + month + "-" + day;//+ "-" + month + "-" + year;
 
                 expdate.setText(date);
 
@@ -209,13 +208,14 @@ public class UpdateMedicine extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
-
-                String date = day + "/" + month + "/" + year;
+                //Log.d(TAG, "onDateSet: dd-MM-yyyy: " + day + "-" + month + "-" + year);
+                Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
+                String date =  year + "-" + month + "-" + day;//day + "-" + month + "-" + year;
                 opendate.setText(date);
 
             }
         };
+
         //btn_saveMedicine_update
     }
 
@@ -465,27 +465,18 @@ public class UpdateMedicine extends AppCompatActivity {
             Toast.makeText(UpdateMedicine.this, "Nazwa jest pusta", Toast.LENGTH_LONG).show();
         }else if(amount.getText().toString().matches("")){
             Toast.makeText(UpdateMedicine.this, "Ilość jest puste", Toast.LENGTH_LONG).show();
+        }else if(expdate.getText().toString().matches("")){
+            Toast.makeText(UpdateMedicine.this, "Data ważności EXP jest pusta", Toast.LENGTH_LONG).show();
+        }else if(code.getText().toString().matches("")){
+            Toast.makeText(UpdateMedicine.this, "Kod jest pusty", Toast.LENGTH_LONG).show();
+        }else if(spinnerCorrection(spin_form) == null){
+            Toast.makeText(UpdateMedicine.this, "Postać jest pusta", Toast.LENGTH_LONG).show();
+        }else if(spinnerCorrection(spin_amountForm) == null){
+            Toast.makeText(UpdateMedicine.this, "Forma ilości jest pusta", Toast.LENGTH_LONG).show();
         }else{
-            getDatabaseAdapter();
+            setDatabaseAdapter();
             CheckResult();
         }
-        /*if (!amountUpdate.getText().toString().matches("")) {
-            if ((isNumeric(amountUpdate.getText().toString()))) {
-                Toast.makeText(UpdateMedicine.this, "", Toast.LENGTH_LONG).show();
-            }
-            else {
-                updateMedOperations();
-            }
-        } else {
-            updateMedOperations();
-        }*/
-        //updateMedOperations();
-        //getDatabaseAdapter();
-        //CheckResult();
-        spinnerForm(dbForm, formList, adapterForm, spin_form);
-        spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
-        spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
-        spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
     }
 
     private void CheckResult() {
@@ -494,6 +485,10 @@ public class UpdateMedicine extends AppCompatActivity {
 
         if (work > 0 && work2 >0 ) {
             Toast.makeText(UpdateMedicine.this, "Zaktualizowano lek", Toast.LENGTH_LONG).show();
+            //spinnerForm(dbForm, formList, adapterForm, spin_form);
+           // spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
+            //spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
+            //spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
         } else {
             Toast.makeText(UpdateMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
@@ -686,7 +681,7 @@ public class UpdateMedicine extends AppCompatActivity {
             return spinner.getSelectedItem().toString();
     }
 
-    private void getDatabaseAdapter() {
+    private void setDatabaseAdapter() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbForm = new DBFormAdapter(this);
         dbPurpose = new DBPurposeAdapter(this);

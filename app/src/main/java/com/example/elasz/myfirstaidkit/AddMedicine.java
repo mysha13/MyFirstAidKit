@@ -393,14 +393,20 @@ public class AddMedicine extends AppCompatActivity {
             Toast.makeText(AddMedicine.this, "Nazwa jest pusta", Toast.LENGTH_LONG).show();
         }else if(amount.getText().toString().matches("")){
             Toast.makeText(AddMedicine.this, "Ilość jest puste", Toast.LENGTH_LONG).show();
+        }else if(expdate.getText().toString().matches("")){
+            Toast.makeText(AddMedicine.this, "Data ważności EXP jest pusta", Toast.LENGTH_LONG).show();
+        }else if(code.getText().toString().matches("")){
+            Toast.makeText(AddMedicine.this, "Kod jest pusty", Toast.LENGTH_LONG).show();
+        }else if(spinnerCorrection(spin_form) == null){
+            Toast.makeText(AddMedicine.this, "Postać jest pusta", Toast.LENGTH_LONG).show();
+        }else if(spinnerCorrection(spin_amountForm) == null){
+            Toast.makeText(AddMedicine.this, "Forma ilości jest pusta", Toast.LENGTH_LONG).show();
         }else{
             SetDatabaseAdapters();
             CheckResult();
+
         }
-        spinnerForm(dbForm, formList, adapterForm, spin_form);
-        spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
-        spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
-        spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
+
     }
 
 
@@ -411,17 +417,20 @@ public class AddMedicine extends AppCompatActivity {
         if (work > 0 && work2 >0 ) {
             Toast.makeText(AddMedicine.this, "Dodano lek", Toast.LENGTH_LONG).show();
             clearTextViews();
+            spinnerForm(dbForm, formList, adapterForm, spin_form);
+            spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
+            spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
+            spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
         } else {
             Toast.makeText(AddMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
-
     }
 
     private void clearTextViews() {
         name.setText("");
-        expdate.setText("dd/MM/yyyy");
-        opendate.setText("dd/MM/yyyy");
-       amount.setText("");
+        expdate.setText("rrrr-MM-dd");
+        opendate.setText("rrrr-MM-dd");
+        amount.setText("");
         power.setText("");
         subsActive.setText("");
         code.setText("");
@@ -526,7 +535,7 @@ public class AddMedicine extends AppCompatActivity {
         }
         else{
             Calendar cal = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             todb_expdate=expdate.getText().toString();
 
         }
@@ -565,11 +574,7 @@ public class AddMedicine extends AppCompatActivity {
             if(codecode!=null){
                 todb_code=codecode;
             }else{
-                if(code.getText().toString().length()!=13){
-                    Toast.makeText(AddMedicine.this, "Nieprawidłowa długość kodu", Toast.LENGTH_LONG).show();
-                }else{
-                    todb_code=code.getText().toString();
-                }
+                todb_code=code.getText().toString();
             }
         }
         if(note.getText()==null){
@@ -607,7 +612,7 @@ public class AddMedicine extends AppCompatActivity {
                 purposeid,
                 Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
                 amountformid,
-                null,
+                personid,
                 todb_note, //note.getText().toString());
                 istake.isChecked(),
                 convertedimage);
@@ -688,11 +693,8 @@ public class AddMedicine extends AppCompatActivity {
     }
 
     private  void ClearImageView(){
-       // imageView.setImageBitmap(null);
-        //imageView.setImageDrawable(null);
         imageView.setImageBitmap(null);
         imageView.setImageResource(0);
-        //imageView.setImageURI(null);
     }
 
     @Override
