@@ -34,7 +34,7 @@ public class AmountFormsListAdapter extends RecyclerView.Adapter<AmountFormsList
     @Override
     public AmountFormsListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.editamountformlist_item, null);
+                .inflate(R.layout.editlist_item, null);
         return new AmountFormsListAdapter.ViewHolder(itemLayoutView, listener);
     }
     @Override
@@ -53,13 +53,13 @@ public class AmountFormsListAdapter extends RecyclerView.Adapter<AmountFormsList
         RecyclerViewClickListener listener;
         int bNumber = 0;
 
-        @BindView(R.id.tv_idamountform)
+        @BindView(R.id.tv_id)
         TextView tvIdAmountForm;
 
-        @BindView(R.id.tv_amountformname)
+        @BindView(R.id.tv_name)
         TextView tvAmountFormName;
 
-        @OnClick(R.id.btn_delete_editamountformslist)
+        @OnClick(R.id.btn_delete)
         void delete(){
             bNumber = 2;
             onClick(itemView);

@@ -2,16 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
+
+
     <group android:checkableBehavior="single">
-        <item
+
+
+        <!--<item
             android:id="@+id/nav_download"
             android:icon="@drawable/ic_file_download_black_24dp"
             android:title="Pobierz rejestr leków" />
 
-       <!-- <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />-->
+
+        <item
+            android:id="@+id/nav_permissions"
+            android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+            android:title="Pozwolenia aplikacji" />-->
 
 <item android:title="Edytuj listy rozwijane">
     <menu>
@@ -35,5 +40,8 @@
             android:title="Lista osób" />
     </menu>
 </item>
+
+
+
     </group>
 </menu>

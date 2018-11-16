@@ -32,7 +32,7 @@ public class FormsListAdapter extends RecyclerView.Adapter<FormsListAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.editformslist_item, null);
+                .inflate(R.layout.editlist_item, null);
         return new ViewHolder(itemLayoutView, listener);
     }
     @Override
@@ -51,10 +51,10 @@ public class FormsListAdapter extends RecyclerView.Adapter<FormsListAdapter.View
         RecyclerViewClickListener listener;
         int bNumber = 0;
 
-        @BindView(R.id.tv_idform)
+        @BindView(R.id.tv_id)
         TextView tvIdForm;
 
-        @BindView(R.id.tv_formname)
+        @BindView(R.id.tv_name)
         TextView tvFormName;
 
         /*@OnClick(R.id.btn_delete_editformslist)
@@ -62,7 +62,7 @@ public class FormsListAdapter extends RecyclerView.Adapter<FormsListAdapter.View
             bNumber = 1;
             onClick(itemView);
         }*/
-        @OnClick(R.id.btn_delete_editformslist)
+        @OnClick(R.id.btn_delete)
         void delete(){
             bNumber = 2;
             onClick(itemView);

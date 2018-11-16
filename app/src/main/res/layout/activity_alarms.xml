@@ -109,6 +109,7 @@
         <Button
             android:id="@+id/btn_addAlarm"
             style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/button_shape"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

@@ -209,9 +209,9 @@ public class AddMedicine extends AppCompatActivity {
         spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
         spinnerPerson(dbPerson, personList, adapterPerson, spin_person);
 
-        if(codecode!=null){
+        /*if(codecode!=null){
             code.setText(codecode);
-        }
+        }*/
         name=(EditText) findViewById(R.id.et_name_add);
         amount=(EditText) findViewById(R.id.et_amount_add);
 

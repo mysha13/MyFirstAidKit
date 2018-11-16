@@ -38,6 +38,7 @@
 
         <Button
             android:gravity="center_vertical"
+
             android:id="@+id/btn_dropdown_nearMed"
             android:layout_width="60dp"
             android:layout_height="wrap_content"

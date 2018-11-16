@@ -45,6 +45,7 @@
                 app:srcCompat="@drawable/ic_menu_camera" />
 
             <Button
+                android:background="@drawable/button_shape"
                 android:id="@+id/btn_scanBarcode_update"
                 android:layout_width="wrap_content"
                 android:layout_columnSpan="3"
@@ -336,9 +337,12 @@
                 android:textSize="16dp" />
 
             <Button
+                android:background="@drawable/button_shape"
                 android:id="@+id/btn_saveAddedMedicine_update"
                 android:text="Zapisz zmiany"
                 android:layout_columnSpan="4"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"/>
 
         </GridLayout>

@@ -23,6 +23,7 @@
         android:id="@+id/tv_personname"/>
 
     <Button
+        android:background="@drawable/button_shape"
         android:id="@+id/btn_delete_editpersonlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

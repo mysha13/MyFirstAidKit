@@ -37,6 +37,7 @@
 
             <ImageButton
                 android:id="@+id/btn_searchbyname"
+                android:background="@drawable/button_shape"
                 android:layout_width="10dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="30dp"

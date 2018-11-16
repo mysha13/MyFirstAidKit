@@ -53,7 +53,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolBar;
     private DrawerLayout drawerLayout;
@@ -61,19 +61,32 @@ public class MainActivity extends AppCompatActivity {
 
     private DBMedicamentInfoAdapter dbMedInfo;
     private DBUserMedicamentsAdapter dbUserMed;
+    private DBFormAdapter dbForm;
+    private DBPurposeAdapter dbPurpose;
+    private DBAmountFormAdapter dbAmountForm;
+
 
     private CardView cv_search;
     private CardView cv_add;
     private CardView cv_take;
     private CardView cv_listOfMedicines;
     private CardView cv_addAlarm;
+    private CardView cv_timeList;
 
     private ImageButton imagebtnAdd;
     private ImageButton imagebtnSearch;
     private ImageButton imagebtnLists;
+    private ImageButton imagebtnTake;
+    private ImageButton imagebtnAlarm;
+    private ImageButton imagebtnTimeList;
+
     private TextView txt_add;
     private TextView txt_search;
     private TextView txt_lists;
+    private TextView txt_take;
+    private TextView txt_alarm;
+    private TextView txt_timelists;
+
 
     private ImageButton imagebtnDownload;
     private TextView txtDownload;
@@ -105,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
     private DownloadManager downloadManager;
     private long refid;
     private Uri Download_Uri;
-    private DBFormAdapter dbForm;
 
     SQLiteDatabase db;
 
@@ -126,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -139,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
    /* @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -167,18 +179,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }*/
 
-    private void openNextActivity() {
-        Intent intent = new Intent(MainActivity.this, ListView_InformationList.class);
-        startActivity(intent);
-    }
 
-    // Array of strings...
-    ListView simpleList;
-    String countryList[] = {"Leki przeterminowane", "Leki terminowe", "Wszystkie leki"};
-
-  /*  int nb= medicines.size();
-    ListView secondList;
-    String numberList[] = { " " + 0," "+ nb," " + nb };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,37 +195,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
 
         toolbarInitialize();
-
-        //simpleList = (ListView) findViewById(R.id.listviewinformation);
-        Stetho.initializeWithDefaults(this);
-        permissionManager = new PermissionManager() {
-        };
-        permissionManager.checkAndRequestPermissions(this);
-
-        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_infoName, countryList);
-        //secondList= (ListView) findViewById(R.id.listviewinformation);
-        //ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(this, R.layout.activity_list_view__information_list, R.id.txtInfoView_number, (List<String>) secondList);
-
-        //secondList.setAdapter(arrayAdapter1);
-        //simpleList.setAdapter(arrayAdapter);
-        //GetMedicamentCount();
-
-        setDBAdapters();
-        getAllNumbersToSet();
-        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        DBFormAdapter dbForm = new DBFormAdapter(this);
-        DBPurposeAdapter dbPurpose = new DBPurposeAdapter(this);
-        DBAmountFormAdapter dbAmountForm = new DBAmountFormAdapter(this);
-        //CreateSpinnerLists(dbForm, dbPurpose, dbAmountForm);
-        cv_take = (CardView) findViewById(R.id.btn_takeMedicine);
-        cv_take.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OpenTakeMedActivity();
-
-            }
-        });
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -239,15 +209,10 @@ public class MainActivity extends AppCompatActivity {
 
                         int id = menuItem.getItemId();
 
-                        if (id == R.id.nav_download) {
-                            // Handle the camera action
-                        } /*else if (id == R.id.nav_gallery) {
+                        /*if (id == R.id.nav_download) {
+                            downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
-                        } else if (id == R.id.nav_slideshow) {
-
-                        } else if (id == R.id.nav_manage) {
-
-                        }*/ else if (id == R.id.nav_edit_forms) {
+                        }  else*/ if (id == R.id.nav_edit_forms) {
                             //openNextActivity();
                             Intent intent = new Intent(MainActivity.this, EditFormsList.class);
                             startActivity(intent);
@@ -262,101 +227,75 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, EditPersonList.class);
                             startActivity(intent);
 
-                        }
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+                        } /*else if (id == R.id.nav_permissions){
+                            permissionManager = new PermissionManager() {
+                            };
+                            permissionManager.checkAndRequestPermissions(MainActivity.this);
+                        }*/
 
                         return true;
                     }
                 });
 
 
-        txtDownload = (TextView) findViewById(R.id.txt_download_file);
-        cv_download = (CardView) findViewById(R.id.btn_download_file);
-        cv_download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openNextActivity();
-                //checkPermission();
+        //simpleList = (ListView) findViewById(R.id.listviewinformation);
+        Stetho.initializeWithDefaults(this);
+        permissionManager = new PermissionManager() {
+        };
+        permissionManager.checkAndRequestPermissions(this);
 
-            }
-        });
+        setDBAdapters();
+        getAllNumbersToSet();
+        //downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+
+
 
         imagebtnSearch = (ImageButton) findViewById(R.id.imagebtn_search);
-        imagebtnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityFindMedicine();
-            }
-        });
         txt_search = (TextView) findViewById(R.id.txt_search);
-        txt_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityFindMedicine();
-            }
-        });
         cv_search = (CardView) findViewById(R.id.btn_search);
-        cv_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityFindMedicine();
-            }
-        });
-
 
         imagebtnAdd = (ImageButton) findViewById(R.id.imagebtn_add);
-        imagebtnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityAddMedicine();
-            }
-        });
         txt_add = (TextView) findViewById(R.id.txt_add);
-        txt_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityAddMedicine();
-            }
-        });
         cv_add = (CardView) findViewById(R.id.btn_addMedicine);
-        cv_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityAddMedicine();
-            }
-        });
+
+        imagebtnTake = (ImageButton) findViewById(R.id.imagebtn_take);
+        txt_take = (TextView) findViewById(R.id.txt_take);
+        cv_take = (CardView) findViewById(R.id.btn_takeMedicine);
 
         imagebtnLists = (ImageButton) findViewById(R.id.imagebtn_lists);
-        imagebtnLists.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityListOfMedicines();
-            }
-        });
         txt_lists = (TextView) findViewById(R.id.txt_lists);
-        txt_lists.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityListOfMedicines();
-            }
-        });
         cv_listOfMedicines = (CardView) findViewById(R.id.btn_listOfMedicines);
-        cv_listOfMedicines.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityListOfMedicines();
-            }
-        });
 
+        imagebtnAlarm = (ImageButton) findViewById(R.id.imagebtn_alarm);
+        txt_alarm = (TextView) findViewById(R.id.txt_alarm);
         cv_addAlarm = (CardView) findViewById(R.id.btn_addAlarms);
-        cv_addAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OpenActivityAlarms();
-            }
-        });
 
+
+        imagebtnTimeList = (ImageButton) findViewById(R.id.imagebtn_timelists);
+        txt_timelists = (TextView) findViewById(R.id.txt_timelists);
+        cv_timeList = (CardView) findViewById(R.id.btn_timelists);
+
+
+        imagebtnTimeList.setOnClickListener(this);
+        imagebtnAlarm.setOnClickListener(this);
+        imagebtnLists.setOnClickListener(this);
+        imagebtnTake.setOnClickListener(this);
+        imagebtnAdd.setOnClickListener(this);
+        imagebtnSearch.setOnClickListener(this);
+
+        txt_timelists.setOnClickListener(this);
+        txt_alarm.setOnClickListener(this);
+        txt_lists.setOnClickListener(this);
+        txt_take.setOnClickListener(this);
+        txt_add.setOnClickListener(this);
+        txt_search.setOnClickListener(this);
+
+        cv_timeList.setOnClickListener(this);
+        cv_addAlarm.setOnClickListener(this);
+        cv_listOfMedicines.setOnClickListener(this);
+        cv_take.setOnClickListener(this);
+        cv_add.setOnClickListener(this);
+        cv_search.setOnClickListener(this);
 
     }
 
@@ -374,6 +313,53 @@ public class MainActivity extends AppCompatActivity {
         //navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public void onClick(View v) {
+
+        switch(v.getId()){
+            case R.id.btn_timelists:
+            case R.id.txt_timelists:
+            case R.id.imagebtn_timelists:
+                Intent intent = new Intent(MainActivity.this, ListView_InformationList.class);
+                this.startActivity(intent);
+                break;
+
+            case R.id.btn_addAlarms:
+            case R.id.txt_alarm:
+            case R.id.imagebtn_alarm:
+                Intent intentAlarm = new Intent(MainActivity.this, Alarms.class);
+                this.startActivity(intentAlarm);
+                break;
+
+            case R.id.btn_listOfMedicines:
+            case R.id.txt_lists:
+            case R.id.imagebtn_lists:
+                Intent intentList = new Intent(MainActivity.this, OneMedicineInformation.class);
+                this.startActivity(intentList);
+                break;
+
+            case R.id.btn_takeMedicine:
+            case R.id.txt_take:
+            case R.id.imagebtn_take:
+                Intent intentTake = new Intent(MainActivity.this, TakeMedicine.class);
+                this.startActivity(intentTake);
+                break;
+
+            case R.id.btn_addMedicine:
+            case R.id.txt_add:
+            case R.id.imagebtn_add:
+                Intent intentAddMed = new Intent(MainActivity.this, AddMedicine.class);
+                this.startActivity(intentAddMed);
+                break;
+
+            case R.id.btn_search:
+            case R.id.txt_search:
+            case R.id.imagebtn_search:
+                Intent intentSearch = new Intent(MainActivity.this, FindMedicine.class);
+                this.startActivity(intentSearch);
+                break;
+
+        }
+    }
 
     @Override
     protected void onRestart() {
@@ -386,6 +372,9 @@ public class MainActivity extends AppCompatActivity {
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbMedInfo = new DBMedicamentInfoAdapter(this);
+        dbForm = new DBFormAdapter(this);
+        dbPurpose = new DBPurposeAdapter(this);
+        dbAmountForm = new DBAmountFormAdapter(this);
     }
 
     private void getAllNumbersToSet() {
@@ -459,25 +448,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void OpenTakeMedActivity() {
-        Intent intent = new Intent(this, TakeMedicine.class);
-        startActivity(intent);
-    }
 
-    public void OpenActivityAlarms() {
-        Intent intent = new Intent(this, Alarms.class);
-        startActivity(intent);
-    }
-
-    public void openActivityFindMedicine() {
-        Intent intent = new Intent(this, FindMedicine.class);
-        startActivity(intent);
-    }
-
-    public void openActivityAddMedicine() {
-        Intent intent = new Intent(this, AddMedicine.class);
-        startActivity(intent);
-    }
 
     public void openActivityListOfMedicines() {
         Intent intent = new Intent(this, OneMedicineInformation.class);//ListOfMedicines
@@ -549,6 +520,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
 }
 

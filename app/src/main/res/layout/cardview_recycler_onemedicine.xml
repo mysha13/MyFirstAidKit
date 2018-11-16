@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
-    card_view:cardBackgroundColor="#c4e1e9"
     card_view:cardCornerRadius="12dp"
     android:foreground="?selectableItemBackground"
     app:cardUseCompatPadding="true">
@@ -254,22 +253,27 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/imageView_oneMedicineItem">
 
             <Button
+                android:background="@drawable/button_shape"
                 android:id="@+id/btn_update_item"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/edit"
                 android:textSize="14dp"
+                android:layout_marginRight="5dp"
                 app:layout_constraintRight_toRightOf="@+id/base"/>
 
             <Button
+                android:background="@drawable/button_shape"
                 android:id="@+id/btn_delete_item"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:layout_rowSpan="2"
@@ -277,9 +281,11 @@
                 android:textSize="14dp"/>
 
             <Button
+                android:background="@drawable/button_shape"
                 android:id="@+id/btn_moreInfo_item"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/moreinfo"

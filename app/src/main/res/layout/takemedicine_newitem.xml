@@ -155,22 +155,27 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/imageView_takenMed_item">
 
             <Button
+                android:background="@drawable/button_shape"
                 android:layout_weight="1"
                 android:id="@+id/btn_takeMen_item"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_gravity="center"
                 android:text="@string/takeMed_txt_takeMed"
                 android:textSize="14dp"/>
 
             <Button
+                android:background="@drawable/button_shape"
                 android:layout_weight="1"
                 android:id="@+id/btn_editamount_item"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_gravity="center"
                 android:text="Edytuj ilość"
                 android:textSize="14dp"/>

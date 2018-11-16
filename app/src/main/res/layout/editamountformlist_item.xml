@@ -23,6 +23,7 @@
         android:id="@+id/tv_amountformname"/>
 
     <Button
+        android:background="@drawable/button_shape"
         android:id="@+id/btn_delete_editamountformslist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

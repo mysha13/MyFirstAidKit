@@ -118,7 +118,7 @@ public class FindMedicine extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            shortmedadapter.filter(s.toString());
+            shortmedadapter.filterCode(s.toString());
         }
     };
 
@@ -260,7 +260,7 @@ public class FindMedicine extends AppCompatActivity {
         et_findcode.setText(bar.getCode().toString());
     }
 
-    @OnClick(R.id.btn_searchbyname)
+    /*@OnClick(R.id.btn_searchbyname)
     void searchMed() {
         setDBAdapters();
         meds.clear();
@@ -272,7 +272,7 @@ public class FindMedicine extends AppCompatActivity {
         ShowMedsList();
        // CreateMedList(cursor, dbUserMed,dbForm,dbPurpose, meds);
 
-    }
+    }*/
 
     private void ShowMedsList() {
 

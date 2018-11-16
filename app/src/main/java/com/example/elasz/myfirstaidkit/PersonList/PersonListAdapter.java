@@ -33,7 +33,7 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
     @Override
     public PersonListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.editpersonlist_item, null);
+                .inflate(R.layout.editlist_item, null);
         return new PersonListAdapter.ViewHolder(itemLayoutView, listener);
     }
 
@@ -52,13 +52,13 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
         RecyclerViewClickListener listener;
         int bNumber = 0;
 
-        @BindView(R.id.tv_idperson)
+        @BindView(R.id.tv_id)
         TextView tvIdPerson;
 
-        @BindView(R.id.tv_personname)
+        @BindView(R.id.tv_name)
         TextView tvPersonName;
 
-        @OnClick(R.id.btn_delete_editpersonlist)
+        @OnClick(R.id.btn_delete)
         void delete(){
             bNumber = 2;
             onClick(itemView);

@@ -52,6 +52,7 @@
                 app:srcCompat="@drawable/ic_menu_camera" />
 
             <Button
+                android:background="@drawable/button_shape"
                 android:id="@+id/btn_scanBarcode_update"
                 android:layout_width="wrap_content"
                 android:layout_columnSpan="3"
@@ -401,6 +402,10 @@
 
             <Button
                 android:id="@+id/btn_saveMedicine_update"
+                android:background="@drawable/button_shape"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/addMedicine_btn_save"
                 android:layout_columnSpan="4"
                 android:layout_width="match_parent"/>

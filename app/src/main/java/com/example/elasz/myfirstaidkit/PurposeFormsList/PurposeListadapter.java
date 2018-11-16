@@ -32,7 +32,7 @@ public class PurposeListadapter extends RecyclerView.Adapter<PurposeListadapter.
     @Override
     public PurposeListadapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.editpurposelist_item, null);
+                .inflate(R.layout.editlist_item, null);
         return new PurposeListadapter.ViewHolder(itemLayoutView, listener);
     }
     @Override
@@ -50,13 +50,13 @@ public class PurposeListadapter extends RecyclerView.Adapter<PurposeListadapter.
         RecyclerViewClickListener listener;
         int bNumber = 0;
 
-        @BindView(R.id.tv_idpurpose)
+        @BindView(R.id.tv_id)
         TextView tvIdPurpose;
 
-        @BindView(R.id.tv_purposename)
+        @BindView(R.id.tv_name)
         TextView tvPurposeName;
 
-        @OnClick(R.id.btn_delete_editpurposelist)
+        @OnClick(R.id.btn_delete)
         void delete(){
             bNumber = 1;
             onClick(itemView);

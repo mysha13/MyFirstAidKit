@@ -28,7 +28,7 @@
     <string name="oneInformationMedicine_txt_disease">Schorzenie</string>
     <string name="oneInformationMedicine_checkb_taken">Zażywane</string>
 
-    <string name="addMedicine_btn_scanCode">Skanuj kod leku</string>
+    <string name="addMedicine_btn_scanCode">  Skanuj kod leku  </string>
     <string name="addMedicine_btn_save">Zapisz</string>
     <string name="addMedicine_txt_name">Nazwa</string>
     <string name="addMedicine_txt_opened">Otwarto</string>
