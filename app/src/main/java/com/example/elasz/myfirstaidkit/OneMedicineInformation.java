@@ -64,6 +64,12 @@ public class OneMedicineInformation extends AppCompatActivity {
         initialize();
     }
 
+   /* @Override
+    protected void onRestart(){
+        super.onRestart();
+        this.onCreate(null);
+    }*/
+
     private void setRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
@@ -104,11 +110,17 @@ public class OneMedicineInformation extends AppCompatActivity {
 
         if (!(medicaments.size() < 1)) {
             recyclerView.setAdapter(shortmedadapter);
+            numberOfMeds.setText(String.valueOf(medicaments.size()));
         }
+        else {
+            numberOfMeds.setText("Nie znaleziono zadnych leków");
+        }
+
+
     }
 
     private void getMedicamentItem() {
-       // setDBAdapters();
+        setDBAdapters();
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
@@ -238,6 +250,8 @@ public class OneMedicineInformation extends AppCompatActivity {
         dialog.show();
 
     }
+
+
     private void deleteMed(String id) {
         DBUserMedicamentsAdapter dbMed = new DBUserMedicamentsAdapter(getBaseContext());
         dbMed.OpenDB();

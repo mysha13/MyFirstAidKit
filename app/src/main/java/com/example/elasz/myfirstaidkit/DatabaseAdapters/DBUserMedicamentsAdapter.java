@@ -212,6 +212,25 @@ public class DBUserMedicamentsAdapter {
         return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE, columns, null, null, null, null, null);
     }
 
+    public Cursor GetAllUserMedicamentInfoDataFromId(int id){
+        String[] columns= new String[]{DatabaseConstantInformation.ID_USERMED,
+                DatabaseConstantInformation.NAME,
+                DatabaseConstantInformation.ID_MEDICAMENT,
+                DatabaseConstantInformation.EXPDATE,
+                DatabaseConstantInformation.OPENDATE,
+                DatabaseConstantInformation.FORM,
+                DatabaseConstantInformation.PURPOSE,
+                DatabaseConstantInformation.AMOUNT,
+                DatabaseConstantInformation.AMOUNT_FORM,
+                DatabaseConstantInformation.PERSON,
+                DatabaseConstantInformation.NOTE,
+                DatabaseConstantInformation.ISTAKEN,
+                DatabaseConstantInformation.IMAGE};
+
+        return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE, columns, null, null, null, null, null);
+    }
+
+
     public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, String person, String note, boolean istake, byte[] image){
         ContentValues cvUpdateRow = new ContentValues();
         cvUpdateRow.put(DatabaseConstantInformation.NAME, name);

@@ -135,6 +135,82 @@ public class DBMedicamentInfoAdapter {
     }
 
 
+    public String getNameFromCode(String code){
+        String name="";
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.MEDNAME},
+                DatabaseConstantInformation.CODE + "=?",
+                new String[]{String.valueOf(code)},
+                null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            name = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.MEDNAME));
+        }
+        return name;
+    }
+
+    public String getPowerFromCode(String code){
+        String powerName = "";
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.POWER},
+                DatabaseConstantInformation.CODE + "=?",
+                new String[]{String.valueOf(code)},
+                null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            powerName = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.POWER));
+        }
+        return powerName;
+    }
+
+    public String getSubsActiveFromCode(String code){
+        String subsActive = "";
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.ACTIVESUBS},
+                DatabaseConstantInformation.CODE + "=?",
+                new String[]{String.valueOf(code)},
+                null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            subsActive = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.ACTIVESUBS));
+        }
+        return subsActive;
+    }
+    public String getProducerFromCode(String code){
+        String producer = "";
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.PRODUCER},
+                DatabaseConstantInformation.CODE + "=?",
+                new String[]{String.valueOf(code)},
+                null, null, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            producer = cursor.getString(cursor.getColumnIndex(DatabaseConstantInformation.PRODUCER));
+        }
+        return producer;
+    }
+
+    public int getMedIdFromCode(String code){
+        int medid = 1;
+        Cursor cursor;
+        cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
+                new String[]{DatabaseConstantInformation.ID_MED},
+                DatabaseConstantInformation.CODE + "=?",
+                new String[]{code},
+                null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            medid = cursor.getInt(cursor.getColumnIndex(DatabaseConstantInformation.ID_MED));
+        }
+        return medid;
+    }
 
     public String GetPower(long id){
         String powerName = "";

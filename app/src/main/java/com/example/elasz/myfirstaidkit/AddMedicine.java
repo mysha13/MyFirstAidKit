@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.BundleCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +46,7 @@ import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPersonAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
+import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -75,7 +77,7 @@ public class AddMedicine extends AppCompatActivity {
         AddMedicine.codecode = codecode;
     }
 
-    public static int codefromscanner;
+    public int codefromscanner;
     public static String codecode;
 
    // private DatabaseFormAdapter dAForm;
@@ -197,6 +199,8 @@ public class AddMedicine extends AppCompatActivity {
     private int personid;
     private int medinfoid;
 
+    private int medexistedid;
+
     String mCurrentPhotoPath;
 
     @Override
@@ -204,6 +208,7 @@ public class AddMedicine extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
         ButterKnife.bind(this);
+        SetDatabaseAdapters();
         spinnerForm(dbForm, formList, adapterForm, spin_form);
         spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
         spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
@@ -289,6 +294,39 @@ public class AddMedicine extends AppCompatActivity {
             public void onClick(View view) {
                 OpenBarcodeScannerActivity();
 
+                /*Cursor cursor;
+                if(code.getText()!=null)
+                {
+                    cursor = dbMedInfo.FindMedicamentByCode(code.getText().toString(), DatabaseConstantInformation.CODE);
+                    if(cursor.getCount()>0){
+                        dbMedInfo.OpenDB();
+                        medinfoid=dbMedInfo.getMedIdFromCode(code.getText().toString());
+                        name.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
+                        power.setText(dbMedInfo.getPowerFromCode(code.getText().toString()));
+                        subsActive.setText(dbMedInfo.getSubsActiveFromCode(code.getText().toString()));
+                        //code.setText(dbMedInfo.GetCode(idmed));
+                        producer.setText(dbMedInfo.getProducerFromCode(code.getText().toString()));
+                        dbMedInfo.CloseDB();
+                    }
+                    else{
+                        Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
+                    }
+                }*/
+
+
+                /*if(cursor.getCount()>0){
+                    dbMedInfo.OpenDB();
+                    medinfoid=dbMedInfo.getMedIdFromCode(code.getText().toString());
+                    name.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
+                    power.setText(dbMedInfo.getPowerFromCode(code.getText().toString()));
+                    subsActive.setText(dbMedInfo.getSubsActiveFromCode(code.getText().toString()));
+                    //code.setText(dbMedInfo.GetCode(idmed));
+                    producer.setText(dbMedInfo.getProducerFromCode(code.getText().toString()));
+                    dbMedInfo.CloseDB();
+                }
+                else{
+                    Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
+                }*/
             }
         });
 
@@ -318,6 +356,8 @@ public class AddMedicine extends AppCompatActivity {
         };
 
     }
+
+
     private void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
@@ -402,11 +442,8 @@ public class AddMedicine extends AppCompatActivity {
         }else if(spinnerCorrection(spin_amountForm) == null){
             Toast.makeText(AddMedicine.this, "Forma ilości jest pusta", Toast.LENGTH_LONG).show();
         }else{
-            SetDatabaseAdapters();
             CheckResult();
-
         }
-
     }
 
 
@@ -417,10 +454,12 @@ public class AddMedicine extends AppCompatActivity {
         if (work > 0 && work2 >0 ) {
             Toast.makeText(AddMedicine.this, "Dodano lek", Toast.LENGTH_LONG).show();
             clearTextViews();
+            ClearImageView();
             spinnerForm(dbForm, formList, adapterForm, spin_form);
             spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
             spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
             spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
+            finish();
         } else {
             Toast.makeText(AddMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
@@ -428,8 +467,8 @@ public class AddMedicine extends AppCompatActivity {
 
     private void clearTextViews() {
         name.setText("");
-        expdate.setText("rrrr-MM-dd");
-        opendate.setText("rrrr-MM-dd");
+        expdate.setText("");
+        opendate.setText("");
         amount.setText("");
         power.setText("");
         subsActive.setText("");
@@ -438,7 +477,8 @@ public class AddMedicine extends AppCompatActivity {
         note.setText("");
         istake.setChecked(false);
         imageView.setImageBitmap(null);
-        imageView.setImageResource(0);
+        //imageView.setImageResource(0);
+        imageView.setImageDrawable(null);
     }
 
     private long TryToAddToMedInfo(){
@@ -619,11 +659,21 @@ public class AddMedicine extends AppCompatActivity {
     }
 
     private long addMedToDBMedInfo() {
-        return dbMedInfo.AddMedicamentInfoData(name.getText().toString(),
-                todb_power,
-                todb_subsActive,
-                codecode,
-                todb_producer);
+        if(medexistedid>0){
+            return  dbMedInfo.UpdateRowMedInfo(medinfoid,name.getText().toString(),
+                    todb_power,
+                    todb_subsActive,
+                    todb_code,
+                    todb_producer);
+        }
+        else
+        {   return dbMedInfo.AddMedicamentInfoData(name.getText().toString(),
+                    todb_power,
+                    todb_subsActive,
+                    todb_code,
+                    todb_producer);
+        }
+
     }
 
     public static byte[] ConvertImageToByteArray(Bitmap bitmap) {
@@ -694,7 +744,8 @@ public class AddMedicine extends AppCompatActivity {
 
     private  void ClearImageView(){
         imageView.setImageBitmap(null);
-        imageView.setImageResource(0);
+        //imageView.setImageResource(0);
+        imageView.setImageDrawable(null);
     }
 
     @Override
@@ -704,8 +755,25 @@ public class AddMedicine extends AppCompatActivity {
         if(requestCode == codefromscanner){
             if (resultCode == Activity.RESULT_OK) {
                 BarcodeScanner bar= new BarcodeScanner();
-                String newText = data.getStringExtra(bar.PUBLIC_STATIC_STRING_IDENTIFIER);
-                code.setText(newText);
+                String scanCode = data.getStringExtra(bar.PUBLIC_STATIC_STRING_IDENTIFIER);
+                code.setText(scanCode);
+
+                Cursor cursor = checkIfMedExisted(scanCode);
+                if(cursor.getCount()>0){
+                    dbMedInfo.OpenDB();
+                    medinfoid=dbMedInfo.getMedIdFromCode(scanCode);
+                    medexistedid=medinfoid;
+                    name.setText(dbMedInfo.getNameFromCode(scanCode));
+                    power.setText(dbMedInfo.getPowerFromCode(scanCode));
+                    subsActive.setText(dbMedInfo.getSubsActiveFromCode(scanCode));
+                    producer.setText(dbMedInfo.getProducerFromCode(scanCode));
+                    dbMedInfo.CloseDB();
+                    Toast.makeText(AddMedicine.this, "Lek wcześniej istniał, dane uzupełnione", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
         if (resultCode == this.RESULT_CANCELED) {
@@ -838,10 +906,40 @@ public class AddMedicine extends AppCompatActivity {
 
     @OnClick(R.id.btn_scanBarcode_add)
     public void OpenBarcodeScannerActivity(){
+        BarcodeScanner bar= new BarcodeScanner();
+        bar.setCode(null);
         Intent intent= new Intent(this, BarcodeScanner.class);
         startActivityForResult(intent, codefromscanner);
-        BarcodeScanner bar= new BarcodeScanner();
-        code.setText(bar.getCode().toString());
+        //BarcodeScanner bar= new BarcodeScanner();
+        //code.setText(bar.getCode());
+
+       /* Cursor cursor = checkIfMedExisted();
+        if(cursor.getCount()>0){
+            dbMedInfo.OpenDB();
+            medinfoid=dbMedInfo.getMedIdFromCode(code.getText().toString());
+            name.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
+            power.setText(dbMedInfo.getPowerFromCode(code.getText().toString()));
+            subsActive.setText(dbMedInfo.getSubsActiveFromCode(code.getText().toString()));
+            producer.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
+            dbMedInfo.CloseDB();
+        }
+        else{
+            Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
+        }*/
+
+    }
+
+    private Cursor checkIfMedExisted(String scancode) {
+        dbMedInfo.OpenDB();
+        Cursor cursor;
+        if(code.getText()!=null)
+        {
+            cursor = dbMedInfo.FindMedicamentByCode(scancode, DatabaseConstantInformation.CODE);
+        }
+        else{
+            cursor=null;
+        }
+        return cursor;
     }
 
 }

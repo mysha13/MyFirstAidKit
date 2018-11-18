@@ -48,9 +48,10 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        code="";
         scannerView=new ZXingScannerView(this);
         setContentView(scannerView);
+
         // setContentView(R.layout.activity_barcode_scanner);
 
         if(Build.VERSION.SDK_INT >=  Build.VERSION_CODES.M)
@@ -142,20 +143,19 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
     @Override
     public void handleResult(final Result result) {
         final String scannerResult = result.getText();
-        code=result.getText().toString();
+        code=result.getText();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Wynik skanowania");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                AddMedicine addmed=new AddMedicine();
-                addmed.setCodecode(result.getText());
+                //AddMedicine addmed=new AddMedicine();
+                //addmed.setCodecode(result.getText());
                 //scannerView.resumeCameraPreview(BarcodeScanner.this);
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(PUBLIC_STATIC_STRING_IDENTIFIER, result.getText());
                 setResult(BarcodeScanner.RESULT_OK, resultIntent);
-                
-                
+
                 finish();
                 
                 //Intent in= new Intent(BarcodeScanner.this, AddMedicine.class);
@@ -163,6 +163,7 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
 
 
             }
+
         });
         /*builder.setNegativeButton("Idź do leku", new DialogInterface.OnClickListener() {
             @Override

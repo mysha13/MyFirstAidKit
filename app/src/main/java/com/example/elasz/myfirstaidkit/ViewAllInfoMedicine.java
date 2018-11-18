@@ -93,7 +93,7 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
     private void setTextView() {
         int id = getID();
         dbUser.OpenDB();
-        Bitmap imageBitmap = ConvertByteArrayToImage(id);
+        Bitmap imageBitmap = ConvertByteArrayToImage(dbUser.getImageByteArray(id));
         image.setImageBitmap(imageBitmap);
         name.setText(dbUser.GetColumnContent(DatabaseConstantInformation.NAME, id));
         int idmed = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.ID_MEDICAMENT, id));
@@ -105,7 +105,7 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
         int purposeid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PURPOSE, id));
         amount.setText(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
         int amountformid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
-        //int personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+        int personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
         note.setText(dbUser.GetColumnContent(DatabaseConstantInformation.NOTE, id));
 
         dbUser.CloseDB();
@@ -135,25 +135,31 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
         amountform.setText(dbAmountForm.GetAmountFormName(amountformid));
         dbAmountForm.CloseDB();
 
-        /*if(personid == 0){
+        if(personid == 0){
             person.setText("-");
         }
         else{
             dbPerson.OpenDB();
             person.setText(dbPerson.GetPersonName(personid));
             dbPerson.CloseDB();
-        }*/
+        }
 
 
     }
-    private Bitmap ConvertByteArrayToImage(int id) {
+    private Bitmap ConvertByteArrayToImage(byte[] byteImage) {
+
+        if (byteImage!= null) {
+            return BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length);
+        } else {
+            return null;
+        }/*
         dbUser.OpenDB();
         byte[] imagebyte = dbUser.getImageByteArray(id);
         if (imagebyte != null) {
             return BitmapFactory.decodeByteArray(imagebyte, 0, imagebyte.length);
         } else {
             return null;
-        }
+        }*/
     }
 
     private int getID() {

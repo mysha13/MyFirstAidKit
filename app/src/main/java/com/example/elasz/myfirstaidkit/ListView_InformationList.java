@@ -66,24 +66,29 @@ public class ListView_InformationList extends AppCompatActivity {
         setContentView(R.layout.activity_list_view__information_list);
         ButterKnife.bind(this);
         setRecyclerViews();
+
         medicamentsNear = new ArrayList<>();
         medicamentsOver = new ArrayList<>();
-        getMed();
-        initialize();
 
+        setDBAdapters();
         dbUserMed.OpenDB();
         Cursor a =dbUserMed.medNear();
         nbNear.setText(String.valueOf(a.getCount()));
         dbUserMed.CloseDB();
 
-
-
         dbUserMed.OpenDB();
         Cursor a1= dbUserMed.medOverDue();
         nbOver.setText(String.valueOf(a1.getCount()));
         dbUserMed.CloseDB();
+        initialize();
+        getMed();
     }
 
+    /*@Override
+    protected void onRestart(){
+        super.onRestart();
+        this.onCreate(null);
+    }*/
 
     @OnClick(R.id.btn_dropdown_nearMed)
     void openNearMedsList(){
@@ -146,14 +151,22 @@ public class ListView_InformationList extends AppCompatActivity {
         shortmedadapterNearMeds = new ShortMedInfoItemAdapter(medicamentsNear, listener);
         recView_near.setAdapter(shortmedadapterNearMeds);
 
-        RecyclerViewClickListener listener1 = (view, position, id, bNumber) -> {
-            ButtonNumber(id, bNumber);
+        RecyclerViewClickListener listener1 = (view1, position1, id1, bNumber1) -> {
+            ButtonNumberOverDue(id1, bNumber1);
         };
         shortmedadapterOverDueMeds = new ShortMedInfoItemAdapter(medicamentsOver,listener1);
         recView_over.setAdapter(shortmedadapterOverDueMeds);
 
     }
-
+    private void ButtonNumberOverDue(String id, int btn_nb) {
+        if (btn_nb == 1) {
+            UpdateMedButton(id);
+        } else if (btn_nb == 2) {
+            DeleteMedButton(id);
+        } else if (btn_nb == 3) {
+            MoreInfoButton(id);
+        }
+    }
 
 
     private void ButtonNumber(String id, int btn_nb) {
@@ -215,7 +228,8 @@ public class ListView_InformationList extends AppCompatActivity {
         dbMed.deleteMed(String.valueOf(id));
         dbMed.CloseDB();
 
-        medicamentsNear = new ArrayList<>();
+
+        /*medicamentsNear = new ArrayList<>();
         medicamentsOver = new ArrayList<>();
         getMed();
         initialize();
@@ -228,7 +242,7 @@ public class ListView_InformationList extends AppCompatActivity {
         dbUserMed.OpenDB();
         Cursor a1= dbUserMed.medOverDue();
         nbOver.setText(String.valueOf(a1.getCount()));
-        dbUserMed.CloseDB();
+        dbUserMed.CloseDB();*/
     }
 
     private void setRecyclerViews() {
@@ -253,30 +267,39 @@ public class ListView_InformationList extends AppCompatActivity {
     }
 
     private void getMed() {
-        medicamentsNear.clear();
-        medicamentsOver.clear();
+        //medicamentsNear.clear();
+        //medicamentsOver.clear();
+        medicamentsNear = new ArrayList<>();
+        medicamentsOver = new ArrayList<>();
         getMedicamentItem();
-
         if (!(medicamentsNear.size() < 1)) {
             recView_near.setAdapter(shortmedadapterNearMeds);
+            nbNear.setText(String.valueOf(medicamentsNear.size()));
         }
 
+        getMedicamentItemOverDue();
         if (!(medicamentsOver.size() < 1)) {
             recView_over.setAdapter(shortmedadapterOverDueMeds);
+            nbOver.setText(String.valueOf(medicamentsOver.size()));
         }
+    }
+    private void getMedicamentItemOverDue() {
+        setDBAdapters();
+        dbUserMed.OpenDB();
+        Cursor cursorOver = dbUserMed.medOverDue();
+        CreateMedList(cursorOver, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsOver);
     }
 
     private void getMedicamentItem() {
         setDBAdapters();
         dbUserMed.OpenDB();
-        //Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
         Cursor cursorNear = dbUserMed.medNear();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursorNear));
         CreateMedList(cursorNear, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsNear);
 
-        dbUserMed.OpenDB();
+        /*dbUserMed.OpenDB();
         Cursor cursorOver = dbUserMed.medOverDue();
-        CreateMedList(cursorOver, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsOver);
+        CreateMedList(cursorOver, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsOver);*/
     }
 
     public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBFormAdapter dbForm, DBPurposeAdapter dbPurpose, DBAmountFormAdapter dbAmountForm, DBMedicamentInfoAdapter dbMedInfo, ArrayList<ShortMedInfoItem> medicaments) {

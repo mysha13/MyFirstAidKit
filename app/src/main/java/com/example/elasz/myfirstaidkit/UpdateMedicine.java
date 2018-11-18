@@ -305,12 +305,12 @@ public class UpdateMedicine extends AppCompatActivity {
         ColorStateList redColor=lastamount.getTextColors();
         int id = getID();
         dbUserMed.OpenDB();
-        Bitmap imageBitmap = ConvertByteArrayToImage(id);
+        Bitmap imageBitmap = ConvertByteArrayToImage(dbUserMed.getImageByteArray(id));
         imageView.setImageBitmap(imageBitmap);
         name.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.NAME, id));
         name.setTextColor(redColor);
         int idmedinfo = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.ID_MEDICAMENT, id));
-        //image.setImageBitmap(dbUser.GetColumnContent(DatabaseConstantInformation.IMAGE, id));
+        //image.setImageBitmap(dbUserMed.GetColumnContent(DatabaseConstantInformation.IMAGE, id));
 
         expdate.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.EXPDATE, id));
         expdate.setTextColor(redColor);
@@ -318,10 +318,11 @@ public class UpdateMedicine extends AppCompatActivity {
         opendate.setTextColor(redColor);
         int formid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.FORM, id));
         int purposeid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.PURPOSE, id));
-        amount.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
-        amount.setTextColor(redColor);
+        //amount.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
+        lastamount.setTextColor(redColor);
+        lastamount.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
         int amountformid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
-//        int personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+        int personid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.PERSON, id));
         note.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.NOTE, id));
         note.setTextColor(redColor);
 
@@ -439,15 +440,15 @@ public class UpdateMedicine extends AppCompatActivity {
         spinner.setAdapter(adapterPerson);
     }
 
-    private Bitmap ConvertByteArrayToImage(int id) {
-        dbUserMed.OpenDB();
-        byte[] imagebyte = dbUserMed.getImageByteArray(id);
-        if (imagebyte != null) {
-            return BitmapFactory.decodeByteArray(imagebyte, 0, imagebyte.length);
+    private Bitmap ConvertByteArrayToImage(byte[] byteImage) {
+
+        if (byteImage!= null) {
+            return BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length);
         } else {
             return null;
         }
     }
+
 
     private int getID() {
         Bundle bundle = getIntent().getExtras();
@@ -455,7 +456,6 @@ public class UpdateMedicine extends AppCompatActivity {
             return bundle.getInt("MedIdUpdate");
         } else {
             return 0;
-
         }
     }
 
