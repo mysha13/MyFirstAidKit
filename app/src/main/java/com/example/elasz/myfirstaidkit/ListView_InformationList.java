@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -28,6 +29,7 @@ import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItemAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,13 +62,15 @@ public class ListView_InformationList extends AppCompatActivity {
     @BindView(R.id.tv_numberOverdueMeds)
     TextView nbOver;
 
+    private static final String TAG = "ListView_Inf";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view__information_list);
         ButterKnife.bind(this);
         setRecyclerViews();
-
+/*
         medicamentsNear = new ArrayList<>();
         medicamentsOver = new ArrayList<>();
 
@@ -79,9 +83,10 @@ public class ListView_InformationList extends AppCompatActivity {
         dbUserMed.OpenDB();
         Cursor a1= dbUserMed.medOverDue();
         nbOver.setText(String.valueOf(a1.getCount()));
-        dbUserMed.CloseDB();
+        dbUserMed.CloseDB();*/
+        getBundle();
         initialize();
-        getMed();
+        //getMed();
     }
 
     /*@Override
@@ -213,9 +218,18 @@ public class ListView_InformationList extends AppCompatActivity {
         bYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteMed(id);
-                dialog.dismiss();
-                getMed();
+                try{
+                    deleteMed(id);
+                    dialog.dismiss();
+                    getMed();
+                    openNearMedsList();
+                    openOverDueMedsList();
+                }catch (Exception e){
+                    Log.d(TAG, "Can delete", e);
+                }
+
+
+
             }
         });
         dialog.show();
@@ -262,25 +276,39 @@ public class ListView_InformationList extends AppCompatActivity {
     private void getBundle() {
         medicamentsNear = new ArrayList<>();
         medicamentsOver = new ArrayList<>();
-        //numberOfMeds.setText("Wszystkie leki dodane");
+        setDBAdapters();
+        dbUserMed.OpenDB();
+        Cursor a =dbUserMed.medNear();
+        nbNear.setText(String.valueOf(a.getCount()));
+        dbUserMed.CloseDB();
+
+        dbUserMed.OpenDB();
+        Cursor a1= dbUserMed.medOverDue();
+        nbOver.setText(String.valueOf(a1.getCount()));
+        dbUserMed.CloseDB();
+
         getMed();
     }
 
     private void getMed() {
-        //medicamentsNear.clear();
-        //medicamentsOver.clear();
-        medicamentsNear = new ArrayList<>();
-        medicamentsOver = new ArrayList<>();
+        medicamentsNear.clear();
+        medicamentsOver.clear();
+
         getMedicamentItem();
         if (!(medicamentsNear.size() < 1)) {
             recView_near.setAdapter(shortmedadapterNearMeds);
             nbNear.setText(String.valueOf(medicamentsNear.size()));
+        }
+        else {
+            nbNear.setText("0");
         }
 
         getMedicamentItemOverDue();
         if (!(medicamentsOver.size() < 1)) {
             recView_over.setAdapter(shortmedadapterOverDueMeds);
             nbOver.setText(String.valueOf(medicamentsOver.size()));
+        }else {
+            nbOver.setText("0");
         }
     }
     private void getMedicamentItemOverDue() {
