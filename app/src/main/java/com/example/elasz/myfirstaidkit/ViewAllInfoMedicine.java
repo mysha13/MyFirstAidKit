@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,7 +64,7 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
     private DBPersonAdapter dbPerson;
 
    // private ArrayList<String> formList;
-
+   private static final String TAG = "ViewAllInfo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +93,7 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
 
     private void setTextView() {
         int id = getID();
+        int personid=0;
         dbUser.OpenDB();
         Bitmap imageBitmap = ConvertByteArrayToImage(dbUser.getImageByteArray(id));
         image.setImageBitmap(imageBitmap);
@@ -105,7 +107,13 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
         int purposeid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PURPOSE, id));
         amount.setText(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
         int amountformid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
-        int personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+
+        try{
+            personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+        }catch(Exception e){
+            Log.e(TAG,e.toString());
+        }
+       //int personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
         note.setText(dbUser.GetColumnContent(DatabaseConstantInformation.NOTE, id));
 
         dbUser.CloseDB();

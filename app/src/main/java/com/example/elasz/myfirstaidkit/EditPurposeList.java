@@ -99,11 +99,11 @@ public class EditPurposeList extends AppCompatActivity {
 
     private void whichOneWasClicked(String id, int bNumber) {
         if (bNumber == 1) {
-            if (Integer.valueOf(id) != 1) {
+            //if (Integer.valueOf(id) != 1) {
                 deletePurposeFromList(id);
-            } else {
+           /* } else {
                 Toast.makeText(EditPurposeList.this, "Nie można usunąć", Toast.LENGTH_LONG).show();
-            }
+            }*/
         }
     }
 
@@ -142,7 +142,7 @@ public class EditPurposeList extends AppCompatActivity {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbPurpose = new DBPurposeAdapter(this);
         dbUserMed.OpenDB();
-        dbUserMed.renameForm(id);
+        dbUserMed.renamePurpose(id);
         dbUserMed.CloseDB();
 
         dbPurpose.OpenDB();
@@ -167,7 +167,7 @@ public class EditPurposeList extends AppCompatActivity {
         } else if (checkIfExist()){  //ifexist
             addPurpose();
         } else{
-            Toast.makeText(EditPurposeList.this,"Podane schorzenie już istanieje", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditPurposeList.this,"Podane schorzenie już istnieje", Toast.LENGTH_LONG).show();
         }
     }
 

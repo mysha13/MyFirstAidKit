@@ -351,7 +351,8 @@
                 android:layout_columnSpan="2"
                 android:layout_marginTop="3dp"
                 android:hint="@string/addMedicine_et_barcode"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:inputType="number"/>
 
             <TextView
                 android:id="@+id/txtview_responsibleObject"

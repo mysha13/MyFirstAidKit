@@ -64,11 +64,13 @@ public class OneMedicineInformation extends AppCompatActivity {
         initialize();
     }
 
-   /* @Override
+    @Override
     protected void onRestart(){
         super.onRestart();
-        this.onCreate(null);
-    }*/
+        setRecyclerView();
+        getBundle();
+        initialize();
+    }
 
     private void setRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);

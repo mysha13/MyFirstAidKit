@@ -93,11 +93,13 @@ public class EditPersonList extends AppCompatActivity {
 
     private void whichOneWasClicked(String id, int bNumber) {
         if (bNumber == 2) {
-            if (Integer.valueOf(id) != 2) {
+            deletePersonFromList(id);
+
+           /* if (Integer.valueOf(id) != 2) {
                 deletePersonFromList(id);
             } else {
-                Toast.makeText(EditPersonList.this, "Nie można usunąć", Toast.LENGTH_LONG).show();
-            }
+                Toast.makeText(EditPersonList.this, "Nie można usunąć, osoba przypisana", Toast.LENGTH_LONG).show();
+            }*/
         }
     }
 
@@ -138,7 +140,7 @@ public class EditPersonList extends AppCompatActivity {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbPerson = new DBPersonAdapter(this);
         dbUserMed.OpenDB();
-        dbUserMed.renameForm(id);
+        dbUserMed.renamePerson(id);
         dbUserMed.CloseDB();
 
         dbPerson.OpenDB();

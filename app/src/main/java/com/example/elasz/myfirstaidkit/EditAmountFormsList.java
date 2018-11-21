@@ -91,11 +91,12 @@ public class EditAmountFormsList extends AppCompatActivity {
 
     private void whichOneWasClicked(String id, int bNumber) {
         if (bNumber == 2) {
-            if (Integer.valueOf(id) != 2) {
+            deleteAmountFormFromList(id);
+            /*if (Integer.valueOf(id) != 2) {
                 deleteAmountFormFromList(id);
             } else {
                 Toast.makeText(EditAmountFormsList.this, "Nie można usunąć", Toast.LENGTH_LONG).show();
-            }
+            }*/
         }
     }
 
@@ -137,7 +138,7 @@ public class EditAmountFormsList extends AppCompatActivity {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbAmountForm = new DBAmountFormAdapter(this);
         dbUserMed.OpenDB();
-        dbUserMed.renameForm(id);
+        dbUserMed.renameAmountForm(id);
         dbUserMed.CloseDB();
 
         dbAmountForm.OpenDB();

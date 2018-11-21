@@ -118,7 +118,7 @@ public class UpdateMedicine extends AppCompatActivity {
 
     @BindView(R.id.spin_person_update)
     Spinner spin_person;
-    private int todb_person;
+    private String todb_person;
 
     @BindView(R.id.tv_lastperson_update)
     TextView lastperson;
@@ -219,6 +219,7 @@ public class UpdateMedicine extends AppCompatActivity {
         //btn_saveMedicine_update
     }
 
+
     @OnClick(R.id.btn_scanBarcode_update)
     void scanBarcode(){
         Intent intent= new Intent(this, BarcodeScanner.class);
@@ -303,6 +304,7 @@ public class UpdateMedicine extends AppCompatActivity {
     private void setAllLastedTexts() {
 
         ColorStateList redColor=lastamount.getTextColors();
+        //int personid=0;
         int id = getID();
         dbUserMed.OpenDB();
         Bitmap imageBitmap = ConvertByteArrayToImage(dbUserMed.getImageByteArray(id));
@@ -316,13 +318,19 @@ public class UpdateMedicine extends AppCompatActivity {
         expdate.setTextColor(redColor);
         opendate.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.OPENDATE, id));
         opendate.setTextColor(redColor);
-        int formid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.FORM, id));
-        int purposeid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.PURPOSE, id));
+                formid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.FORM, id));
+                purposeid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.PURPOSE, id));
         //amount.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
         lastamount.setTextColor(redColor);
         lastamount.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
-        int amountformid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
-        int personid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+                amountformid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
+
+        try{
+            personid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+        }catch(Exception e){
+            Log.e(TAG,e.toString());
+        }
+
         note.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.NOTE, id));
         note.setTextColor(redColor);
 
@@ -335,13 +343,13 @@ public class UpdateMedicine extends AppCompatActivity {
         dbForm.CloseDB();
 
         dbMedInfo.OpenDB();
-        power.setText(dbMedInfo.GetPower(idmed));
+        power.setText(dbMedInfo.GetPower(idmedinfo));
         power.setTextColor(redColor);
-        subsActive.setText(dbMedInfo.GetSubsActive(idmed));
+        subsActive.setText(dbMedInfo.GetSubsActive(idmedinfo));
         subsActive.setTextColor(redColor);
-        code.setText(dbMedInfo.GetCode(idmed));
+        code.setText(dbMedInfo.GetCode(idmedinfo));
         code.setTextColor(redColor);
-        producer.setText(dbMedInfo.GetProducer(idmed));
+        producer.setText(dbMedInfo.GetProducer(idmedinfo));
         producer.setTextColor(redColor);
         dbMedInfo.CloseDB();
 
@@ -360,14 +368,18 @@ public class UpdateMedicine extends AppCompatActivity {
         lastamountform.setTextColor(redColor);
         dbAmountForm.CloseDB();
 
-        /*if(personid == 0){
+        if(personid == 0){
             lastperson.setText("-");
         }
         else{
             dbPerson.OpenDB();
             lastperson.setText(dbPerson.GetPersonName(personid));
             dbPerson.CloseDB();
-        }*/
+        }
+
+        if(opendate.getText().length()==0){
+            opendate.setText("rrrr-MM-dd");
+        }
 
 
 
@@ -463,7 +475,7 @@ public class UpdateMedicine extends AppCompatActivity {
     void updateMed() {
         if(name.getText().toString().matches("")){
             Toast.makeText(UpdateMedicine.this, "Nazwa jest pusta", Toast.LENGTH_LONG).show();
-        }else if(amount.getText().toString().matches("")){
+        }/*else if(amount.getText().toString().matches("")){
             Toast.makeText(UpdateMedicine.this, "Ilość jest puste", Toast.LENGTH_LONG).show();
         }else if(expdate.getText().toString().matches("")){
             Toast.makeText(UpdateMedicine.this, "Data ważności EXP jest pusta", Toast.LENGTH_LONG).show();
@@ -473,7 +485,7 @@ public class UpdateMedicine extends AppCompatActivity {
             Toast.makeText(UpdateMedicine.this, "Postać jest pusta", Toast.LENGTH_LONG).show();
         }else if(spinnerCorrection(spin_amountForm) == null){
             Toast.makeText(UpdateMedicine.this, "Forma ilości jest pusta", Toast.LENGTH_LONG).show();
-        }else{
+        }*/else{
             setDatabaseAdapter();
             CheckResult();
         }
@@ -489,6 +501,7 @@ public class UpdateMedicine extends AppCompatActivity {
            // spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
             //spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
             //spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
+            finish();
         } else {
             Toast.makeText(UpdateMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
@@ -509,25 +522,25 @@ public class UpdateMedicine extends AppCompatActivity {
         }
         if(spinnerCorrection(spin_form) == null)
         {
-            formid = 0;
+            //formid = 0;
         }
         else{
             formid = getFormID(dbForm, spinnerCorrection(spin_form));
         }
         if(spinnerCorrection(spin_purpose) == null) {
-            purposeid = 0;
+            //purposeid = 0;
         }
         else{
             purposeid = getPurposeID(dbPurpose, spinnerCorrection(spin_purpose));
         }
         if(spinnerCorrection(spin_amountForm) == null) {
-            amountformid = 0;
+            //amountformid = 0;
         }
         else{
             amountformid = getAmountFormID(dbAmountForm, spinnerCorrection(spin_amountForm));
         }
         if(spinnerCorrection(spin_person) == null) {
-            personid = 0;
+            //personid = 0;
         }
         else{
             personid = getPersonID(dbPerson, spinnerCorrection(spin_person));
@@ -579,9 +592,10 @@ public class UpdateMedicine extends AppCompatActivity {
                 todb_opendate,//opendate.getText().toString(),
                 formid,
                 purposeid,
-                Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
+                Double.parseDouble(todb_amount.replaceAll(",",".")),
+                //Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
                 amountformid,
-                null,
+                personid,
                 todb_note, //note.getText().toString());
                 istake.isChecked(),
                 convertedimage);
@@ -591,7 +605,7 @@ public class UpdateMedicine extends AppCompatActivity {
         return dbMedInfo.UpdateRowMedInfo(medinfoid,name.getText().toString(),
                 todb_power,
                 todb_subsActive,
-                codecode,
+                todb_code,
                 todb_producer);
     }
 
@@ -637,11 +651,7 @@ public class UpdateMedicine extends AppCompatActivity {
             if(codecode!=null){
                 todb_code=codecode;
             }else{
-                if(code.getText().toString().length()!=13){
-                    Toast.makeText(UpdateMedicine.this, "Nieprawidłowa długość kodu", Toast.LENGTH_LONG).show();
-                }else{
-                    todb_code=code.getText().toString();
-                }
+                todb_code=code.getText().toString();
             }
         }
         if(note.getText()==null){
@@ -649,6 +659,27 @@ public class UpdateMedicine extends AppCompatActivity {
         }
         else{
             todb_note=note.getText().toString();
+        }
+
+        if(amount.getText().length()==0){
+            todb_amount=lastamount.getText().toString();
+        }
+        else {
+            todb_amount=amount.getText().toString();
+        }
+
+        if(spinnerCorrection(spin_amountForm)==null){
+            todb_amountForm=lastamountform.getText().toString();
+        }
+
+        if(spinnerCorrection(spin_form)==null){
+            todb_form=lastform.getText().toString();
+        }
+        if(spinnerCorrection(spin_purpose)==null){
+            todb_purpose=lastpurpose.getText().toString();
+        }
+        if(spinnerCorrection(spin_person)==null){
+            todb_person=lastperson.getText().toString();
         }
     }
 
@@ -699,8 +730,9 @@ public class UpdateMedicine extends AppCompatActivity {
         }
         if (didItWork > 0) {
             Toast.makeText(UpdateMedicine.this, "Sukces, zaktualizowano lek", Toast.LENGTH_LONG).show();
+            finish();
         } else {
-            Toast.makeText(UpdateMedicine.this, "Nie udało się, porazka", Toast.LENGTH_LONG).show();
+            Toast.makeText(UpdateMedicine.this, "Nie udało się, porażka", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -714,7 +746,7 @@ public class UpdateMedicine extends AppCompatActivity {
                 purpose,
                 Double.parseDouble(amount.replaceAll(",", ".")),
                 amountform,
-                per,
+                person,
                 note,
                 istake,
                 image);

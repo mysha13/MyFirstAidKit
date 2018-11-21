@@ -231,7 +231,7 @@ public class DBUserMedicamentsAdapter {
     }
 
 
-    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, String person, String note, boolean istake, byte[] image){
+    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, int person, String note, boolean istake, byte[] image){
         ContentValues cvUpdateRow = new ContentValues();
         cvUpdateRow.put(DatabaseConstantInformation.NAME, name);
         cvUpdateRow.put(DatabaseConstantInformation.ID_MEDICAMENT, id_medicament);
@@ -336,9 +336,28 @@ public class DBUserMedicamentsAdapter {
 
     public void renameForm(String formId) {
         ContentValues rowUpdate = new ContentValues();
-        rowUpdate.put(DatabaseConstantInformation.FORM, String.valueOf(1));
+        rowUpdate.put(DatabaseConstantInformation.FORM, String.valueOf(0));
         database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.FORM + "=" + String.valueOf(formId), null);
     }
+
+    public void renamePerson(String personId) {
+        ContentValues rowUpdate = new ContentValues();
+        rowUpdate.put(DatabaseConstantInformation.PERSON, String.valueOf(0));
+        database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.PERSON + "=" + String.valueOf(personId), null);
+    }
+
+    public void renamePurpose(String purposeId) {
+        ContentValues rowUpdate = new ContentValues();
+        rowUpdate.put(DatabaseConstantInformation.PURPOSE, String.valueOf(0));
+        database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.PURPOSE + "=" + String.valueOf(purposeId), null);
+    }
+
+    public void renameAmountForm(String amountFormId) {
+        ContentValues rowUpdate = new ContentValues();
+        rowUpdate.put(DatabaseConstantInformation.AMOUNT_FORM, String.valueOf(0));
+        database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, rowUpdate, DatabaseConstantInformation.AMOUNT_FORM + "=" + String.valueOf(amountFormId), null);
+    }
+
 
     public void updateAmount(String id, double newvalue){
         ContentValues rowUpdate = new ContentValues();
