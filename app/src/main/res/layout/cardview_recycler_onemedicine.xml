@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
-    card_view:cardBackgroundColor="#BABABA"
+    card_view:cardBackgroundColor="#DEDEDE"
     card_view:cardCornerRadius="12dp"
     android:foreground="?selectableItemBackground"
     app:cardUseCompatPadding="true">
@@ -56,9 +56,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/line1"
-            android:weightSum="2"
+            android:weightSum="6"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="110dp">
+            android:layout_marginLeft="100dp">
 
             <TextView
                 android:layout_weight="1"
@@ -69,11 +69,11 @@
                 android:layout_marginTop="3dp"
                 android:text="@string/oneInformationMedicine_txt_name"
                 android:textColor="@android:color/black"
-                android:textSize="16dp" />
+                android:textSize="16dp"/>
 
             <TextView
                 android:gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:id="@+id/tv_name_item"
@@ -87,7 +87,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="100dp"
             android:id="@+id/line2"
             android:weightSum="2"
             android:layout_below="@+id/line1">
@@ -118,7 +118,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="100dp"
             android:id="@+id/line3"
             android:weightSum="2"
             android:layout_below="@+id/line2">
@@ -149,7 +149,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="100dp"
             android:id="@+id/line4"
             android:weightSum="2"
             android:layout_below="@+id/line3">
@@ -180,7 +180,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="100dp"
             android:id="@+id/line5"
             android:weightSum="3"
             android:layout_below="@+id/line4">
@@ -221,7 +221,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="100dp"
             android:id="@+id/line6"
             android:weightSum="2"
             android:layout_below="@+id/line5">
@@ -262,7 +262,7 @@
 
             <!--@drawable/button_shape-->
             <Button
-                android:background="#1776E3"
+                android:background="@drawable/button_shape"
                 android:id="@+id/btn_update_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
