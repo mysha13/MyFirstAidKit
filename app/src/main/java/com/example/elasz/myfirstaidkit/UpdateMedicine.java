@@ -196,9 +196,17 @@ public class UpdateMedicine extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
+                String dayToShow= String.valueOf(day);
+                String monthToShow = String.valueOf(month);
+                if(String.valueOf(day).length()==1){
+                    dayToShow= "0"+String.valueOf(day);
+                }
+                if(String.valueOf(month).length()==1){
+                    monthToShow="0"+String.valueOf(month);
+                }
                 Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
 
-                String date = year + "-" + month + "-" + day;//+ "-" + month + "-" + year;
+                String date = year + "-" + monthToShow + "-" + dayToShow;//+ "-" + month + "-" + year;
 
                 expdate.setText(date);
 
@@ -208,9 +216,17 @@ public class UpdateMedicine extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
+                String dayToShow= String.valueOf(day);
+                String monthToShow = String.valueOf(month);
+                if(String.valueOf(day).length()==1){
+                    dayToShow= "0"+String.valueOf(day);
+                }
+                if(String.valueOf(month).length()==1){
+                    monthToShow="0"+String.valueOf(month);
+                }
                 //Log.d(TAG, "onDateSet: dd-MM-yyyy: " + day + "-" + month + "-" + year);
                 Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
-                String date =  year + "-" + month + "-" + day;//day + "-" + month + "-" + year;
+                String date =  year + "-" + monthToShow + "-" + dayToShow;//day + "-" + month + "-" + year;
                 opendate.setText(date);
 
             }

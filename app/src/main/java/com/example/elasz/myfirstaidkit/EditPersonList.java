@@ -52,7 +52,7 @@ public class EditPersonList extends AppCompatActivity {
         ButterKnife.bind(this);
         setRecyclerView();
         retrievePeople();
-        inicialize();
+        initialize();
     }
 
     private void setRecyclerView() {
@@ -83,15 +83,15 @@ public class EditPersonList extends AppCompatActivity {
         db.CloseDB();
     }
 
-    public void inicialize() {
+    public void initialize() {
         listener = (view, position, id, bNumber) -> {
-            whichOneWasClicked(id, bNumber);
+            whichButtonWasClicked(id, bNumber);
         };
         personListAdapter = new PersonListAdapter(people, listener);
         recyclerView_personlist.setAdapter(personListAdapter);
     }
 
-    private void whichOneWasClicked(String id, int bNumber) {
+    private void whichButtonWasClicked(String id, int bNumber) {
         if (bNumber == 2) {
             deletePersonFromList(id);
 
@@ -120,7 +120,7 @@ public class EditPersonList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //dialogDeletePlaceContent(id);
-                deleteWithoutContent(id);
+                deletePersonWithId(id);
                 //dialog.dismiss();
                 retrievePeople();
                 dialog.dismiss();
@@ -136,7 +136,7 @@ public class EditPersonList extends AppCompatActivity {
         }
     }*/
 
-    public void deleteWithoutContent(String id) {
+    public void deletePersonWithId(String id) {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbPerson = new DBPersonAdapter(this);
         dbUserMed.OpenDB();
@@ -199,14 +199,14 @@ public class EditPersonList extends AppCompatActivity {
     }
 
     public void addPerson() {
-        CheckAdded();
-        ClearField();
+        checkAddResult();
+        clearField();
         //setRecyclerView();
         retrievePeople();
-        inicialize();
+        initialize();
     }
 
-    private void CheckAdded() {
+    private void checkAddResult() {
         dbPerson.OpenDB();
         long added = dbPerson.AddPerson(personname.getText().toString());
         dbPerson.CloseDB();
@@ -217,7 +217,7 @@ public class EditPersonList extends AppCompatActivity {
         }
     }
 
-    private void ClearField() {
+    private void clearField() {
         personname.getText().clear();
     }
 

@@ -1,11 +1,9 @@
 package com.example.elasz.myfirstaidkit;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -13,29 +11,19 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.BundleCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,11 +40,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,11 +59,11 @@ public class AddMedicine extends AppCompatActivity {
     private DBPersonAdapter dbPerson;
     private DBPurposeAdapter dbPurpose;
 
-    public static void setCodecode(String codecode) {
+   /* public static void setCodecode(String codecode) {
         AddMedicine.codecode = codecode;
-    }
+    }*/
 
-    public int codefromscanner;
+    public int requestcodefromscanner;
     public static String codecode;
 
    // private DatabaseFormAdapter dAForm;
@@ -143,8 +129,8 @@ public class AddMedicine extends AppCompatActivity {
     @BindView(R.id.cb_istaken)
     CheckBox istake;
 
-    /*@BindView(R.id.imageView2)
-    ImageView imageView;*/
+    @BindView(R.id.imageView_add)
+    ImageView imageView;
     private ArrayAdapter<String> adapterForm;
     private ArrayAdapter<String> adapterAmoutForm;
     private ArrayAdapter<String> adapterPurpose;
@@ -156,7 +142,6 @@ public class AddMedicine extends AppCompatActivity {
 
     private byte[] convertedimage;
 
-    //private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private DatePickerDialog.OnDateSetListener mDateSetListenerForOpen;
 
@@ -176,7 +161,6 @@ public class AddMedicine extends AppCompatActivity {
     public File file = null;
     private ImageView imageView;*/
 
-//butterknife nie działa!!!
     @BindView(R.id.btn_scanBarcode_add)
     Button btnScanBarcode;
 
@@ -189,9 +173,9 @@ public class AddMedicine extends AppCompatActivity {
 
     boolean isImageFitToScreen;
     private String fullScreenInd;
-    private ImageView imageView;
+    //private ImageView imageView;
 
-    private Button saveMedicine;
+    //private Button saveMedicine;
 
     private int formid;
     private int purposeid;
@@ -201,14 +185,12 @@ public class AddMedicine extends AppCompatActivity {
 
     private int medexistedid;
 
-    String mCurrentPhotoPath;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
         ButterKnife.bind(this);
-        SetDatabaseAdapters();
+        setDatabaseAdapters();
         spinnerForm(dbForm, formList, adapterForm, spin_form);
         spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
         spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
@@ -217,19 +199,11 @@ public class AddMedicine extends AppCompatActivity {
         /*if(codecode!=null){
             code.setText(codecode);
         }*/
-        name=(EditText) findViewById(R.id.et_name_add);
-        amount=(EditText) findViewById(R.id.et_amount_add);
+        //name=(EditText) findViewById(R.id.et_name_add);
+        //amount=(EditText) findViewById(R.id.et_amount_add);
 
-        saveMedicine=(Button)findViewById(R.id.btn_saveAddedMedicine_add);
-        saveMedicine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddMedicineClick();
-            }
-        });
-
-        imageView=(ImageView) findViewById(R.id.imageView_add);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        //imageView=(ImageView) findViewById(R.id.imageView_add);
+        /*imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddMedicine.this, FullScreenPhoto.class);
@@ -241,7 +215,7 @@ public class AddMedicine extends AppCompatActivity {
                 extras.putParcelable("imagebitmap", image);
                 intent.putExtras(extras);
                 startActivity(intent);
-               /* Intent intent = new Intent(AddMedicine.this,
+               *//* Intent intent = new Intent(AddMedicine.this,
                         AddMedicine.class);
 
                 if("y".equals(fullScreenInd)){
@@ -249,52 +223,52 @@ public class AddMedicine extends AppCompatActivity {
                 }else{
                     intent.putExtra("fullScreenIndicator", "y");
                 }
-                AddMedicine.this.startActivity(intent);*/
+                AddMedicine.this.startActivity(intent);*//*
             }
-        });
+        });*/
 
-        removePhoto=(FloatingActionButton) findViewById(R.id.btn_removePhoto);
+        /*removePhoto=(FloatingActionButton) findViewById(R.id.btn_removePhoto);
         removePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ClearImageView();
             }
-        });
+        });*/
 
-        addPhoto=(FloatingActionButton) this.findViewById(R.id.btn_addPhoto);
+       /* addPhoto=(FloatingActionButton) this.findViewById(R.id.btn_addPhoto);
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPictureDialog();
                 // Toast.makeText(AddMedicine.this, "Kliknięto", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
-        expdate = (TextView) findViewById(R.id.tv_expdate_add);
-        expdate.setOnClickListener(new View.OnClickListener() {
+        //expdate = (TextView) findViewById(R.id.tv_expdate_add);
+        /*expdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getExpDate();
             }
-        });
+        });*/
 
-        opendate=(TextView) findViewById(R.id.tv_opendate_add);
-        opendate.setOnClickListener(new View.OnClickListener() {
+        //opendate=(TextView) findViewById(R.id.tv_opendate_add);
+        /*opendate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getOpenDate();
             }
-        });
+        });*/
 
 
-        btnScanBarcode = (Button) findViewById(R.id.btn_scanBarcode_add);
+        /*btnScanBarcode = (Button) findViewById(R.id.btn_scanBarcode_add);
         //mDisplayDate = (TextView) findViewById(R.id.txt_expdate);
         btnScanBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 OpenBarcodeScannerActivity();
 
-                /*Cursor cursor;
+                *//*Cursor cursor;
                 if(code.getText()!=null)
                 {
                     cursor = dbMedInfo.FindMedicamentByCode(code.getText().toString(), DatabaseConstantInformation.CODE);
@@ -311,10 +285,10 @@ public class AddMedicine extends AppCompatActivity {
                     else{
                         Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
                     }
-                }*/
+                }*//*
 
 
-                /*if(cursor.getCount()>0){
+                *//*if(cursor.getCount()>0){
                     dbMedInfo.OpenDB();
                     medinfoid=dbMedInfo.getMedIdFromCode(code.getText().toString());
                     name.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
@@ -326,18 +300,26 @@ public class AddMedicine extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
-                }*/
+                }*//*
             }
         });
-
+*/
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
+                String dayToShow= String.valueOf(day);
+                String monthToShow = String.valueOf(month);
+                if(String.valueOf(day).length()==1){
+                    dayToShow= "0"+String.valueOf(day);
+                }
+                if(String.valueOf(month).length()==1){
+                    monthToShow="0"+String.valueOf(month);
+                }
                 Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
 
-                String date = year + "-" + month + "-" + day;//+ "-" + month + "-" + year;
+                String date = year + "-" + monthToShow + "-" + dayToShow;//+ "-" + month + "-" + year;
 
                 expdate.setText(date);
 
@@ -347,9 +329,17 @@ public class AddMedicine extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
+                String dayToShow= String.valueOf(day);
+                String monthToShow = String.valueOf(month);
+                if(String.valueOf(day).length()==1){
+                    dayToShow= "0"+String.valueOf(day);
+                }
+                if(String.valueOf(month).length()==1){
+                    monthToShow="0"+String.valueOf(month);
+                }
                 //Log.d(TAG, "onDateSet: dd-MM-yyyy: " + day + "-" + month + "-" + year);
                 Log.d(TAG, "onDateSet: yyyy-MM-dd: " + year + "-" + month + "-" + day);
-                String date =  year + "-" + month + "-" + day;//day + "-" + month + "-" + year;
+                String date =  year + "-" + monthToShow + "-" + dayToShow;//day + "-" + month + "-" + year;
                 opendate.setText(date);
 
             }
@@ -357,8 +347,97 @@ public class AddMedicine extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.btn_scanBarcode_add)
+    public void OpenBarcodeScannerActivity(){
+        BarcodeScanner bar= new BarcodeScanner();
+        bar.setCode(null);
+        Intent intent= new Intent(this, BarcodeScanner.class);
+        startActivityForResult(intent, requestcodefromscanner);
+        //BarcodeScanner bar= new BarcodeScanner();
+        //code.setText(bar.getCode());
+    }
 
-    private void checkPermission() {
+    @OnClick(R.id.tv_opendate_add)
+    public void getOpenDate(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(
+                AddMedicine.this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                mDateSetListenerForOpen,
+                year,month,day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    @OnClick(R.id.tv_expdate_add)
+    public void getExpDate(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(
+                AddMedicine.this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                mDateSetListener,
+                year,month,day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    @OnClick(R.id.btn_addPhoto)
+    public void addPhotoClick(){
+        showPictureDialog();
+    }
+
+    @OnClick(R.id.imageView_add)
+    public void viewFullScreenPhoto(){
+        Intent intent = new Intent(AddMedicine.this, FullScreenPhoto.class);
+        intent.removeExtra("imagebitmap");
+        try{
+            imageView.buildDrawingCache();
+            Bitmap image= imageView.getDrawingCache();
+
+            Bundle extras = new Bundle();
+            extras.putParcelable("imagebitmap", image);
+            intent.putExtras(extras);
+            startActivity(intent);
+        }catch (Exception e){
+            Log.e(TAG,e.toString());
+            Toast.makeText(AddMedicine.this, "Nie można wczytać zdjęcia", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    @OnClick(R.id.btn_removePhoto)
+    public void removePhoto(){
+        imageView.setImageBitmap(null);
+        //imageView.setImageResource(0);
+        imageView.setImageDrawable(null);
+    }
+
+    @OnClick(R.id.btn_saveAddedMedicine_add)
+    void AddMedicineClick(){
+        if(name.getText().toString().matches("")){
+            Toast.makeText(AddMedicine.this, "Nazwa jest pusta", Toast.LENGTH_LONG).show();
+        }else if(amount.getText().toString().matches("")){
+            Toast.makeText(AddMedicine.this, "Ilość jest puste", Toast.LENGTH_LONG).show();
+        }else if(expdate.getText().toString().matches("")){
+            Toast.makeText(AddMedicine.this, "Data ważności EXP jest pusta", Toast.LENGTH_LONG).show();
+        }else if(code.getText().toString().matches("")){
+            Toast.makeText(AddMedicine.this, "Kod jest pusty", Toast.LENGTH_LONG).show();
+        }else if(spinnerSelection(spin_form) == null){
+            Toast.makeText(AddMedicine.this, "Postać jest pusta", Toast.LENGTH_LONG).show();
+        }else if(spinnerSelection(spin_amountForm) == null){
+            Toast.makeText(AddMedicine.this, "Forma ilości jest pusta", Toast.LENGTH_LONG).show();
+        }else{
+            checkIfAddWorked();
+        }
+    }
+
+    /*private void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(AddMedicine.this, "Pozwolenie przyznane", Toast.LENGTH_SHORT).show();
@@ -367,7 +446,7 @@ public class AddMedicine extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10);
             }
         }
-    }
+    }*/
 
     public void spinnerForm(DBFormAdapter dAForm, ArrayList<String> formList, ArrayAdapter<String> adapterForm, Spinner spinner) {
         dAForm = new DBFormAdapter(this);
@@ -427,34 +506,17 @@ public class AddMedicine extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.btn_saveAddedMedicine_add)
-    void AddMedicineClick(){
-        if(name.getText().toString().matches("")){
-            Toast.makeText(AddMedicine.this, "Nazwa jest pusta", Toast.LENGTH_LONG).show();
-        }else if(amount.getText().toString().matches("")){
-            Toast.makeText(AddMedicine.this, "Ilość jest puste", Toast.LENGTH_LONG).show();
-        }else if(expdate.getText().toString().matches("")){
-            Toast.makeText(AddMedicine.this, "Data ważności EXP jest pusta", Toast.LENGTH_LONG).show();
-        }else if(code.getText().toString().matches("")){
-            Toast.makeText(AddMedicine.this, "Kod jest pusty", Toast.LENGTH_LONG).show();
-        }else if(spinnerCorrection(spin_form) == null){
-            Toast.makeText(AddMedicine.this, "Postać jest pusta", Toast.LENGTH_LONG).show();
-        }else if(spinnerCorrection(spin_amountForm) == null){
-            Toast.makeText(AddMedicine.this, "Forma ilości jest pusta", Toast.LENGTH_LONG).show();
-        }else{
-            CheckResult();
-        }
-    }
 
 
-    private void CheckResult() {
-        long work2 = TryToAddToMedInfo();
-        long work = TryToAddToUser();
+
+    private void checkIfAddWorked() {
+        long work2 = tryToAddToMedInfo();
+        long work = tryToAddToUser();
 
         if (work > 0 && work2 >0 ) {
             Toast.makeText(AddMedicine.this, "Dodano lek", Toast.LENGTH_LONG).show();
-            clearTextViews();
-            ClearImageView();
+            clearFields();
+            clearImageView();
             spinnerForm(dbForm, formList, adapterForm, spin_form);
             spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
             spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
@@ -465,7 +527,7 @@ public class AddMedicine extends AppCompatActivity {
         }
     }
 
-    private void clearTextViews() {
+    private void clearFields() {
         name.setText("");
         expdate.setText("");
         opendate.setText("");
@@ -481,44 +543,44 @@ public class AddMedicine extends AppCompatActivity {
         imageView.setImageDrawable(null);
     }
 
-    private long TryToAddToMedInfo(){
-        CheckEmptyFields();
+    private long tryToAddToMedInfo(){
+        checkEmptyFields();
         dbMedInfo.OpenDB();
         long work2 = addMedToDBMedInfo();
         dbMedInfo.CloseDB();
         return work2;
     }
 
-    private long TryToAddToUser() {
-        IsThereAnyImage();
-        CheckEmptyFields();
+    private long tryToAddToUser() {
+        isThereAnyImage();
+        checkEmptyFields();
         if(name.getText() != null){
             medinfoid = getMedInfoID(dbMedInfo, name.getText().toString());
         }
-        if(spinnerCorrection(spin_form) == null)
+        if(spinnerSelection(spin_form) == null)
         {
             formid = 0;
         }
         else{
-            formid = getFormID(dbForm, spinnerCorrection(spin_form));
+            formid = getFormID(dbForm, spinnerSelection(spin_form));
         }
-        if(spinnerCorrection(spin_purpose) == null) {
+        if(spinnerSelection(spin_purpose) == null) {
             purposeid = 0;
         }
         else{
-            purposeid = getPurposeID(dbPurpose, spinnerCorrection(spin_purpose));
+            purposeid = getPurposeID(dbPurpose, spinnerSelection(spin_purpose));
         }
-        if(spinnerCorrection(spin_amountForm) == null) {
+        if(spinnerSelection(spin_amountForm) == null) {
             amountformid = 0;
         }
         else{
-            amountformid = getAmountFormID(dbAmountForm, spinnerCorrection(spin_amountForm));
+            amountformid = getAmountFormID(dbAmountForm, spinnerSelection(spin_amountForm));
         }
-        if(spinnerCorrection(spin_person) == null) {
+        if(spinnerSelection(spin_person) == null) {
             personid = 0;
         }
         else{
-            personid = getPersonID(dbPerson, spinnerCorrection(spin_person));
+            personid = getPersonID(dbPerson, spinnerSelection(spin_person));
         }
 
         dbUserMed.OpenDB();
@@ -528,7 +590,7 @@ public class AddMedicine extends AppCompatActivity {
         return work;
     }
 
-    private String spinnerCorrection(Spinner spinner) {
+    private String spinnerSelection(Spinner spinner) {
         if (spinner.getSelectedItem().toString().matches("-")) {
             return null;
         } else
@@ -569,7 +631,7 @@ public class AddMedicine extends AppCompatActivity {
         return personid;
     }
 
-    private void CheckEmptyFields() {
+    private void checkEmptyFields() {
         if(expdate.getText()==null){
             todb_expdate=null;
         }
@@ -625,14 +687,14 @@ public class AddMedicine extends AppCompatActivity {
         }
     }
 
-    private void IsThereAnyImage() {
+    private void isThereAnyImage() {
         try{
             Bitmap mybitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
             if(mybitmap == null){
                 convertedimage=null;
             }
             else{
-                convertedimage=ConvertImageToByteArray(mybitmap);
+                convertedimage=convertImageToByteArray(mybitmap);
             }
         }
         catch(Exception ex){
@@ -646,8 +708,8 @@ public class AddMedicine extends AppCompatActivity {
     private long addMedToDB() {
         return dbUserMed.AddUserMedicamentData(name.getText().toString(),
                 medinfoid,
-                todb_expdate,//expdate.getText().toString(),
-                todb_opendate,//opendate.getText().toString(),
+                todb_expdate,
+                todb_opendate,
                 formid,
                 purposeid,
                 Double.parseDouble(amount.getText().toString().replaceAll(",",".")),
@@ -676,13 +738,13 @@ public class AddMedicine extends AppCompatActivity {
 
     }
 
-    public static byte[] ConvertImageToByteArray(Bitmap bitmap) {
+    public static byte[] convertImageToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         return outputStream.toByteArray();
     }
 
-    private void SetDatabaseAdapters() {
+    private void setDatabaseAdapters() {
         dbMedInfo = new DBMedicamentInfoAdapter(this);
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbForm = new DBFormAdapter(this);
@@ -704,10 +766,16 @@ public class AddMedicine extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
+                                imageView.setImageBitmap(null);
+                                //imageView.setImageResource(0);
+                                imageView.setImageDrawable(null);
                                 choosePhotoFromGallery();
                                 //Toast.makeText(AddMedicine.this, "Kliknięto o galeria", Toast.LENGTH_SHORT).show();
                                 break;
                             case 1:
+                                imageView.setImageBitmap(null);
+                                //imageView.setImageResource(0);
+                                imageView.setImageDrawable(null);
                                 takePhotoFromCamera();
                                 //Toast.makeText(AddMedicine.this, "Kliknięto 1 camera", Toast.LENGTH_SHORT).show();
                                 break;
@@ -742,7 +810,7 @@ public class AddMedicine extends AppCompatActivity {
         }*/
     }
 
-    private  void ClearImageView(){
+    private  void clearImageView(){
         imageView.setImageBitmap(null);
         //imageView.setImageResource(0);
         imageView.setImageDrawable(null);
@@ -752,7 +820,7 @@ public class AddMedicine extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == codefromscanner){
+        if(requestCode == requestcodefromscanner){
             if (resultCode == Activity.RESULT_OK) {
                 BarcodeScanner bar= new BarcodeScanner();
                 String scanCode = data.getStringExtra(bar.PUBLIC_STATIC_STRING_IDENTIFIER);
@@ -830,103 +898,6 @@ public class AddMedicine extends AppCompatActivity {
             e1.printStackTrace();
         }
         return "";
-    }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==0){
-            switch (resultCode){
-                case Activity.RESULT_OK:
-                    if(file.exists()){
-                        Toast.makeText(this, "Plik zapisany w "+file.getAbsolutePath(), Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Toast.makeText(this, "Plik NIE został zapisany "+file.getAbsolutePath(), Toast.LENGTH_LONG).show();
-
-                    }
-                    break;
-                case Activity.RESULT_CANCELED:
-                    break;
-                    default:
-                        break;
-            }
-        }
-    }*/
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
-                Intent cameraIntent = new
-                        Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            } else {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
-            }
-
-        }
-    }
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == AddMedicine.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
-        }
-    }*/
-
-    @OnClick(R.id.tv_opendate_add)
-    public void getOpenDate(){
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog dialog = new DatePickerDialog(
-                AddMedicine.this,
-                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                mDateSetListenerForOpen,
-                year,month,day);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-    }
-
-    @OnClick(R.id.tv_expdate_add)
-    public void getExpDate(){
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog dialog = new DatePickerDialog(
-                AddMedicine.this,
-                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                mDateSetListener,
-                year,month,day);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-    }
-
-    @OnClick(R.id.btn_scanBarcode_add)
-    public void OpenBarcodeScannerActivity(){
-        BarcodeScanner bar= new BarcodeScanner();
-        bar.setCode(null);
-        Intent intent= new Intent(this, BarcodeScanner.class);
-        startActivityForResult(intent, codefromscanner);
-        //BarcodeScanner bar= new BarcodeScanner();
-        //code.setText(bar.getCode());
-
-       /* Cursor cursor = checkIfMedExisted();
-        if(cursor.getCount()>0){
-            dbMedInfo.OpenDB();
-            medinfoid=dbMedInfo.getMedIdFromCode(code.getText().toString());
-            name.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
-            power.setText(dbMedInfo.getPowerFromCode(code.getText().toString()));
-            subsActive.setText(dbMedInfo.getSubsActiveFromCode(code.getText().toString()));
-            producer.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
-            dbMedInfo.CloseDB();
-        }
-        else{
-            Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
-        }*/
-
     }
 
     private Cursor checkIfMedExisted(String scancode) {

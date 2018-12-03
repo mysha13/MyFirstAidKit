@@ -57,7 +57,7 @@ public class EditPurposeList extends AppCompatActivity {
         ButterKnife.bind(this);
         setRecyclerView();
         retrievePurposes();
-        inicialize();
+        initialize();
     }
 
     private void setRecyclerView() {
@@ -89,15 +89,15 @@ public class EditPurposeList extends AppCompatActivity {
         db.CloseDB();
     }
 
-    public void inicialize() {
+    public void initialize() {
         listener = (view, position, id, bNumber) -> {
-            whichOneWasClicked(id, bNumber);
+            whichButtonWasClicked(id, bNumber);
         };
         purposeListadapter = new PurposeListadapter(purpose, listener);
         recyclerView_purposelist.setAdapter(purposeListadapter);
     }
 
-    private void whichOneWasClicked(String id, int bNumber) {
+    private void whichButtonWasClicked(String id, int bNumber) {
         if (bNumber == 1) {
             //if (Integer.valueOf(id) != 1) {
                 deletePurposeFromList(id);
@@ -123,22 +123,20 @@ public class EditPurposeList extends AppCompatActivity {
         bYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //dialogDeletePlaceContent(id);
-                deleteWithoutContent(id);
-                //dialog.dismiss();
-                retrievePlace();
+                deletePurposeWithId(id);
+                retrievePurposes();
                 dialog.dismiss();
             }
         });
     }
-    private void retrievePlace() {
+   /* private void retrievePlace() {
         purpose.clear();
         addToPurposeList(purpose);
         if (!(purpose.size() < 1)) {
             recyclerView_purposelist.setAdapter(purposeListadapter);
         }
-    }
-    public void deleteWithoutContent(String id) {
+    }*/
+    public void deletePurposeWithId(String id) {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbPurpose = new DBPurposeAdapter(this);
         dbUserMed.OpenDB();
@@ -200,14 +198,14 @@ public class EditPurposeList extends AppCompatActivity {
     }
 
     public void addPurpose() {
-        CheckAdded();
-        ClearField();
+        checkAddResult();
+        clearField();
         //setRecyclerView();
         retrievePurposes();
-        inicialize();
+        initialize();
     }
 
-    private void CheckAdded() {
+    private void checkAddResult() {
         dbPurpose.OpenDB();
         long added = dbPurpose.AddPurpose(purposename.getText().toString());
         dbPurpose.CloseDB();
@@ -218,7 +216,7 @@ public class EditPurposeList extends AppCompatActivity {
         }
     }
 
-    private void ClearField() {
+    private void clearField() {
         purposename.getText().clear();
     }
 }

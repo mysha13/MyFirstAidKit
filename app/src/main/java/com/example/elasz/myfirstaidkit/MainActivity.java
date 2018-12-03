@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Calendar cal= Calendar.getInstance();
         Date currentTime = cal.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.UK); //"dd/MM/yyyy_HHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//, Locale.UK); //"dd/MM/yyyy_HHmmss");
         String currentDateandTime = sdf.format(currentTime);
         cal.add(Calendar.DAY_OF_MONTH, 7);
         String newdate = sdf.format(cal.getTime());

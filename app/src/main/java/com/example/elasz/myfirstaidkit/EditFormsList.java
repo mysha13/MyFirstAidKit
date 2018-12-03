@@ -52,7 +52,7 @@ public class EditFormsList extends AppCompatActivity {
         ButterKnife.bind(this);
         setRecyclerView();
         retrieveForms();
-        inicialize();
+        initialize();
     }
 
     private void setRecyclerView() {
@@ -83,15 +83,15 @@ public class EditFormsList extends AppCompatActivity {
         db.CloseDB();
     }
 
-    public void inicialize() {
+    public void initialize() {
         listener = (view, position, id, bNumber) -> {
-            whichOneWasClicked(id, bNumber);
+            whichButtonWasClicked(id, bNumber);
         };
         formsListAdapter = new FormsListAdapter(forms, listener);
         recyclerView_formslist.setAdapter(formsListAdapter);
     }
 
-    private void whichOneWasClicked(String id, int bNumber) {
+    private void whichButtonWasClicked(String id, int bNumber) {
         if (bNumber == 2) {
             deleteFormFromList(id);
            /* if (Integer.valueOf(id) != 2) {
@@ -118,9 +118,9 @@ public class EditFormsList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //dialogDeletePlaceContent(id);
-                deleteWithoutContent(id);
+                deleteFormWithId(id);
                 //dialog.dismiss();
-                retrievePlace();
+                retrieveForms();
                 dialog.dismiss();
             }
         });
@@ -147,19 +147,19 @@ public class EditFormsList extends AppCompatActivity {
         });
     }*/
 
-    private void retrievePlace() {
+   /* private void retrievePlace() {
         forms.clear();
         addToFormsList(forms);
         if (!(forms.size() < 1)) {
             recyclerView_formslist.setAdapter(formsListAdapter);
         }
-    }
-    public void deleteWithoutContent(String id) {
+    }*/
+    public void deleteFormWithId(String id) {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbForm = new DBFormAdapter(this);
-       /* dbUserMed.OpenDB();
+        dbUserMed.OpenDB();
         dbUserMed.renameForm(id);
-        dbUserMed.CloseDB();*/
+        dbUserMed.CloseDB();
 
         dbForm.OpenDB();
         dbForm.deleteOnlyForm(id);
@@ -216,14 +216,14 @@ public class EditFormsList extends AppCompatActivity {
     }
 
     public void addForm() {
-        CheckAdded();
-        ClearField();
+        checkAddResult();
+        clearField();
         //setRecyclerView();
         retrieveForms();
-        inicialize();
+        initialize();
     }
 
-   private void CheckAdded() {
+   private void checkAddResult() {
        dbForm.OpenDB();
        long added = dbForm.AddForm(formname.getText().toString());
        dbForm.CloseDB();
@@ -234,7 +234,7 @@ public class EditFormsList extends AppCompatActivity {
        }
    }
 
-    private void ClearField() {
+    private void clearField() {
         formname.getText().clear();
     }
 }

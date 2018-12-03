@@ -130,38 +130,38 @@ public class FindMedicine extends AppCompatActivity {
             }
         };*/
         RecyclerViewClickListener listener = (view, position, id, bNumber) -> {
-            ButtonNumber(id, bNumber);
+            whichButtonWasClicked(id, bNumber);
         };
         shortmedadapter = new ShortMedInfoItemAdapter(meds, listener);
         recyclerView_find.setAdapter(shortmedadapter);
     }
 
-    private void ButtonNumber(String id, int btn_nb) {
+    private void whichButtonWasClicked(String id, int btn_nb) {
         if (btn_nb == 1) {
-            UpdateMedButton(id);
+            updateMedButton(id);
         } else if (btn_nb == 2) {
-            DeleteMedButton(id);
+            deleteMedButton(id);
         }
         else if (btn_nb == 3){
-            MoreInfoButton(id);
+            moreInfoButton(id);
         }
     }
 
-    private void UpdateMedButton(String id) {
+    private void updateMedButton(String id) {
         Intent intent = new Intent(FindMedicine.this, UpdateMedicine.class);
         Bundle bundle = new Bundle();
         bundle.putInt("MedIdUpdate", Integer.parseInt(id));
         intent.putExtras(bundle);
         startActivity(intent);
     }
-    private void MoreInfoButton(String id) {
+    private void moreInfoButton(String id) {
         Intent intent = new Intent(FindMedicine.this, ViewAllInfoMedicine.class);
         Bundle bundle = new Bundle();
         bundle.putInt("MedId", Integer.parseInt(id));
         intent.putExtras(bundle);
         startActivity(intent);
     }
-    private void DeleteMedButton(String id) {
+    private void deleteMedButton(String id) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_delete, null);
         mBuilder.setView(mView);
@@ -203,7 +203,6 @@ public class FindMedicine extends AppCompatActivity {
     private void getMed() {
         meds.clear();
         getMedicamentItem();
-
         if (!(meds.size() < 1)) {
             recyclerView_find.setAdapter(shortmedadapter);
         }
@@ -214,7 +213,7 @@ public class FindMedicine extends AppCompatActivity {
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
-        CreateMedList(cursor, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, meds);
+        createMedList(cursor, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, meds);
     }
 
     private void setRecyclerView() {
@@ -237,10 +236,10 @@ public class FindMedicine extends AppCompatActivity {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         medicamentsName = new ArrayList<>();
         medicamentsName.clear();
-        CreateMedicamentsList();
+        createMedicamentsList();
     }
 
-    private void CreateMedicamentsList() {
+    private void createMedicamentsList() {
         dbUserMed.OpenDB();
         Cursor cursor = dbUserMed.getNames();
         if (cursor != null) {
@@ -274,12 +273,7 @@ public class FindMedicine extends AppCompatActivity {
 
     }*/
 
-    private void ShowMedsList() {
-
-        
-    }
-
-    public String[] CheckName(){
+    /*public String[] CheckName(){
 
         String[] nameOrCode = new String[10];
         int nbArg = 0;
@@ -292,9 +286,9 @@ public class FindMedicine extends AppCompatActivity {
         }
         nameOrCode[0] = String.valueOf(nbArg);
         return nameOrCode;
-    }
+    }*/
 
-    public String[] addVal(String[] whichOnes, String content, String columnName) {
+   /* public String[] addVal(String[] whichOnes, String content, String columnName) {
         for (int i = 1; i < whichOnes.length; i++) {
             if (whichOnes[i] == null) {
                 whichOnes[i] = content;
@@ -304,10 +298,10 @@ public class FindMedicine extends AppCompatActivity {
         }
         return whichOnes;
     }
+*/
 
 
-
-    public Cursor getCursorContent(String[] byWhich) {
+    /*public Cursor getCursorContent(String[] byWhich) {
 
         dbUserMed.OpenDB();
         Cursor cursor;
@@ -319,7 +313,7 @@ public class FindMedicine extends AppCompatActivity {
             cursor = null;
         }
         return cursor;
-    }
+    }*/
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbMedInfo = new DBMedicamentInfoAdapter(this);
@@ -328,16 +322,17 @@ public class FindMedicine extends AppCompatActivity {
         dbAmountForm = new DBAmountFormAdapter(this);
         dbPerson = new DBPersonAdapter(this);
     }
-    private void ClearFields() {
+
+    private void clearFields() {
         et_findcode.getText().clear();
         autoComTV_findname.getText().clear();
     }
 
-    private void getMedicamentsList(Cursor cursor) {
-        CreateMedList(cursor, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, meds);
-    }
+   /* private void getMedicamentsList(Cursor cursor) {
+        createMedList(cursor, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, meds);
+    }*/
 
-    public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed,DBFormAdapter dbForm,DBPurposeAdapter dbPurpose,DBAmountFormAdapter dbAmountForm,DBMedicamentInfoAdapter dbMedInfo ,  ArrayList<ShortMedInfoItem> medicaments) {
+    public void createMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed,DBFormAdapter dbForm,DBPurposeAdapter dbPurpose,DBAmountFormAdapter dbAmountForm,DBMedicamentInfoAdapter dbMedInfo ,  ArrayList<ShortMedInfoItem> medicaments) {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
@@ -355,7 +350,7 @@ public class FindMedicine extends AppCompatActivity {
                 int idmedinfo = cursor.getInt(2);
 
                 //String power = cursor.getString(7);
-                Bitmap image = ConvertByteArrayToImage(cursor);
+                Bitmap image = convertByteArrayToImage(cursor);
                 dbUserMed.CloseDB();
 
                 String form = getFormName(dbForm, formid);
@@ -371,7 +366,7 @@ public class FindMedicine extends AppCompatActivity {
         }
     }
 
-    private Bitmap ConvertByteArrayToImage(Cursor cur){
+    private Bitmap convertByteArrayToImage(Cursor cur){
         if (cur.getBlob(12)!= null) {
             byte[] imgByte = cur.getBlob(12);
             return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);

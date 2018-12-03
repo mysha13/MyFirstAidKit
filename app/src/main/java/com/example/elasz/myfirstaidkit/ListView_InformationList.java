@@ -157,13 +157,13 @@ public class ListView_InformationList extends AppCompatActivity {
         recView_near.setAdapter(shortmedadapterNearMeds);
 
         RecyclerViewClickListener listener1 = (view1, position1, id1, bNumber1) -> {
-            ButtonNumberOverDue(id1, bNumber1);
+            ButtonNumber(id1, bNumber1);
         };
         shortmedadapterOverDueMeds = new ShortMedInfoItemAdapter(medicamentsOver,listener1);
         recView_over.setAdapter(shortmedadapterOverDueMeds);
 
     }
-    private void ButtonNumberOverDue(String id, int btn_nb) {
+   /* private void ButtonNumberOverDue(String id, int btn_nb) {
         if (btn_nb == 1) {
             UpdateMedButton(id);
         } else if (btn_nb == 2) {
@@ -171,7 +171,7 @@ public class ListView_InformationList extends AppCompatActivity {
         } else if (btn_nb == 3) {
             MoreInfoButton(id);
         }
-    }
+    }*/
 
 
     private void ButtonNumber(String id, int btn_nb) {

@@ -53,7 +53,7 @@ public class EditAmountFormsList extends AppCompatActivity {
         ButterKnife.bind(this);
         setRecyclerView();
         retrieveAmountForms();
-        inicialize();
+        initialize();
     }
     private void setRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -81,15 +81,15 @@ public class EditAmountFormsList extends AppCompatActivity {
         }
         db.CloseDB();
     }
-    public void inicialize() {
+    public void initialize() {
         listener = (view, position, id, bNumber) -> {
-            whichOneWasClicked(id, bNumber);
+            whichButtonWasClicked(id, bNumber);
         };
         amountformsListAdapter = new AmountFormsListAdapter(amountforms, listener);
         recyclerView_amountformslist.setAdapter(amountformsListAdapter);
     }
 
-    private void whichOneWasClicked(String id, int bNumber) {
+    private void whichButtonWasClicked(String id, int bNumber) {
         if (bNumber == 2) {
             deleteAmountFormFromList(id);
             /*if (Integer.valueOf(id) != 2) {
@@ -125,16 +125,14 @@ public class EditAmountFormsList extends AppCompatActivity {
         bYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //dialogDeletePlaceContent(id);
-                deleteWithoutContent(id);
-                //dialog.dismiss();
-                retrievePlace();
+                deleteAmoutForm(id);
+                retrieveAmountForms();
                 dialog.dismiss();
             }
         });
     }
 
-    public void deleteWithoutContent(String id) {
+    public void deleteAmoutForm(String id) {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbAmountForm = new DBAmountFormAdapter(this);
         dbUserMed.OpenDB();
@@ -145,26 +143,26 @@ public class EditAmountFormsList extends AppCompatActivity {
         dbAmountForm.deleteAmountForm(id);
         dbAmountForm.CloseDB();
     }
-    private void retrievePlace() {
+   /* private void retrievePlace() {
         amountforms.clear();
         addToAmountFormsList(amountforms);
         if (!(amountforms.size() < 1)) {
             recyclerView_amountformslist.setAdapter(amountformsListAdapter);
         }
-    }
+    }*/
 
     @OnClick(R.id.btn_add_editamountformslist)
     void ButtonAddPlace() {
         if (amountformname.getText().toString().matches("")) {
             Toast.makeText(EditAmountFormsList.this,"Nazwa formy jest pusta", Toast.LENGTH_LONG).show();
-        } else if (checkIfExist()){
+        } else if (checkIfNameExist()){
             addAmountForm();
         } else{
             Toast.makeText(EditAmountFormsList.this,"Podana forma już istanieje", Toast.LENGTH_LONG).show();
         }
     }
 
-    private boolean checkIfExist() {
+    private boolean checkIfNameExist() {
         ArrayList<String> amountformsList = createNamesList();
         return checkNameList(amountformsList);
     }
@@ -193,14 +191,14 @@ public class EditAmountFormsList extends AppCompatActivity {
     }
 
     public void addAmountForm() {
-        CheckAdded();
-        ClearField();
+        checkAddResult();
+        clearField();
         //setRecyclerView();
         retrieveAmountForms();
-        inicialize();
+        initialize();
     }
 
-    private void CheckAdded() {
+    private void checkAddResult() {
         dbAmountForm.OpenDB();
         long added = dbAmountForm.AddAmountForm(amountformname.getText().toString());
         dbAmountForm.CloseDB();
@@ -211,7 +209,7 @@ public class EditAmountFormsList extends AppCompatActivity {
         }
     }
 
-    private void ClearField() {
+    private void clearField() {
         amountformname.getText().clear();
     }
 

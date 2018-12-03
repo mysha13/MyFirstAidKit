@@ -76,7 +76,7 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
         ActivityCompat.requestPermissions(this,new String[]{CAMERA}, request_camera);
     }
 
-    public void onRequestPermissionResult(final int requestCode, String permission[], int grantResults[]){
+   /* public void onRequestPermissionResult(final int requestCode, String permission[], int grantResults[]){
         switch (requestCode){
             case request_camera :
                 if (grantResults.length > 0){
@@ -105,7 +105,7 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
                 }
                 break;
         }
-    }
+    }*/
 
     @Override
     public void onResume(){
@@ -131,14 +131,14 @@ public class BarcodeScanner extends AppCompatActivity  implements ZXingScannerVi
         scannerView.stopCamera();
     }
 
-    public void displayAlertMessage(String message, DialogInterface.OnClickListener listener){
+    /*public void displayAlertMessage(String message, DialogInterface.OnClickListener listener){
         new AlertDialog.Builder(BarcodeScanner.this)
                 .setMessage(message)
                 .setPositiveButton("OK", listener)
                 .setNegativeButton("Anuluj", null)
                 .create()
                 .show();
-    }
+    }*/
 
     @Override
     public void handleResult(final Result result) {
