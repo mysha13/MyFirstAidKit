@@ -34,15 +34,15 @@ public class DBUserMedicamentsAdapter {
         dbHelper = new DatabaseHelper(context);
     }
 
-    public void OpenDB() throws SQLException {
+    public void openDB() throws SQLException {
         database=dbHelper.getWritableDatabase();
     }
 
-    public void CloseDB() throws SQLException{
+    public void closeDB() throws SQLException{
         dbHelper.close();
     }
 
-    public int GetAllCount() throws SQLException{
+    public int getAllCount() throws SQLException{
         ArrayList<DBUserMedicamentsAdapter> list= new ArrayList<>();
         int count = getNames().getCount();
         return count;
@@ -90,20 +90,6 @@ public class DBUserMedicamentsAdapter {
                 }while (c.moveToNext());
             }
         }
-        /*cursor = database.rawQuery("SELECT " + colName + " FROM " + DatabaseConstantInformation.USERMEDICAMENTSTABLE +
-                " WHERE " + DatabaseConstantInformation.EXPDATE + " < ?", new String[]{String.valueOf(date)});
-
-        cursor = database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE,
-                new String[]{colName},
-                DatabaseConstantInformation.EXPDATE + "<?",
-                new String[]{String.valueOf(date)},
-                null, null, null);
-
-        if (cursor.getCount() > 0){
-            cursor.moveToFirst();
-            meds.add(String.valueOf(cursor.getColumnIndex(colName)));
-            Log.v("Cursor DB", DatabaseUtils.dumpCursorToString(cursor));
-        }*/
         return database.rawQuery("select * from " + DatabaseConstantInformation.USERMEDICAMENTSTABLE + " where EXP BETWEEN '" + currentDateandTime + "' AND '" + newdate + "' ORDER BY EXP ASC", null);
 
     }
@@ -145,26 +131,6 @@ public class DBUserMedicamentsAdapter {
                 }while (c.moveToNext());
             }
         }
-        //return c;
-        /*String[] columns= new String[]{DatabaseConstantInformation.ID_USERMED,
-                DatabaseConstantInformation.NAME,
-                DatabaseConstantInformation.ID_MEDICAMENT,
-                DatabaseConstantInformation.EXPDATE,
-                DatabaseConstantInformation.OPENDATE,
-                DatabaseConstantInformation.FORM,
-                DatabaseConstantInformation.PURPOSE,
-                DatabaseConstantInformation.AMOUNT,
-                DatabaseConstantInformation.AMOUNT_FORM,
-                DatabaseConstantInformation.PERSON,
-                DatabaseConstantInformation.NOTE,
-                DatabaseConstantInformation.ISTAKEN,
-                DatabaseConstantInformation.IMAGE};
-
-        return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE,
-                columns,
-                DatabaseConstantInformation.ID_USERMED + "=?" + " COLLATE NOCASE",
-                new String[]{meds.get(0)},
-                null, null, DatabaseConstantInformation.ID_USERMED);*/
         return database.rawQuery("select * from " + DatabaseConstantInformation.USERMEDICAMENTSTABLE + " where EXP < '" + currentDateandTime + "' ORDER BY EXP ASC", null);
 
     }
@@ -172,7 +138,7 @@ public class DBUserMedicamentsAdapter {
 
 
 
-    public long AddUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, int person, String note, boolean istake, byte[] image) {
+    public long addUserMedicamentData(String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, int person, String note, boolean istake, byte[] image) {
         try {
             ContentValues cv = new ContentValues();
             cv.put(DatabaseConstantInformation.NAME, name);
@@ -194,7 +160,7 @@ public class DBUserMedicamentsAdapter {
             return 0;
         }
     }
-    public Cursor GetAllUserMedicamentInfoData(){
+    public Cursor getAllUserMedicamentInfoData(){
         String[] columns= new String[]{DatabaseConstantInformation.ID_USERMED,
                 DatabaseConstantInformation.NAME,
                 DatabaseConstantInformation.ID_MEDICAMENT,
@@ -212,7 +178,7 @@ public class DBUserMedicamentsAdapter {
         return database.query(DatabaseConstantInformation.USERMEDICAMENTSTABLE, columns, null, null, null, null, null);
     }
 
-    public Cursor GetAllUserMedicamentInfoDataFromId(int id){
+    public Cursor getAllUserMedicamentInfoDataFromId(int id){
         String[] columns= new String[]{DatabaseConstantInformation.ID_USERMED,
                 DatabaseConstantInformation.NAME,
                 DatabaseConstantInformation.ID_MEDICAMENT,
@@ -231,7 +197,7 @@ public class DBUserMedicamentsAdapter {
     }
 
 
-    public long UpdateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, int person, String note, boolean istake, byte[] image){
+    public long updateRowUserMedInfo(int id, String name, int id_medicament, String exp_date, String open_date, int form, int purpose, double amount, int amount_form, int person, String note, boolean istake, byte[] image){
         ContentValues cvUpdateRow = new ContentValues();
         cvUpdateRow.put(DatabaseConstantInformation.NAME, name);
         cvUpdateRow.put(DatabaseConstantInformation.ID_MEDICAMENT, id_medicament);
@@ -249,7 +215,7 @@ public class DBUserMedicamentsAdapter {
         return database.update(DatabaseConstantInformation.USERMEDICAMENTSTABLE, cvUpdateRow, DatabaseConstantInformation.ID_USERMED + "=" + String.valueOf(id), null);
     }
 
-    public String GetColumnContent(String colName, long id){
+    public String getColumnContent(String colName, long id){
         String colContent = "";
         Cursor cursor;
 
@@ -293,7 +259,7 @@ public class DBUserMedicamentsAdapter {
                 null, null, DatabaseConstantInformation.ID_USERMED);
     }
 
-    public Cursor FindUserMedicamentByName(String name, String columnName) {
+    public Cursor findUserMedicamentByName(String name, String columnName) {
 
         String[] columns = new String[]{DatabaseConstantInformation.ID_USERMED,
                 DatabaseConstantInformation.NAME,
@@ -315,7 +281,7 @@ public class DBUserMedicamentsAdapter {
     }
 
 
-    public void DeleteUserMedicament(String id) {
+    public void deleteUserMedicament(String id) {
         database.delete(DatabaseConstantInformation.USERMEDICAMENTSTABLE, DatabaseConstantInformation.ID_USERMED + "=?", new String[]{id});
     }
 

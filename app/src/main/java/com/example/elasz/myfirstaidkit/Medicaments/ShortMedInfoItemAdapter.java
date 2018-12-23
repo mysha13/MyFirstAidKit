@@ -93,18 +93,18 @@ public class ShortMedInfoItemAdapter extends RecyclerView.Adapter<ShortMedInfoIt
         notifyDataSetChanged();
     }
 
-    public void filterDate(String query){
+   /* public void filterDate(String query){
         filteredList = new ArrayList<>();
         for (ShortMedInfoItem shortMed : shortMeds) {
 
             if(shortMed.expdate.toLowerCase().contains(query.toLowerCase())){
                 filteredList.add(shortMed);
-            } /*else if (shortMed.code.toLowerCase().contains(query.toLowerCase())){
+            } *//*else if (shortMed.code.toLowerCase().contains(query.toLowerCase())){
                 filteredList.add(shortMed);
-            }*/
+            }*//*
         }
         notifyDataSetChanged();
-    }
+    }*/
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

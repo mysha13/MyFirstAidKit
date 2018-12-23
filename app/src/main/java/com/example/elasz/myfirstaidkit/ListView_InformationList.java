@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -29,7 +28,6 @@ import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItemAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,30 +68,12 @@ public class ListView_InformationList extends AppCompatActivity {
         setContentView(R.layout.activity_list_view__information_list);
         ButterKnife.bind(this);
         setRecyclerViews();
-/*
-        medicamentsNear = new ArrayList<>();
-        medicamentsOver = new ArrayList<>();
 
-        setDBAdapters();
-        dbUserMed.OpenDB();
-        Cursor a =dbUserMed.medNear();
-        nbNear.setText(String.valueOf(a.getCount()));
-        dbUserMed.CloseDB();
-
-        dbUserMed.OpenDB();
-        Cursor a1= dbUserMed.medOverDue();
-        nbOver.setText(String.valueOf(a1.getCount()));
-        dbUserMed.CloseDB();*/
         getBundle();
         initialize();
         //getMed();
     }
 
-    /*@Override
-    protected void onRestart(){
-        super.onRestart();
-        this.onCreate(null);
-    }*/
 
     @OnClick(R.id.btn_dropdown_nearMed)
     void openNearMedsList(){
@@ -151,13 +131,13 @@ public class ListView_InformationList extends AppCompatActivity {
     public void initialize() {
 
         RecyclerViewClickListener listener = (view, position, id, bNumber) -> {
-            ButtonNumber(id, bNumber);
+            buttonNumber(id, bNumber);
         };
         shortmedadapterNearMeds = new ShortMedInfoItemAdapter(medicamentsNear, listener);
         recView_near.setAdapter(shortmedadapterNearMeds);
 
         RecyclerViewClickListener listener1 = (view1, position1, id1, bNumber1) -> {
-            ButtonNumber(id1, bNumber1);
+            buttonNumber(id1, bNumber1);
         };
         shortmedadapterOverDueMeds = new ShortMedInfoItemAdapter(medicamentsOver,listener1);
         recView_over.setAdapter(shortmedadapterOverDueMeds);
@@ -174,17 +154,17 @@ public class ListView_InformationList extends AppCompatActivity {
     }*/
 
 
-    private void ButtonNumber(String id, int btn_nb) {
+    private void buttonNumber(String id, int btn_nb) {
         if (btn_nb == 1) {
-            UpdateMedButton(id);
+            updateMedButton(id);
         } else if (btn_nb == 2) {
-            DeleteMedButton(id);
+            deleteMedButton(id);
         } else if (btn_nb == 3) {
-            MoreInfoButton(id);
+            moreInfoButton(id);
         }
     }
 
-    private void UpdateMedButton(String id) {
+    private void updateMedButton(String id) {
         Intent intent = new Intent(ListView_InformationList.this, UpdateMedicine.class);
         Bundle bundle = new Bundle();
         bundle.putInt("MedIdUpdate", Integer.parseInt(id));
@@ -192,7 +172,7 @@ public class ListView_InformationList extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void MoreInfoButton(String id) {
+    private void moreInfoButton(String id) {
         Intent intent = new Intent(ListView_InformationList.this, ViewAllInfoMedicine.class);
         Bundle bundle = new Bundle();
         bundle.putInt("MedId", Integer.parseInt(id));
@@ -200,7 +180,7 @@ public class ListView_InformationList extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void DeleteMedButton(String id) {
+    private void deleteMedButton(String id) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_delete, null);
         mBuilder.setView(mView);
@@ -238,25 +218,10 @@ public class ListView_InformationList extends AppCompatActivity {
 
     private void deleteMed(String id) {
         DBUserMedicamentsAdapter dbMed = new DBUserMedicamentsAdapter(getBaseContext());
-        dbMed.OpenDB();
+        dbMed.openDB();
         dbMed.deleteMed(String.valueOf(id));
-        dbMed.CloseDB();
+        dbMed.closeDB();
 
-
-        /*medicamentsNear = new ArrayList<>();
-        medicamentsOver = new ArrayList<>();
-        getMed();
-        initialize();
-
-        dbUserMed.OpenDB();
-        Cursor a =dbUserMed.medNear();
-        nbNear.setText(String.valueOf(a.getCount()));
-        dbUserMed.CloseDB();
-
-        dbUserMed.OpenDB();
-        Cursor a1= dbUserMed.medOverDue();
-        nbOver.setText(String.valueOf(a1.getCount()));
-        dbUserMed.CloseDB();*/
     }
 
     private void setRecyclerViews() {
@@ -277,15 +242,15 @@ public class ListView_InformationList extends AppCompatActivity {
         medicamentsNear = new ArrayList<>();
         medicamentsOver = new ArrayList<>();
         setDBAdapters();
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         Cursor a =dbUserMed.medNear();
         nbNear.setText(String.valueOf(a.getCount()));
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         Cursor a1= dbUserMed.medOverDue();
         nbOver.setText(String.valueOf(a1.getCount()));
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
         getMed();
     }
@@ -311,26 +276,23 @@ public class ListView_InformationList extends AppCompatActivity {
             nbOver.setText("0");
         }
     }
+
     private void getMedicamentItemOverDue() {
         setDBAdapters();
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         Cursor cursorOver = dbUserMed.medOverDue();
-        CreateMedList(cursorOver, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsOver);
+        createMedList(cursorOver, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsOver);
     }
 
     private void getMedicamentItem() {
         setDBAdapters();
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         Cursor cursorNear = dbUserMed.medNear();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursorNear));
-        CreateMedList(cursorNear, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsNear);
-
-        /*dbUserMed.OpenDB();
-        Cursor cursorOver = dbUserMed.medOverDue();
-        CreateMedList(cursorOver, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsOver);*/
+        createMedList(cursorNear, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicamentsNear);
     }
 
-    public void CreateMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBFormAdapter dbForm, DBPurposeAdapter dbPurpose, DBAmountFormAdapter dbAmountForm, DBMedicamentInfoAdapter dbMedInfo, ArrayList<ShortMedInfoItem> medicaments) {
+    public void createMedList(Cursor cursor, DBUserMedicamentsAdapter dbUserMed, DBFormAdapter dbForm, DBPurposeAdapter dbPurpose, DBAmountFormAdapter dbAmountForm, DBMedicamentInfoAdapter dbMedInfo, ArrayList<ShortMedInfoItem> medicaments) {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
@@ -348,8 +310,8 @@ public class ListView_InformationList extends AppCompatActivity {
                 int idmedinfo = cursor.getInt(2);
 
                 //String power = cursor.getString(7);
-                Bitmap image = ConvertByteArrayToImage(cursor);
-                dbUserMed.CloseDB();
+                Bitmap image = convertByteArrayToImage(cursor);
+                dbUserMed.closeDB();
 
                 String form = getFormName(dbForm, formid);
                 String amountform = getAmountFormName(dbAmountForm, amountformid);
@@ -364,7 +326,7 @@ public class ListView_InformationList extends AppCompatActivity {
         }
     }
 
-    private Bitmap ConvertByteArrayToImage(Cursor cur){
+    private Bitmap convertByteArrayToImage(Cursor cur){
         if (cur.getBlob(12)!= null) {
             byte[] imgByte = cur.getBlob(12);
             return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
@@ -374,37 +336,37 @@ public class ListView_InformationList extends AppCompatActivity {
     }
 
     public String getFormName(DBFormAdapter dbFormAdapter, int id){
-        dbFormAdapter.OpenDB();
-        String form= dbFormAdapter.GetFormName(id);
-        dbFormAdapter.CloseDB();
+        dbFormAdapter.openDB();
+        String form= dbFormAdapter.getFormName(id);
+        dbFormAdapter.closeDB();
         return form;
     }
 
     public String getAmountFormName(DBAmountFormAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String amountform = dAForm.GetAmountFormName(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String amountform = dAForm.getAmountFormName(id);
+        dAForm.closeDB();
         return amountform;
     }
 
     public String getPowerName(DBMedicamentInfoAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String power = dAForm.GetPower(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String power = dAForm.getPower(id);
+        dAForm.closeDB();
         return power;
     }
 
     public String getPurposeName(DBPurposeAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String purpose = dAForm.GetPurposeName(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String purpose = dAForm.getPurposeName(id);
+        dAForm.closeDB();
         return purpose;
     }
 
     public String getCode(DBMedicamentInfoAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String power = dAForm.GetCode(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String power = dAForm.getCode(id);
+        dAForm.closeDB();
         return power;
     }
 

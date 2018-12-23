@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
-    card_view:cardBackgroundColor="#DEDEDE"
+    card_view:cardBackgroundColor="@color/cardColor"
     card_view:cardCornerRadius="12dp"
     android:foreground="?selectableItemBackground"
     app:cardUseCompatPadding="true">

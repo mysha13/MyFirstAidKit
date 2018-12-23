@@ -1,16 +1,12 @@
 package com.example.elasz.myfirstaidkit;
 
 import android.Manifest;
-import android.app.DownloadManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -26,9 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +37,7 @@ import com.facebook.stetho.Stetho;
 import com.karan.churi.PermissionManager.PermissionManager;
 
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,11 +104,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     PermissionManager permissionManager;
-    private DownloadManager downloadManager;
-    private long refid;
-    private Uri Download_Uri;
-
-    SQLiteDatabase db;
 
     @Override
     public void onBackPressed() {
@@ -137,49 +121,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
-   /* @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_download) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_edit_forms) {
-            openNextActivity();
-
-        } else if (id == R.id.nav_edit_amountforms) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }*/
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,48 +147,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
                         drawer.closeDrawers();
-
-                        int id = menuItem.getItemId();
-
-                        /*if (id == R.id.nav_download) {
-                            downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-
-                        }  else*/ if (id == R.id.nav_edit_forms) {
-                            //openNextActivity();
-                            Intent intent = new Intent(MainActivity.this, EditFormsList.class);
-                            startActivity(intent);
-
-                        } else if (id == R.id.nav_edit_amountforms) {
-                            Intent intent = new Intent(MainActivity.this, EditAmountFormsList.class);
-                            startActivity(intent);
-                        } else if (id == R.id.nav_edit_purpose) {
-                            Intent intent = new Intent(MainActivity.this, EditPurposeList.class);
-                            startActivity(intent);
-                        } else if (id == R.id.nav_edit_person) {
-                            Intent intent = new Intent(MainActivity.this, EditPersonList.class);
-                            startActivity(intent);
-
-                        } /*else if (id == R.id.nav_permissions){
-                            permissionManager = new PermissionManager() {
-                            };
-                            permissionManager.checkAndRequestPermissions(MainActivity.this);
-                        }*/
-
+                        menuItemIdClick(menuItem);
                         return true;
                     }
                 });
 
-
-        //simpleList = (ListView) findViewById(R.id.listviewinformation);
         Stetho.initializeWithDefaults(this);
-        permissionManager = new PermissionManager() {
-        };
+
+        permissionManager = new PermissionManager() {};
         permissionManager.checkAndRequestPermissions(this);
 
         setDBAdapters();
         getAllNumbersToSet();
-        //downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-
 
 
         imagebtnSearch = (ImageButton) findViewById(R.id.imagebtn_search);
@@ -269,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imagebtnAlarm = (ImageButton) findViewById(R.id.imagebtn_alarm);
         txt_alarm = (TextView) findViewById(R.id.txt_alarm);
         cv_addAlarm = (CardView) findViewById(R.id.btn_addAlarms);
-
 
         imagebtnTimeList = (ImageButton) findViewById(R.id.imagebtn_timelists);
         txt_timelists = (TextView) findViewById(R.id.txt_timelists);
@@ -299,6 +209,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void menuItemIdClick(MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.nav_edit_forms) {
+            //openNextActivity();
+            Intent intent = new Intent(MainActivity.this, EditFormsList.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_edit_amountforms) {
+            Intent intent = new Intent(MainActivity.this, EditAmountFormsList.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_edit_purpose) {
+            Intent intent = new Intent(MainActivity.this, EditPurposeList.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_edit_person) {
+            Intent intent = new Intent(MainActivity.this, EditPersonList.class);
+            startActivity(intent);
+
+        }
+    }
+
     private void toolbarInitialize() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -314,7 +245,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View v) {
-
         switch(v.getId()){
             case R.id.btn_timelists:
             case R.id.txt_timelists:
@@ -367,8 +297,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getAllNumbersToSet();
     }
 
-
-
     private void setDBAdapters() {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbMedInfo = new DBMedicamentInfoAdapter(this);
@@ -378,84 +306,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getAllNumbersToSet() {
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         long nball = dbUserMed.medCount();
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
         String nbText = Long.toString(nball);
         nballmed.setText(nbText);
 
-
-        Calendar cal= Calendar.getInstance();
-        Date currentTime = cal.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//, Locale.UK); //"dd/MM/yyyy_HHmmss");
-        String currentDateandTime = sdf.format(currentTime);
-        cal.add(Calendar.DAY_OF_MONTH, 7);
-        String newdate = sdf.format(cal.getTime());
-
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         Cursor a =dbUserMed.medNear();
         nbtimelymed.setText(String.valueOf(a.getCount()));
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
-
-
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         Cursor a1= dbUserMed.medOverDue();
         nboverduemed.setText(String.valueOf(a1.getCount()));
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
-
-
-    }
-
-    private void CreateSpinnerLists(DBFormAdapter dbF, DBPurposeAdapter dbP, DBAmountFormAdapter dbAF) {
-        dbF.OpenDB();
-        ContentValues cv = new ContentValues();
-        String[] forms = {"czopki","inne","kapsułki","maść","pastylki","saszetki","syrop","tabletki", "tabletki musujące", "zawiesina"};
-        if(dbF.GetAllForms().getCount() == 0){
-            for(int i=0; i<forms.length;i++) {
-                // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
-                dbF.AddForm(forms[i].toString());
-                // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
-                cv.clear();
-            }
-            dbF.CloseDB();
-        }
-        dbP.OpenDB();
-        ContentValues cv1 = new ContentValues();
-        String[] purposes = {"alergia","katar","kaszel/gardło", "gorączka","przeciwbólwo", "witaminy", "od specjalisty", "inne"};
-        if(dbP.GetAllPurposes().getCount() == 0){
-            for(int i=0; i<purposes.length;i++) {
-                // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
-                dbP.AddPurpose(purposes[i].toString());
-                // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
-                cv1.clear();
-            }
-            dbP.CloseDB();
-        }
-        dbAF.OpenDB();
-        ContentValues cv2 = new ContentValues();
-        String[] amuntForms = {"ml" ,"g", "tabletek","opakowań","sztuk"};
-        if(dbAF.GetAllAmountForms().getCount() == 0){
-            for(int i=0; i<amuntForms.length;i++) {
-                // cv.put(DatabaseConstantInformation.FORM_NAME, forms[i]);
-                dbAF.AddAmountForm(amuntForms[i].toString());
-                // db.insert(DatabaseConstantInformation.FORMTABLE, null, cv);
-                cv2.clear();
-            }
-            dbAF.CloseDB();
-        }
-
-    }
-
-
-
-    public void openActivityListOfMedicines() {
-        Intent intent = new Intent(this, OneMedicineInformation.class);//ListOfMedicines
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("ListOfMedicines", (Serializable) medicines);
-        intent.putExtras(bundle);
-        startActivity(intent);
     }
 
     //Check if internet is present or not
@@ -512,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (isConnectingToInternet())
                         new DownloadTasks(MainActivity.this, cv_download, txtDownload, HttpLink.MedicalsRegister);
                     else
-                        Toast.makeText(MainActivity.this, "Oops!! There is no internet connection. Please enable internet connection and try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Oops!! Brak połączenie do internetu", Toast.LENGTH_SHORT).show();
 
                 }
                 break;

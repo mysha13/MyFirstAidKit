@@ -2,14 +2,8 @@ package com.example.elasz.myfirstaidkit.DatabaseImplement;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
-
-import java.sql.DatabaseMetaData;
 
 /**
  * Created by elasz on 12.09.2018.
@@ -32,14 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(DatabaseConstantInformation.CREATE_TABLE_PERSON);
             db.execSQL(DatabaseConstantInformation.CREATE_TABLE_MEDICAMENTINFO);
 
-            formTableStartContent(db);
+            fillTableWithDefaultValues(db);
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public void formTableStartContent(SQLiteDatabase dbs) {
+    public void fillTableWithDefaultValues(SQLiteDatabase dbs) {
         String[] forms = {"czopki","inne","kapsułki","maść","pastylki","saszetki","syrop","tabletki", "tabletki musujące", "zawiesina"};
 
         ContentValues cv = new ContentValues();
@@ -59,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv1.clear();
         }
         ContentValues cv2 = new ContentValues();
-        String[] purposes = {"alergia","katar","kaszel/gardło", "gorączka","przeciwbólwo", "witaminy", "od specjalisty", "inne"};
+        String[] purposes = {"alergia","katar","kaszel/gardło", "gorączka","przeciwbólowo", "x", "od specjalisty", "inne"};
         for(int i=0; i<purposes.length;i++) {
             cv2.put(DatabaseConstantInformation.PURPOSE_NAME, purposes[i]);
             dbs.insert(DatabaseConstantInformation.PURPOSETABLE, null, cv2);

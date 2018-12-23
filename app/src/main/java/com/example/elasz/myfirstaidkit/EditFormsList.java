@@ -72,15 +72,15 @@ public class EditFormsList extends AppCompatActivity {
 
     public void addToFormsList(ArrayList<FormsList> formsLists) {
         DBFormAdapter db = new DBFormAdapter(this);
-        db.OpenDB();
-        Cursor c = db.GetAllForms();
+        db.openDB();
+        Cursor c = db.getAllForms();
         while (c.moveToNext()) {
             int id = c.getInt(0);
             String name = c.getString(1);
             FormsList form = new FormsList(id, name);
             formsLists.add(form);
         }
-        db.CloseDB();
+        db.closeDB();
     }
 
     public void initialize() {
@@ -157,13 +157,13 @@ public class EditFormsList extends AppCompatActivity {
     public void deleteFormWithId(String id) {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbForm = new DBFormAdapter(this);
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         dbUserMed.renameForm(id);
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
-        dbForm.OpenDB();
+        dbForm.openDB();
         dbForm.deleteOnlyForm(id);
-        dbForm.CloseDB();
+        dbForm.closeDB();
     }
 
     private void doNotDelete(View mView, AlertDialog dialog) {
@@ -196,13 +196,13 @@ public class EditFormsList extends AppCompatActivity {
     private ArrayList<String> createNamesList() {
         dbForm = new DBFormAdapter(this);
         ArrayList<String> formsList = new ArrayList<>();
-        dbForm.OpenDB();
-        Cursor c = dbForm.GetAllForms();
+        dbForm.openDB();
+        Cursor c = dbForm.getAllForms();
         while (c.moveToNext()) {
             String name = c.getString(1);
             formsList.add(name);
         }
-        dbForm.CloseDB();
+        dbForm.closeDB();
         return formsList;
     }
 
@@ -224,9 +224,9 @@ public class EditFormsList extends AppCompatActivity {
     }
 
    private void checkAddResult() {
-       dbForm.OpenDB();
-       long added = dbForm.AddForm(formname.getText().toString());
-       dbForm.CloseDB();
+       dbForm.openDB();
+       long added = dbForm.addForm(formname.getText().toString());
+       dbForm.closeDB();
        if (added > 0) {
            Toast.makeText(EditFormsList.this, "Forma dodana", Toast.LENGTH_LONG).show();
        } else {

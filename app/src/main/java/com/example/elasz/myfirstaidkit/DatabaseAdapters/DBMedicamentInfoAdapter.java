@@ -25,15 +25,15 @@ public class DBMedicamentInfoAdapter {
         dbHelper = new DatabaseHelper(context);
     }
 
-    public void OpenDB() throws SQLException {
+    public void openDB() throws SQLException {
         database=dbHelper.getWritableDatabase();
     }
 
-    public void CloseDB() throws SQLException{
+    public void closeDB() throws SQLException{
         dbHelper.close();
     }
 
-    public long AddMedicamentInfoData(String name, String power, String activeSubs, String code, String producer){
+    public long addMedicamentInfoData(String name, String power, String activeSubs, String code, String producer){
         try{
             ContentValues cv = new ContentValues();
             cv.put(DatabaseConstantInformation.MEDNAME, name);
@@ -49,7 +49,7 @@ public class DBMedicamentInfoAdapter {
         }
     }
 
-    public Cursor GetAllMedicamentInfoData(){
+    public Cursor getAllMedicamentInfoData(){
         String[] columns= new String[]{DatabaseConstantInformation.ID_MEDICAMENT,
         DatabaseConstantInformation.MEDNAME,
         DatabaseConstantInformation.POWER,
@@ -60,7 +60,7 @@ public class DBMedicamentInfoAdapter {
         return database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE, columns, null, null, null, null, null);
     }
 
-    public long UpdateRowMedInfo(int id, String name, String power, String activeSubs, String code, String producer){
+    public long updateRowMedInfo(int id, String name, String power, String activeSubs, String code, String producer){
         ContentValues cvUpdateRow = new ContentValues();
         cvUpdateRow.put(DatabaseConstantInformation.MEDNAME, name);
         cvUpdateRow.put(DatabaseConstantInformation.POWER, power);
@@ -70,7 +70,7 @@ public class DBMedicamentInfoAdapter {
         return database.update(DatabaseConstantInformation.MEDICAMENTINFOTABLE, cvUpdateRow, DatabaseConstantInformation.ID_MED + "=" + String.valueOf(id), null);
     }
 
-    public String GetColumnContent(String colName, long id){
+    public String getColumnContent(String colName, long id){
         String colContent = "";
         Cursor cursor;
 
@@ -88,17 +88,17 @@ public class DBMedicamentInfoAdapter {
         return colContent;
     }
 
-    public Cursor GetNames(){
+    public Cursor getNames(){
         return database.query(true, DatabaseConstantInformation.MEDICAMENTINFOTABLE, new String[]{DatabaseConstantInformation.MEDNAME}, null, null, DatabaseConstantInformation.MEDNAME, null, null, null);
 
     }
 
-    public Cursor GetCodes(){
+    public Cursor getCodes(){
         return database.query(true, DatabaseConstantInformation.MEDICAMENTINFOTABLE, new String[]{DatabaseConstantInformation.CODE}, null, null, DatabaseConstantInformation.CODE, null, null, null);
 
     }
 
-    public Cursor FindMedicamentByName(String name, String columnName) {
+    public Cursor findMedicamentByName(String name, String columnName) {
 
         String[] columns = new String[]{DatabaseConstantInformation.ID_MED,
                 DatabaseConstantInformation.MEDNAME,
@@ -114,7 +114,7 @@ public class DBMedicamentInfoAdapter {
                 null, null, DatabaseConstantInformation.ID_MED);
     }
 
-    public Cursor FindMedicamentByCode(String code, String columnName) {
+    public Cursor findMedicamentByCode(String code, String columnName) {
 
         String[] columns = new String[]{DatabaseConstantInformation.ID_MED,
                 DatabaseConstantInformation.MEDNAME,
@@ -130,7 +130,7 @@ public class DBMedicamentInfoAdapter {
     }
 
 
-    public void DeleteMedicamentInfo(String id) {
+    public void deleteMedicamentInfo(String id) {
         database.delete(DatabaseConstantInformation.MEDICAMENTINFOTABLE, DatabaseConstantInformation.ID_MED + "=?", new String[]{id});
     }
 
@@ -212,7 +212,7 @@ public class DBMedicamentInfoAdapter {
         return medid;
     }
 
-    public String GetPower(long id){
+    public String getPower(long id){
         String powerName = "";
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
@@ -228,7 +228,7 @@ public class DBMedicamentInfoAdapter {
         return powerName;
     }
 
-    public String GetCode(long id){
+    public String getCode(long id){
         String code = "";
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
@@ -244,7 +244,7 @@ public class DBMedicamentInfoAdapter {
         return code;
     }
 
-    public String GetSubsActive(long id){
+    public String getSubsActive(long id){
         String subsActive = "";
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
@@ -260,7 +260,7 @@ public class DBMedicamentInfoAdapter {
         return subsActive;
     }
 
-    public String GetProducer(long id){
+    public String getProducer(long id){
         String producer = "";
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,
@@ -276,7 +276,7 @@ public class DBMedicamentInfoAdapter {
         return producer;
     }
 
-    public int GetMedId(String name){
+    public int getMedId(String name){
         int medid = 1;
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.MEDICAMENTINFOTABLE,

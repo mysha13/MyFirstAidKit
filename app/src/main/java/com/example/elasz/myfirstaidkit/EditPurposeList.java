@@ -13,12 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
-import com.example.elasz.myfirstaidkit.FormsList.FormsList;
-import com.example.elasz.myfirstaidkit.FormsList.FormsListAdapter;
 import com.example.elasz.myfirstaidkit.Interfaces.RecyclerViewClickListener;
 import com.example.elasz.myfirstaidkit.Medicaments.AllMedInfoItem;
 import com.example.elasz.myfirstaidkit.PurposeFormsList.PurposeList;
@@ -78,15 +75,15 @@ public class EditPurposeList extends AppCompatActivity {
 
     public void addToPurposeList(ArrayList<PurposeList> purposeLists) {
         DBPurposeAdapter db = new DBPurposeAdapter(this);
-        db.OpenDB();
-        Cursor c = db.GetAllPurposes();
+        db.openDB();
+        Cursor c = db.getAllPurposes();
         while (c.moveToNext()) {
             int id = c.getInt(0);
             String name = c.getString(1);
             PurposeList purpose = new PurposeList(id, name);
             purposeLists.add(purpose);
         }
-        db.CloseDB();
+        db.closeDB();
     }
 
     public void initialize() {
@@ -139,13 +136,13 @@ public class EditPurposeList extends AppCompatActivity {
     public void deletePurposeWithId(String id) {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbPurpose = new DBPurposeAdapter(this);
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         dbUserMed.renamePurpose(id);
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
-        dbPurpose.OpenDB();
+        dbPurpose.openDB();
         dbPurpose.deleteOnlyPurpose(id);
-        dbPurpose.CloseDB();
+        dbPurpose.closeDB();
     }
 
     private void doNotDelete(View mView, AlertDialog dialog) {
@@ -178,13 +175,13 @@ public class EditPurposeList extends AppCompatActivity {
     private ArrayList<String> createNamesList() {
         dbPurpose = new DBPurposeAdapter(this);
         ArrayList<String> purposeList = new ArrayList<>();
-        dbPurpose.OpenDB();
-        Cursor c = dbPurpose.GetAllPurposes();
+        dbPurpose.openDB();
+        Cursor c = dbPurpose.getAllPurposes();
         while (c.moveToNext()) {
             String name = c.getString(1);
             purposeList.add(name);
         }
-        dbPurpose.CloseDB();
+        dbPurpose.closeDB();
         return purposeList;
     }
 
@@ -206,9 +203,9 @@ public class EditPurposeList extends AppCompatActivity {
     }
 
     private void checkAddResult() {
-        dbPurpose.OpenDB();
-        long added = dbPurpose.AddPurpose(purposename.getText().toString());
-        dbPurpose.CloseDB();
+        dbPurpose.openDB();
+        long added = dbPurpose.addPurpose(purposename.getText().toString());
+        dbPurpose.closeDB();
         if (added > 0) {
             Toast.makeText(EditPurposeList.this, "Schorzenie dodane", Toast.LENGTH_LONG).show();
         } else {

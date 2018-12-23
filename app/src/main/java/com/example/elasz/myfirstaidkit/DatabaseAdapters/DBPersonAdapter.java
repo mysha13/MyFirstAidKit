@@ -29,15 +29,15 @@ public class DBPersonAdapter {
         dbHelper= new DatabaseHelper(context);
     }
 
-    public void OpenDB() throws SQLException {
+    public void openDB() throws SQLException {
         database=dbHelper.getWritableDatabase();
     }
 
-    public void CloseDB() throws SQLException{
+    public void closeDB() throws SQLException{
         dbHelper.close();
     }
 
-    public long AddPerson(String formName){
+    public long addPerson(String formName){
         try{
             dbHelper.onCreate(database);
             ContentValues cv = new ContentValues();
@@ -49,12 +49,12 @@ public class DBPersonAdapter {
         }
     }
 
-    public Cursor GetAllPeople(){
+    public Cursor getAllPeople(){
         String[] columns ={DatabaseConstantInformation.ID_PERSON, DatabaseConstantInformation.PERSON_NAME};
         return database.query(DatabaseConstantInformation.PERSONTABLE, columns, null, null, null, null,null);
     }
 
-    public String GetPersonName(long id){
+    public String getPersonName(long id){
         String formName = "";
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.PERSONTABLE,
@@ -70,7 +70,7 @@ public class DBPersonAdapter {
         return formName;
     }
 
-    public int GetPersonId(String name){
+    public int getPersonId(String name){
         int formName = 1;
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.PERSONTABLE,

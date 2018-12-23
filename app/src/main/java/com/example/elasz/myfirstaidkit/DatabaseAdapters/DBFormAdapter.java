@@ -29,16 +29,16 @@ public class DBFormAdapter {
         dbHelper= new DatabaseHelper(context);
     }
 
-    public void OpenDB() throws SQLException{
+    public void openDB() throws SQLException{
      database=dbHelper.getWritableDatabase();
     }
 
-    public void CloseDB() throws SQLException{
+    public void closeDB() throws SQLException{
         dbHelper.close();
     }
 
 
-    public long AddForm(String formName){
+    public long addForm(String formName){
         try{
             dbHelper.onCreate(database);
             ContentValues cv = new ContentValues();
@@ -50,12 +50,12 @@ public class DBFormAdapter {
         }
     }
 
-    public Cursor GetAllForms(){
+    public Cursor getAllForms(){
         String[] columns ={DatabaseConstantInformation.ID_FORM, DatabaseConstantInformation.FORM_NAME};
         return database.query(DatabaseConstantInformation.FORMTABLE, columns, null, null, null, null,null);
     }
 
-    public String GetFormName(long id){
+    public String getFormName(long id){
         String formName = "";
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.FORMTABLE,
@@ -71,7 +71,7 @@ public class DBFormAdapter {
         return formName;
     }
 
-    public int GetFormId(String name){
+    public int getFormId(String name){
         int formName = 1;
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.FORMTABLE,

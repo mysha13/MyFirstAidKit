@@ -28,16 +28,16 @@ public class DBPurposeAdapter {
         dbHelper= new DatabaseHelper(context);
     }
 
-    public void OpenDB() throws SQLException {
+    public void openDB() throws SQLException {
         database=dbHelper.getWritableDatabase();
     }
 
-    public void CloseDB() throws SQLException{
+    public void closeDB() throws SQLException{
         dbHelper.close();
     }
 
 
-    public long AddPurpose(String formName){
+    public long addPurpose(String formName){
         try{
             dbHelper.onCreate(database);
             ContentValues cv = new ContentValues();
@@ -49,12 +49,12 @@ public class DBPurposeAdapter {
         }
     }
 
-    public Cursor GetAllPurposes(){
+    public Cursor getAllPurposes(){
         String[] columns ={DatabaseConstantInformation.ID_PURPOSE, DatabaseConstantInformation.PURPOSE_NAME};
         return database.query(DatabaseConstantInformation.PURPOSETABLE, columns, null, null, null, null,null);
     }
 
-    public String GetPurposeName(long id){
+    public String getPurposeName(long id){
         String formName = "";
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.PURPOSETABLE,
@@ -70,7 +70,7 @@ public class DBPurposeAdapter {
         return formName;
     }
 
-    public int GetPurposeId(String name){
+    public int getPurposeId(String name){
         int formName = 1;
         Cursor cursor;
         cursor = database.query(DatabaseConstantInformation.PURPOSETABLE,

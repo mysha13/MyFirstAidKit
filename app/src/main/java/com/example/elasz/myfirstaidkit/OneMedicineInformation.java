@@ -9,14 +9,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
@@ -87,23 +85,13 @@ public class OneMedicineInformation extends AppCompatActivity {
 //        } else {
         medicaments = new ArrayList<>();
         setDBAdapters();
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         long nball = dbUserMed.medCount();
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
         String nbText = Long.toString(nball);
         numberOfMeds.setText(nbText);
         getMed();
         //}
-    }
-
-    private void getBundleContent(Bundle bundle) {
-        medicaments = (ArrayList<ShortMedInfoItem>) bundle.getSerializable("ListOfMedicines");
-        if (!(medicaments.size() < 1)) {
-            recyclerView.setAdapter(shortmedadapter);
-            numberOfMeds.setText(String.valueOf(medicaments.size()));
-        } else {
-            numberOfMeds.setText("Nie znaleziono zadnych leków");
-        }
     }
 
     private void getMed() {
@@ -117,14 +105,12 @@ public class OneMedicineInformation extends AppCompatActivity {
         else {
             numberOfMeds.setText("Nie znaleziono zadnych leków");
         }
-
-
     }
 
     private void getMedicamentItem() {
         setDBAdapters();
-        dbUserMed.OpenDB();
-        Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
+        dbUserMed.openDB();
+        Cursor cursor = dbUserMed.getAllUserMedicamentInfoData();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
         CreateMedList(cursor, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, medicaments);
     }
@@ -148,7 +134,7 @@ public class OneMedicineInformation extends AppCompatActivity {
 
                 //String power = cursor.getString(7);
                 Bitmap image = ConvertByteArrayToImage(cursor);
-                dbUserMed.CloseDB();
+                dbUserMed.closeDB();
 
                 String form = getFormName(dbForm, formid);
                 String amountform = getAmountFormName(dbAmountForm, amountformid);
@@ -194,23 +180,23 @@ public class OneMedicineInformation extends AppCompatActivity {
             }
         };*/
         RecyclerViewClickListener listener = (view, position, id, bNumber) -> {
-            ButtonNumber(id, bNumber);
+            buttonNumber(id, bNumber);
         };
         shortmedadapter = new ShortMedInfoItemAdapter(medicaments, listener);
         recyclerView.setAdapter(shortmedadapter);
     }
 
-    private void ButtonNumber(String id, int btn_nb) {
+    private void buttonNumber(String id, int btn_nb) {
         if (btn_nb == 1) {
-            UpdateMedButton(id);
+            updateMedButton(id);
         } else if (btn_nb == 2) {
-            DeleteMedButton(id);
+            deleteMedButton(id);
         } else if (btn_nb == 3) {
-            MoreInfoButton(id);
+            moreInfoButton(id);
         }
     }
 
-    private void UpdateMedButton(String id) {
+    private void updateMedButton(String id) {
         Intent intent = new Intent(OneMedicineInformation.this, UpdateMedicine.class);
         Bundle bundle = new Bundle();
         bundle.putInt("MedIdUpdate", Integer.parseInt(id));
@@ -218,7 +204,7 @@ public class OneMedicineInformation extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void MoreInfoButton(String id) {
+    private void moreInfoButton(String id) {
         Intent intent = new Intent(OneMedicineInformation.this, ViewAllInfoMedicine.class);
         Bundle bundle = new Bundle();
         bundle.putInt("MedId", Integer.parseInt(id));
@@ -226,7 +212,7 @@ public class OneMedicineInformation extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void DeleteMedButton(String id) {
+    private void deleteMedButton(String id) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_delete, null);
         mBuilder.setView(mView);
@@ -256,41 +242,41 @@ public class OneMedicineInformation extends AppCompatActivity {
 
     private void deleteMed(String id) {
         DBUserMedicamentsAdapter dbMed = new DBUserMedicamentsAdapter(getBaseContext());
-        dbMed.OpenDB();
+        dbMed.openDB();
         dbMed.deleteMed(String.valueOf(id));
-        dbMed.CloseDB();
+        dbMed.closeDB();
 
     }
 
 
     public String getFormName(DBFormAdapter dbFormAdapter, int id){
-        dbFormAdapter.OpenDB();
-        String form= dbFormAdapter.GetFormName(id);
-        dbFormAdapter.CloseDB();
+        dbFormAdapter.openDB();
+        String form= dbFormAdapter.getFormName(id);
+        dbFormAdapter.closeDB();
         return form;
     }
     public String getAmountFormName(DBAmountFormAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String amountform = dAForm.GetAmountFormName(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String amountform = dAForm.getAmountFormName(id);
+        dAForm.closeDB();
         return amountform;
     }
     public String getPowerName(DBMedicamentInfoAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String power = dAForm.GetPower(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String power = dAForm.getPower(id);
+        dAForm.closeDB();
         return power;
     }
     public String getPurposeName(DBPurposeAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String purpose = dAForm.GetPurposeName(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String purpose = dAForm.getPurposeName(id);
+        dAForm.closeDB();
         return purpose;
     }
     public String getCode(DBMedicamentInfoAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String power = dAForm.GetCode(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String power = dAForm.getCode(id);
+        dAForm.closeDB();
         return power;
     }
 

@@ -180,9 +180,9 @@ public class UpdateMedicine extends AppCompatActivity {
         tv_id.setText(String.valueOf(id));
         setDBAdapter();
         idmed=id;
-        dbUserMed.OpenDB();
-        String idmedinfo = dbUserMed.GetColumnContent(DatabaseConstantInformation.ID_MEDICAMENT,id);
-        dbUserMed.CloseDB();
+        dbUserMed.openDB();
+        String idmedinfo = dbUserMed.getColumnContent(DatabaseConstantInformation.ID_MEDICAMENT,id);
+        dbUserMed.closeDB();
         medinfoid = Integer.parseInt(idmedinfo);
 
 
@@ -231,8 +231,6 @@ public class UpdateMedicine extends AppCompatActivity {
 
             }
         };
-
-        //btn_saveMedicine_update
     }
 
 
@@ -243,6 +241,7 @@ public class UpdateMedicine extends AppCompatActivity {
         BarcodeScanner bar= new BarcodeScanner();
         code.setText(bar.getCode().toString());
     }
+
     @OnClick(R.id.tv_opendate_update)
     public void getOpenDate(){
         Calendar calendar = Calendar.getInstance();
@@ -279,7 +278,7 @@ public class UpdateMedicine extends AppCompatActivity {
 
     @OnClick(R.id.btn_removePhoto_update)
     public void removePhotoUpdate(){
-        ClearImageView();
+        clearImageView();
     }
 
     private void setSpinners(){
@@ -288,6 +287,7 @@ public class UpdateMedicine extends AppCompatActivity {
         spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
         spinnerPerson(dbPerson, personList, adapterPerson, spin_person);
     }
+
     private TextWatcher mQueryWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -318,79 +318,78 @@ public class UpdateMedicine extends AppCompatActivity {
     }
 
     private void setAllLastedTexts() {
-
         ColorStateList redColor=lastamount.getTextColors();
         //int personid=0;
         int id = getID();
-        dbUserMed.OpenDB();
-        Bitmap imageBitmap = ConvertByteArrayToImage(dbUserMed.getImageByteArray(id));
+        dbUserMed.openDB();
+        Bitmap imageBitmap = convertByteArrayToImage(dbUserMed.getImageByteArray(id));
         imageView.setImageBitmap(imageBitmap);
-        name.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.NAME, id));
+        name.setText(dbUserMed.getColumnContent(DatabaseConstantInformation.NAME, id));
         name.setTextColor(redColor);
-        int idmedinfo = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.ID_MEDICAMENT, id));
-        //image.setImageBitmap(dbUserMed.GetColumnContent(DatabaseConstantInformation.IMAGE, id));
+        int idmedinfo = Integer.valueOf(dbUserMed.getColumnContent(DatabaseConstantInformation.ID_MEDICAMENT, id));
+        //image.setImageBitmap(dbUserMed.getColumnContent(DatabaseConstantInformation.IMAGE, id));
 
-        expdate.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.EXPDATE, id));
+        expdate.setText(dbUserMed.getColumnContent(DatabaseConstantInformation.EXPDATE, id));
         expdate.setTextColor(redColor);
-        opendate.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.OPENDATE, id));
+        opendate.setText(dbUserMed.getColumnContent(DatabaseConstantInformation.OPENDATE, id));
         opendate.setTextColor(redColor);
-                formid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.FORM, id));
-                purposeid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.PURPOSE, id));
-        //amount.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
+                formid = Integer.valueOf(dbUserMed.getColumnContent(DatabaseConstantInformation.FORM, id));
+                purposeid = Integer.valueOf(dbUserMed.getColumnContent(DatabaseConstantInformation.PURPOSE, id));
+        //amount.setText(dbUserMed.getColumnContent(DatabaseConstantInformation.AMOUNT,id));
         lastamount.setTextColor(redColor);
-        lastamount.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
-                amountformid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
+        lastamount.setText(dbUserMed.getColumnContent(DatabaseConstantInformation.AMOUNT,id));
+                amountformid = Integer.valueOf(dbUserMed.getColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
 
         try{
-            personid = Integer.valueOf(dbUserMed.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+            personid = Integer.valueOf(dbUserMed.getColumnContent(DatabaseConstantInformation.PERSON, id));
         }catch(Exception e){
             Log.e(TAG,e.toString());
         }
 
-        note.setText(dbUserMed.GetColumnContent(DatabaseConstantInformation.NOTE, id));
+        note.setText(dbUserMed.getColumnContent(DatabaseConstantInformation.NOTE, id));
         note.setTextColor(redColor);
 
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
 
-        dbForm.OpenDB();   // tak dla kazdej tabeli
-        lastform.setText(dbForm.GetFormName(formid));
+        dbForm.openDB();   // tak dla kazdej tabeli
+        lastform.setText(dbForm.getFormName(formid));
         lastform.setTextColor(redColor);
-        dbForm.CloseDB();
+        dbForm.closeDB();
 
-        dbMedInfo.OpenDB();
-        power.setText(dbMedInfo.GetPower(idmedinfo));
+        dbMedInfo.openDB();
+        power.setText(dbMedInfo.getPower(idmedinfo));
         power.setTextColor(redColor);
-        subsActive.setText(dbMedInfo.GetSubsActive(idmedinfo));
+        subsActive.setText(dbMedInfo.getSubsActive(idmedinfo));
         subsActive.setTextColor(redColor);
-        code.setText(dbMedInfo.GetCode(idmedinfo));
+        code.setText(dbMedInfo.getCode(idmedinfo));
         code.setTextColor(redColor);
-        producer.setText(dbMedInfo.GetProducer(idmedinfo));
+        producer.setText(dbMedInfo.getProducer(idmedinfo));
         producer.setTextColor(redColor);
-        dbMedInfo.CloseDB();
+        dbMedInfo.closeDB();
 
         if(purposeid == 0){
             lastpurpose.setText("-");
         }else{
-            dbPurpose.OpenDB();
-            lastpurpose.setText(dbPurpose.GetPurposeName(purposeid));
+            dbPurpose.openDB();
+            lastpurpose.setText(dbPurpose.getPurposeName(purposeid));
             lastpurpose.setTextColor(redColor);
-            dbPurpose.CloseDB();
+            dbPurpose.closeDB();
         }
 
 
-        dbAmountForm.OpenDB();
-        lastamountform.setText(dbAmountForm.GetAmountFormName(amountformid));
+        dbAmountForm.openDB();
+        lastamountform.setText(dbAmountForm.getAmountFormName(amountformid));
         lastamountform.setTextColor(redColor);
-        dbAmountForm.CloseDB();
+        dbAmountForm.closeDB();
 
         if(personid == 0){
             lastperson.setText("-");
         }
         else{
-            dbPerson.OpenDB();
-            lastperson.setText(dbPerson.GetPersonName(personid));
-            dbPerson.CloseDB();
+            dbPerson.openDB();
+            lastperson.setText(dbPerson.getPersonName(personid));
+            dbPerson.closeDB();
         }
 
         if(opendate.getText().length()==0){
@@ -400,7 +399,7 @@ public class UpdateMedicine extends AppCompatActivity {
 
 
         //to set spinner value
-       /* String compareValueForm = dbFrom.GetFormName(formid);
+       /* String compareValueForm = dbFrom.getFormName(formid);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.select_state, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin_form.setAdapter(adapter);
@@ -415,60 +414,60 @@ public class UpdateMedicine extends AppCompatActivity {
         dAForm = new DBFormAdapter(this);
         formList = new ArrayList<>();
         adapterForm = new ArrayAdapter<String>(this, R.layout.spin_item, formList);
-        dAForm.OpenDB();
+        dAForm.openDB();
         formList.add("-");
-        Cursor cursor = dAForm.GetAllForms();
+        Cursor cursor = dAForm.getAllForms();
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
             formList.add(name);
         }
-        dAForm.CloseDB();
+        dAForm.closeDB();
         spinner.setAdapter(adapterForm);
     }
     public void spinnerPurpose(DBPurposeAdapter dbPurposeAdapter, ArrayList<String> purposeList, ArrayAdapter<String> adapterPurpose, Spinner spinner) {
         dbPurposeAdapter = new DBPurposeAdapter(this);
         purposeList = new ArrayList<>();
         adapterPurpose= new ArrayAdapter<String>(this, R.layout.spin_item, purposeList);
-        dbPurposeAdapter.OpenDB();
+        dbPurposeAdapter.openDB();
         purposeList.add("-");
-        Cursor cursor = dbPurposeAdapter.GetAllPurposes();
+        Cursor cursor = dbPurposeAdapter.getAllPurposes();
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
             purposeList.add(name);
         }
-        dbPurposeAdapter.CloseDB();
+        dbPurposeAdapter.closeDB();
         spinner.setAdapter(adapterPurpose);
     }
     public void spinnerAmountForm(DBAmountFormAdapter dbAmountFormAdapter, ArrayList<String> amountformList, ArrayAdapter<String> adapterAmountForm, Spinner spinner) {
         dbAmountFormAdapter = new DBAmountFormAdapter(this);
         amountformList = new ArrayList<>();
         adapterAmountForm = new ArrayAdapter<String>(this, R.layout.spin_item, amountformList);
-        dbAmountFormAdapter.OpenDB();
+        dbAmountFormAdapter.openDB();
         amountformList.add("-");
-        Cursor cursor = dbAmountFormAdapter.GetAllAmountForms();
+        Cursor cursor = dbAmountFormAdapter.getAllAmountForms();
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
             amountformList.add(name);
         }
-        dbAmountFormAdapter.CloseDB();
+        dbAmountFormAdapter.closeDB();
         spinner.setAdapter(adapterAmountForm);
     }
     public void spinnerPerson(DBPersonAdapter dbPersonAdapter, ArrayList<String> personList, ArrayAdapter<String> adapterPerson, Spinner spinner) {
         dbPersonAdapter = new DBPersonAdapter(this);
         personList = new ArrayList<>();
         adapterPerson = new ArrayAdapter<String>(this, R.layout.spin_item, personList);
-        dbPersonAdapter.OpenDB();
+        dbPersonAdapter.openDB();
         personList.add("-");
-        Cursor cursor = dbPersonAdapter.GetAllPeople();
+        Cursor cursor = dbPersonAdapter.getAllPeople();
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
             personList.add(name);
         }
-        dbPersonAdapter.CloseDB();
+        dbPersonAdapter.closeDB();
         spinner.setAdapter(adapterPerson);
     }
 
-    private Bitmap ConvertByteArrayToImage(byte[] byteImage) {
+    private Bitmap convertByteArrayToImage(byte[] byteImage) {
 
         if (byteImage!= null) {
             return BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length);
@@ -491,118 +490,104 @@ public class UpdateMedicine extends AppCompatActivity {
     void updateMed() {
         if(name.getText().toString().matches("")){
             Toast.makeText(UpdateMedicine.this, "Nazwa jest pusta", Toast.LENGTH_LONG).show();
-        }/*else if(amount.getText().toString().matches("")){
-            Toast.makeText(UpdateMedicine.this, "Ilość jest puste", Toast.LENGTH_LONG).show();
-        }else if(expdate.getText().toString().matches("")){
-            Toast.makeText(UpdateMedicine.this, "Data ważności EXP jest pusta", Toast.LENGTH_LONG).show();
-        }else if(code.getText().toString().matches("")){
-            Toast.makeText(UpdateMedicine.this, "Kod jest pusty", Toast.LENGTH_LONG).show();
-        }else if(spinnerCorrection(spin_form) == null){
-            Toast.makeText(UpdateMedicine.this, "Postać jest pusta", Toast.LENGTH_LONG).show();
-        }else if(spinnerCorrection(spin_amountForm) == null){
-            Toast.makeText(UpdateMedicine.this, "Forma ilości jest pusta", Toast.LENGTH_LONG).show();
-        }*/else{
+        }else{
             setDatabaseAdapter();
-            CheckResult();
+            checkResult();
         }
     }
 
-    private void CheckResult() {
-        long work2 = TryToUpdateMedInfo();
-        long work = TryToUpdateMedUser();
+    private void checkResult() {
+        long work2 = tryToUpdateMedInfo();
+        long work = tryToUpdateMedUser();
 
         if (work > 0 && work2 >0 ) {
             Toast.makeText(UpdateMedicine.this, "Zaktualizowano lek", Toast.LENGTH_LONG).show();
-            //spinnerForm(dbForm, formList, adapterForm, spin_form);
-           // spinnerPerson(dbPerson,personList, adapterPerson, spin_person);
-            //spinnerPurpose(dbPurpose, purposeList, adapterPurpose, spin_purpose);
-            //spinnerAmountForm(dbAmountForm, amountFormList, adapterAmoutForm, spin_amountForm);
             finish();
         } else {
             Toast.makeText(UpdateMedicine.this,"Nie udało się dodać leku", Toast.LENGTH_LONG).show();
         }
     }
-    private long TryToUpdateMedInfo(){
-        CheckEmptyFields();
-        dbMedInfo.OpenDB();
+    private long tryToUpdateMedInfo(){
+        checkEmptyFields();
+        dbMedInfo.openDB();
         long work2 = updateMedInDBMedInfo();
-        dbMedInfo.CloseDB();
+        dbMedInfo.closeDB();
         return work2;
     }
 
-    private long TryToUpdateMedUser(){
-        IsThereAnyImage();
-        CheckEmptyFields();
+    private long tryToUpdateMedUser(){
+        isThereAnyImage();
+        checkEmptyFields();
         if(name.getText() != null){
             medinfoid = getMedInfoID(dbMedInfo, name.getText().toString());
         }
-        if(spinnerCorrection(spin_form) == null)
+        if(spinnerSelection(spin_form) == null)
         {
             //formid = 0;
         }
         else{
-            formid = getFormID(dbForm, spinnerCorrection(spin_form));
+            formid = getFormID(dbForm, spinnerSelection(spin_form));
         }
-        if(spinnerCorrection(spin_purpose) == null) {
+        if(spinnerSelection(spin_purpose) == null) {
             //purposeid = 0;
         }
         else{
-            purposeid = getPurposeID(dbPurpose, spinnerCorrection(spin_purpose));
+            purposeid = getPurposeID(dbPurpose, spinnerSelection(spin_purpose));
         }
-        if(spinnerCorrection(spin_amountForm) == null) {
+        if(spinnerSelection(spin_amountForm) == null) {
             //amountformid = 0;
         }
         else{
-            amountformid = getAmountFormID(dbAmountForm, spinnerCorrection(spin_amountForm));
+            amountformid = getAmountFormID(dbAmountForm, spinnerSelection(spin_amountForm));
         }
-        if(spinnerCorrection(spin_person) == null) {
+        if(spinnerSelection(spin_person) == null) {
             //personid = 0;
         }
         else{
-            personid = getPersonID(dbPerson, spinnerCorrection(spin_person));
+            personid = getPersonID(dbPerson, spinnerSelection(spin_person));
         }
 
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         long work = updateMedInUserMed();
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
         return work;
     }
 
     public int getMedInfoID(DBMedicamentInfoAdapter dbMed, String name){
-        dbMed.OpenDB();
-        medinfoid = dbMed.GetMedId(name);
-        dbMed.CloseDB();
+        dbMed.openDB();
+        medinfoid = dbMed.getMedId(name);
+        dbMed.closeDB();
         return medinfoid;
 
     }
     public int getPurposeID(DBPurposeAdapter dbPurpose, String name) {
-        dbPurpose.OpenDB();
-        purposeid = dbPurpose.GetPurposeId(name);
-        dbPurpose.CloseDB();
+        dbPurpose.openDB();
+        purposeid = dbPurpose.getPurposeId(name);
+        dbPurpose.closeDB();
         return purposeid;
     }
     public int getAmountFormID(DBAmountFormAdapter dbAmountForm, String name) {
-        dbAmountForm.OpenDB();
-        amountformid = dbAmountForm.GetAmountFormId(name);
-        dbAmountForm.CloseDB();
+        dbAmountForm.openDB();
+        amountformid = dbAmountForm.getAmountFormId(name);
+        dbAmountForm.closeDB();
         return amountformid;
     }
     public int getPersonID(DBPersonAdapter dbPersonAdapter, String name) {
 
-        dbPersonAdapter.OpenDB();
-        personid = dbPersonAdapter.GetPersonId(name);
-        dbPersonAdapter.CloseDB();
+        dbPersonAdapter.openDB();
+        personid = dbPersonAdapter.getPersonId(name);
+        dbPersonAdapter.closeDB();
         return personid;
     }
     public int getFormID(DBFormAdapter dAForm, String name) {
-        dAForm.OpenDB();
-        int form = dAForm.GetFormId(name);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        int form = dAForm.getFormId(name);
+        dAForm.closeDB();
         return form;
     }
 
     private long updateMedInUserMed() {
-        return dbUserMed.UpdateRowUserMedInfo(idmed,name.getText().toString(),
+        return dbUserMed.updateRowUserMedInfo(idmed,name.getText().toString(),
                 medinfoid,
                 todb_expdate,//expdate.getText().toString(),
                 todb_opendate,//opendate.getText().toString(),
@@ -618,14 +603,14 @@ public class UpdateMedicine extends AppCompatActivity {
     }
 
     private long updateMedInDBMedInfo() {
-        return dbMedInfo.UpdateRowMedInfo(medinfoid,name.getText().toString(),
+        return dbMedInfo.updateRowMedInfo(medinfoid,name.getText().toString(),
                 todb_power,
                 todb_subsActive,
                 todb_code,
                 todb_producer);
     }
 
-    private void CheckEmptyFields() {
+    private void checkEmptyFields() {
         if(expdate.getText()==null){
             todb_expdate=null;
         }
@@ -684,29 +669,29 @@ public class UpdateMedicine extends AppCompatActivity {
             todb_amount=amount.getText().toString();
         }
 
-        if(spinnerCorrection(spin_amountForm)==null){
+        if(spinnerSelection(spin_amountForm)==null){
             todb_amountForm=lastamountform.getText().toString();
         }
 
-        if(spinnerCorrection(spin_form)==null){
+        if(spinnerSelection(spin_form)==null){
             todb_form=lastform.getText().toString();
         }
-        if(spinnerCorrection(spin_purpose)==null){
+        if(spinnerSelection(spin_purpose)==null){
             todb_purpose=lastpurpose.getText().toString();
         }
-        if(spinnerCorrection(spin_person)==null){
+        if(spinnerSelection(spin_person)==null){
             todb_person=lastperson.getText().toString();
         }
     }
 
-    private void IsThereAnyImage() {
+    private void isThereAnyImage() {
         try{
             Bitmap mybitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
             if(mybitmap == null){
                 convertedimage=null;
             }
             else{
-                convertedimage=ConvertImageToByteArray(mybitmap);
+                convertedimage=convertImageToByteArray(mybitmap);
             }
         }
         catch(Exception ex){
@@ -715,13 +700,13 @@ public class UpdateMedicine extends AppCompatActivity {
 
     }
 
-    public static byte[] ConvertImageToByteArray(Bitmap bitmap) {
+    public static byte[] convertImageToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         return outputStream.toByteArray();
     }
 
-    private String spinnerCorrection(Spinner spinner) {
+    private String spinnerSelection(Spinner spinner) {
         if (spinner.getSelectedItem().toString().matches("-")) {
             return null;
         } else
@@ -737,7 +722,7 @@ public class UpdateMedicine extends AppCompatActivity {
         dbPerson = new DBPersonAdapter(this);
     }
 
-    private void checkIfUpdateWorked(int id, int idmed, String todb_name, String todb_expdate, String todb_opendate, int todb_form, int todb_purpose, String todb_amount, int todb_amountForm, int todb_person, String todb_note, boolean istake, byte[] image) {
+   /* private void checkIfUpdateWorked(int id, int idmed, String todb_name, String todb_expdate, String todb_opendate, int todb_form, int todb_purpose, String todb_amount, int todb_amountForm, int todb_person, String todb_note, boolean istake, byte[] image) {
         long didItWork;
         if (id != 0) {
             didItWork = getDidItWork(id, idmed, todb_name, todb_expdate, todb_opendate, todb_form, todb_purpose, todb_amount, todb_amountForm, todb_person, todb_note, istake, image);
@@ -751,11 +736,11 @@ public class UpdateMedicine extends AppCompatActivity {
             Toast.makeText(UpdateMedicine.this, "Nie udało się, porażka", Toast.LENGTH_LONG).show();
         }
     }
-
-    private long getDidItWork(int id, int idmed, String name, String expdate, String opendate, int form, int purpose, String amount, int amountform, int person, String note, boolean istake, byte[] image ) {
+*/
+   /* private long getDidItWork(int id, int idmed, String name, String expdate, String opendate, int form, int purpose, String amount, int amountform, int person, String note, boolean istake, byte[] image ) {
         long didItWork;
         String per = String.valueOf(person);
-        didItWork = dbUserMed.UpdateRowUserMedInfo(id, name,idmed,
+        didItWork = dbUserMed.updateRowUserMedInfo(id, name,idmed,
                 expdate,
                 opendate,
                 form,
@@ -767,7 +752,7 @@ public class UpdateMedicine extends AppCompatActivity {
                 istake,
                 image);
         return didItWork;
-    }
+    }*/
 
 
     @Override
@@ -880,7 +865,7 @@ public class UpdateMedicine extends AppCompatActivity {
         }
     }
 
-    private  void ClearImageView(){
+    private  void clearImageView(){
         // imageView.setImageBitmap(null);
         //imageView.setImageDrawable(null);
         imageView.setImageBitmap(null);

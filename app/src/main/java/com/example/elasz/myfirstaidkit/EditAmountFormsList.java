@@ -16,11 +16,8 @@ import android.widget.Toast;
 import com.example.elasz.myfirstaidkit.AmountFormsList.AmountFormsList;
 import com.example.elasz.myfirstaidkit.AmountFormsList.AmountFormsListAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBAmountFormAdapter;
-import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBFormAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
-import com.example.elasz.myfirstaidkit.FormsList.FormsList;
-import com.example.elasz.myfirstaidkit.FormsList.FormsListAdapter;
 import com.example.elasz.myfirstaidkit.Interfaces.RecyclerViewClickListener;
 import com.example.elasz.myfirstaidkit.Medicaments.AllMedInfoItem;
 
@@ -71,15 +68,15 @@ public class EditAmountFormsList extends AppCompatActivity {
     }
     public void addToAmountFormsList(ArrayList<AmountFormsList> formsLists) {
         DBAmountFormAdapter db = new DBAmountFormAdapter(this);
-        db.OpenDB();
-        Cursor c = db.GetAllAmountForms();
+        db.openDB();
+        Cursor c = db.getAllAmountForms();
         while (c.moveToNext()) {
             int id = c.getInt(0);
             String name = c.getString(1);
             AmountFormsList form = new AmountFormsList(id, name);
             formsLists.add(form);
         }
-        db.CloseDB();
+        db.closeDB();
     }
     public void initialize() {
         listener = (view, position, id, bNumber) -> {
@@ -135,13 +132,13 @@ public class EditAmountFormsList extends AppCompatActivity {
     public void deleteAmoutForm(String id) {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbAmountForm = new DBAmountFormAdapter(this);
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         dbUserMed.renameAmountForm(id);
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
-        dbAmountForm.OpenDB();
+        dbAmountForm.openDB();
         dbAmountForm.deleteAmountForm(id);
-        dbAmountForm.CloseDB();
+        dbAmountForm.closeDB();
     }
    /* private void retrievePlace() {
         amountforms.clear();
@@ -171,13 +168,13 @@ public class EditAmountFormsList extends AppCompatActivity {
     private ArrayList<String> createNamesList() {
         dbAmountForm = new DBAmountFormAdapter(this);
         ArrayList<String> amountformsList = new ArrayList<>();
-        dbAmountForm.OpenDB();
-        Cursor c = dbAmountForm.GetAllAmountForms();
+        dbAmountForm.openDB();
+        Cursor c = dbAmountForm.getAllAmountForms();
         while (c.moveToNext()) {
             String name = c.getString(1);
             amountformsList.add(name);
         }
-        dbAmountForm.CloseDB();
+        dbAmountForm.closeDB();
         return amountformsList;
     }
 
@@ -199,9 +196,9 @@ public class EditAmountFormsList extends AppCompatActivity {
     }
 
     private void checkAddResult() {
-        dbAmountForm.OpenDB();
-        long added = dbAmountForm.AddAmountForm(amountformname.getText().toString());
-        dbAmountForm.CloseDB();
+        dbAmountForm.openDB();
+        long added = dbAmountForm.addAmountForm(amountformname.getText().toString());
+        dbAmountForm.closeDB();
         if (added > 0) {
             Toast.makeText(EditAmountFormsList.this, "Forma dodana", Toast.LENGTH_LONG).show();
         } else {

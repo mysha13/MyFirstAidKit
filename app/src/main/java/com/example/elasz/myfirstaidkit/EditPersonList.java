@@ -72,15 +72,15 @@ public class EditPersonList extends AppCompatActivity {
 
     public void addToPersonList(ArrayList<PersonList> personLists) {
         DBPersonAdapter db = new DBPersonAdapter(this);
-        db.OpenDB();
-        Cursor c = db.GetAllPeople();
+        db.openDB();
+        Cursor c = db.getAllPeople();
         while (c.moveToNext()) {
             int id = c.getInt(0);
             String name = c.getString(1);
             PersonList person = new PersonList(id, name);
             personLists.add(person);
         }
-        db.CloseDB();
+        db.closeDB();
     }
 
     public void initialize() {
@@ -139,13 +139,13 @@ public class EditPersonList extends AppCompatActivity {
     public void deletePersonWithId(String id) {
         dbUserMed = new DBUserMedicamentsAdapter(this);
         dbPerson = new DBPersonAdapter(this);
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         dbUserMed.renamePerson(id);
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
 
-        dbPerson.OpenDB();
+        dbPerson.openDB();
         dbPerson.deleteOnlyPerson(id);
-        dbPerson.CloseDB();
+        dbPerson.closeDB();
     }
 
     private void doNotDelete(View mView, AlertDialog dialog) {
@@ -179,13 +179,13 @@ public class EditPersonList extends AppCompatActivity {
     private ArrayList<String> createNamesList() {
         dbPerson = new DBPersonAdapter(this);
         ArrayList<String> personList = new ArrayList<>();
-        dbPerson.OpenDB();
-        Cursor c = dbPerson.GetAllPeople();
+        dbPerson.openDB();
+        Cursor c = dbPerson.getAllPeople();
         while (c.moveToNext()) {
             String name = c.getString(1);
             personList.add(name);
         }
-        dbPerson.CloseDB();
+        dbPerson.closeDB();
         return personList;
     }
 
@@ -207,9 +207,9 @@ public class EditPersonList extends AppCompatActivity {
     }
 
     private void checkAddResult() {
-        dbPerson.OpenDB();
-        long added = dbPerson.AddPerson(personname.getText().toString());
-        dbPerson.CloseDB();
+        dbPerson.openDB();
+        long added = dbPerson.addPerson(personname.getText().toString());
+        dbPerson.closeDB();
         if (added > 0) {
             Toast.makeText(EditPersonList.this, "Forma dodana", Toast.LENGTH_LONG).show();
         } else {

@@ -1,7 +1,6 @@
 package com.example.elasz.myfirstaidkit;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +16,6 @@ import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPersonAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
-import com.facebook.stetho.inspector.protocol.module.Database;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,12 +70,8 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getStringExtra("MedId");
         setDBAdapter();
-        setAllTextView();
-
-    }
-
-    private void setAllTextView() {
         setTextView();
+
     }
 
     private void setDBAdapter() {
@@ -94,74 +86,74 @@ public class ViewAllInfoMedicine extends AppCompatActivity {
     private void setTextView() {
         int id = getID();
         int personid=0;
-        dbUser.OpenDB();
-        Bitmap imageBitmap = ConvertByteArrayToImage(dbUser.getImageByteArray(id));
+        dbUser.openDB();
+        Bitmap imageBitmap = convertByteArrayToImage(dbUser.getImageByteArray(id));
         image.setImageBitmap(imageBitmap);
-        name.setText(dbUser.GetColumnContent(DatabaseConstantInformation.NAME, id));
-        int idmed = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.ID_MEDICAMENT, id));
-        //image.setImageBitmap(dbUser.GetColumnContent(DatabaseConstantInformation.IMAGE, id));
+        name.setText(dbUser.getColumnContent(DatabaseConstantInformation.NAME, id));
+        int idmed = Integer.valueOf(dbUser.getColumnContent(DatabaseConstantInformation.ID_MEDICAMENT, id));
+        //image.setImageBitmap(dbUser.getColumnContent(DatabaseConstantInformation.IMAGE, id));
 
-        expdate.setText(dbUser.GetColumnContent(DatabaseConstantInformation.EXPDATE, id));
-        opendate.setText(dbUser.GetColumnContent(DatabaseConstantInformation.OPENDATE, id));
-        int formid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.FORM, id));
-        int purposeid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PURPOSE, id));
-        amount.setText(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT,id));
-        int amountformid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
+        expdate.setText(dbUser.getColumnContent(DatabaseConstantInformation.EXPDATE, id));
+        opendate.setText(dbUser.getColumnContent(DatabaseConstantInformation.OPENDATE, id));
+        int formid = Integer.valueOf(dbUser.getColumnContent(DatabaseConstantInformation.FORM, id));
+        int purposeid = Integer.valueOf(dbUser.getColumnContent(DatabaseConstantInformation.PURPOSE, id));
+        amount.setText(dbUser.getColumnContent(DatabaseConstantInformation.AMOUNT,id));
+        int amountformid = Integer.valueOf(dbUser.getColumnContent(DatabaseConstantInformation.AMOUNT_FORM, id));
 
         try{
-            personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
+            personid = Integer.valueOf(dbUser.getColumnContent(DatabaseConstantInformation.PERSON, id));
         }catch(Exception e){
             Log.e(TAG,e.toString());
         }
-       //int personid = Integer.valueOf(dbUser.GetColumnContent(DatabaseConstantInformation.PERSON, id));
-        note.setText(dbUser.GetColumnContent(DatabaseConstantInformation.NOTE, id));
+       //int personid = Integer.valueOf(dbUser.getColumnContent(DatabaseConstantInformation.PERSON, id));
+        note.setText(dbUser.getColumnContent(DatabaseConstantInformation.NOTE, id));
 
-        dbUser.CloseDB();
+        dbUser.closeDB();
 
 
-        dbFrom.OpenDB();   // tak dla kazdej tabeli
-        form.setText(dbFrom.GetFormName(formid));
-        dbFrom.CloseDB();
+        dbFrom.openDB();   // tak dla kazdej tabeli
+        form.setText(dbFrom.getFormName(formid));
+        dbFrom.closeDB();
 
-        dbMed.OpenDB();
-        power.setText(dbMed.GetPower(idmed));
-        subsactive.setText(dbMed.GetSubsActive(idmed));
-        code.setText(dbMed.GetCode(idmed));
-        producer.setText(dbMed.GetProducer(idmed));
-        dbMed.CloseDB();
+        dbMed.openDB();
+        power.setText(dbMed.getPower(idmed));
+        subsactive.setText(dbMed.getSubsActive(idmed));
+        code.setText(dbMed.getCode(idmed));
+        producer.setText(dbMed.getProducer(idmed));
+        dbMed.closeDB();
 
         if(purposeid == 0){
             purpose.setText("-");
         }else{
-            dbPurpose.OpenDB();
-            purpose.setText(dbPurpose.GetPurposeName(purposeid));
-            dbPurpose.CloseDB();
+            dbPurpose.openDB();
+            purpose.setText(dbPurpose.getPurposeName(purposeid));
+            dbPurpose.closeDB();
         }
 
 
-        dbAmountForm.OpenDB();
-        amountform.setText(dbAmountForm.GetAmountFormName(amountformid));
-        dbAmountForm.CloseDB();
+        dbAmountForm.openDB();
+        amountform.setText(dbAmountForm.getAmountFormName(amountformid));
+        dbAmountForm.closeDB();
 
         if(personid == 0){
             person.setText("-");
         }
         else{
-            dbPerson.OpenDB();
-            person.setText(dbPerson.GetPersonName(personid));
-            dbPerson.CloseDB();
+            dbPerson.openDB();
+            person.setText(dbPerson.getPersonName(personid));
+            dbPerson.closeDB();
         }
 
 
     }
-    private Bitmap ConvertByteArrayToImage(byte[] byteImage) {
+    private Bitmap convertByteArrayToImage(byte[] byteImage) {
 
         if (byteImage!= null) {
             return BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length);
         } else {
             return null;
         }/*
-        dbUser.OpenDB();
+        dbUser.openDB();
         byte[] imagebyte = dbUser.getImageByteArray(id);
         if (imagebyte != null) {
             return BitmapFactory.decodeByteArray(imagebyte, 0, imagebyte.length);

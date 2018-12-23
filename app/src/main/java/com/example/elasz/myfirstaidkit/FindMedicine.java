@@ -29,7 +29,6 @@ import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBMedicamentInfoAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPersonAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBPurposeAdapter;
 import com.example.elasz.myfirstaidkit.DatabaseAdapters.DBUserMedicamentsAdapter;
-import com.example.elasz.myfirstaidkit.DatabaseImplement.DatabaseConstantInformation;
 import com.example.elasz.myfirstaidkit.Interfaces.RecyclerViewClickListener;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItem;
 import com.example.elasz.myfirstaidkit.Medicaments.ShortMedInfoItemAdapter;
@@ -189,9 +188,9 @@ public class FindMedicine extends AppCompatActivity {
     }
     private void deleteMed(String id) {
         DBUserMedicamentsAdapter dbMed = new DBUserMedicamentsAdapter(getBaseContext());
-        dbMed.OpenDB();
+        dbMed.openDB();
         dbMed.deleteMed(String.valueOf(id));
-        dbMed.CloseDB();
+        dbMed.closeDB();
     }
 
     private void getBundle() {
@@ -210,8 +209,8 @@ public class FindMedicine extends AppCompatActivity {
 
     private void getMedicamentItem() {
         //setDBAdapters();
-        dbUserMed.OpenDB();
-        Cursor cursor = dbUserMed.GetAllUserMedicamentInfoData();
+        dbUserMed.openDB();
+        Cursor cursor = dbUserMed.getAllUserMedicamentInfoData();
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
         createMedList(cursor, dbUserMed, dbForm, dbPurpose, dbAmountForm, dbMedInfo, meds);
     }
@@ -240,7 +239,7 @@ public class FindMedicine extends AppCompatActivity {
     }
 
     private void createMedicamentsList() {
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         Cursor cursor = dbUserMed.getNames();
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -248,7 +247,7 @@ public class FindMedicine extends AppCompatActivity {
                 medicamentsName.add(name);
             }
         }
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
     }
 
     @OnClick(R.id.btn_scanBarcode_find)
@@ -265,7 +264,7 @@ public class FindMedicine extends AppCompatActivity {
         meds.clear();
         getMedicamentsList(getCursorContent(CheckName()));
         //Cursor cursor;
-        //cursor=dbUserMed.FindUserMedicamentByName(autoComTV_findname.getText().toString(), DatabaseConstantInformation.NAME);
+        //cursor=dbUserMed.findUserMedicamentByName(autoComTV_findname.getText().toString(), DatabaseConstantInformation.NAME);
         ClearFields();
         //show in recyler view
         ShowMedsList();
@@ -303,10 +302,10 @@ public class FindMedicine extends AppCompatActivity {
 
     /*public Cursor getCursorContent(String[] byWhich) {
 
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         Cursor cursor;
         if (Integer.valueOf(byWhich[0]) == 1) {
-            cursor = dbUserMed.FindUserMedicamentByName(byWhich[1], byWhich[2]);
+            cursor = dbUserMed.findUserMedicamentByName(byWhich[1], byWhich[2]);
         } //else if (Integer.valueOf(byWhich[0]) == 2) {
             //cursor = dbUserMed.FindUserMedicamentByCode(byWhich[4], byWhich[3]);}
          else {
@@ -351,7 +350,7 @@ public class FindMedicine extends AppCompatActivity {
 
                 //String power = cursor.getString(7);
                 Bitmap image = convertByteArrayToImage(cursor);
-                dbUserMed.CloseDB();
+                dbUserMed.closeDB();
 
                 String form = getFormName(dbForm, formid);
                 String amountform = getAmountFormName(dbAmountForm, amountformid);
@@ -376,37 +375,37 @@ public class FindMedicine extends AppCompatActivity {
     }
 
     public String getFormName(DBFormAdapter dbFormAdapter, int id){
-        dbFormAdapter.OpenDB();
-        String form= dbFormAdapter.GetFormName(id);
-        dbFormAdapter.CloseDB();
+        dbFormAdapter.openDB();
+        String form= dbFormAdapter.getFormName(id);
+        dbFormAdapter.closeDB();
         return form;
     }
 
     public String getAmountFormName(DBAmountFormAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String amountform = dAForm.GetAmountFormName(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String amountform = dAForm.getAmountFormName(id);
+        dAForm.closeDB();
         return amountform;
     }
 
     public String getPowerName(DBMedicamentInfoAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String power = dAForm.GetPower(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String power = dAForm.getPower(id);
+        dAForm.closeDB();
         return power;
     }
 
     public String getCode(DBMedicamentInfoAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String power = dAForm.GetCode(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String power = dAForm.getCode(id);
+        dAForm.closeDB();
         return power;
     }
 
     public String getPurposeName(DBPurposeAdapter dAForm, int id) {
-        dAForm.OpenDB();
-        String purpose = dAForm.GetPurposeName(id);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        String purpose = dAForm.getPurposeName(id);
+        dAForm.closeDB();
         return purpose;
     }
 

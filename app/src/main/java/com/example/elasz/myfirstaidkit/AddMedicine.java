@@ -271,16 +271,16 @@ public class AddMedicine extends AppCompatActivity {
                 *//*Cursor cursor;
                 if(code.getText()!=null)
                 {
-                    cursor = dbMedInfo.FindMedicamentByCode(code.getText().toString(), DatabaseConstantInformation.CODE);
+                    cursor = dbMedInfo.findMedicamentByCode(code.getText().toString(), DatabaseConstantInformation.CODE);
                     if(cursor.getCount()>0){
-                        dbMedInfo.OpenDB();
+                        dbMedInfo.openDB();
                         medinfoid=dbMedInfo.getMedIdFromCode(code.getText().toString());
                         name.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
                         power.setText(dbMedInfo.getPowerFromCode(code.getText().toString()));
                         subsActive.setText(dbMedInfo.getSubsActiveFromCode(code.getText().toString()));
-                        //code.setText(dbMedInfo.GetCode(idmed));
+                        //code.setText(dbMedInfo.getCode(idmed));
                         producer.setText(dbMedInfo.getProducerFromCode(code.getText().toString()));
-                        dbMedInfo.CloseDB();
+                        dbMedInfo.closeDB();
                     }
                     else{
                         Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
@@ -289,14 +289,14 @@ public class AddMedicine extends AppCompatActivity {
 
 
                 *//*if(cursor.getCount()>0){
-                    dbMedInfo.OpenDB();
+                    dbMedInfo.openDB();
                     medinfoid=dbMedInfo.getMedIdFromCode(code.getText().toString());
                     name.setText(dbMedInfo.getNameFromCode(code.getText().toString()));
                     power.setText(dbMedInfo.getPowerFromCode(code.getText().toString()));
                     subsActive.setText(dbMedInfo.getSubsActiveFromCode(code.getText().toString()));
-                    //code.setText(dbMedInfo.GetCode(idmed));
+                    //code.setText(dbMedInfo.getCode(idmed));
                     producer.setText(dbMedInfo.getProducerFromCode(code.getText().toString()));
-                    dbMedInfo.CloseDB();
+                    dbMedInfo.closeDB();
                 }
                 else{
                     Toast.makeText(AddMedicine.this, "Lek wcześniej nie istniał", Toast.LENGTH_SHORT).show();
@@ -452,56 +452,56 @@ public class AddMedicine extends AppCompatActivity {
         dAForm = new DBFormAdapter(this);
         formList = new ArrayList<>();
         adapterForm = new ArrayAdapter<String>(this, R.layout.spin_item, formList);
-        dAForm.OpenDB();
+        dAForm.openDB();
         formList.add("-");
-        Cursor cursor = dAForm.GetAllForms();
+        Cursor cursor = dAForm.getAllForms();
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
             formList.add(name);
         }
-        dAForm.CloseDB();
+        dAForm.closeDB();
         spinner.setAdapter(adapterForm);
     }
     public void spinnerPurpose(DBPurposeAdapter dbPurposeAdapter, ArrayList<String> purposeList, ArrayAdapter<String> adapterPurpose, Spinner spinner) {
         dbPurposeAdapter = new DBPurposeAdapter(this);
         purposeList = new ArrayList<>();
         adapterPurpose= new ArrayAdapter<String>(this, R.layout.spin_item, purposeList);
-        dbPurposeAdapter.OpenDB();
+        dbPurposeAdapter.openDB();
         purposeList.add("-");
-        Cursor cursor = dbPurposeAdapter.GetAllPurposes();
+        Cursor cursor = dbPurposeAdapter.getAllPurposes();
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
             purposeList.add(name);
         }
-        dbPurposeAdapter.CloseDB();
+        dbPurposeAdapter.closeDB();
         spinner.setAdapter(adapterPurpose);
     }
     public void spinnerAmountForm(DBAmountFormAdapter dbAmountFormAdapter, ArrayList<String> amountformList, ArrayAdapter<String> adapterAmountForm, Spinner spinner) {
         dbAmountFormAdapter = new DBAmountFormAdapter(this);
         amountformList = new ArrayList<>();
         adapterAmountForm = new ArrayAdapter<String>(this, R.layout.spin_item, amountformList);
-        dbAmountFormAdapter.OpenDB();
+        dbAmountFormAdapter.openDB();
         amountformList.add("-");
-        Cursor cursor = dbAmountFormAdapter.GetAllAmountForms();
+        Cursor cursor = dbAmountFormAdapter.getAllAmountForms();
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
             amountformList.add(name);
         }
-        dbAmountFormAdapter.CloseDB();
+        dbAmountFormAdapter.closeDB();
         spinner.setAdapter(adapterAmountForm);
     }
     public void spinnerPerson(DBPersonAdapter dbPersonAdapter, ArrayList<String> personList, ArrayAdapter<String> adapterPerson, Spinner spinner) {
         dbPersonAdapter = new DBPersonAdapter(this);
         personList = new ArrayList<>();
         adapterPerson = new ArrayAdapter<String>(this, R.layout.spin_item, personList);
-        dbPersonAdapter.OpenDB();
+        dbPersonAdapter.openDB();
         personList.add("-");
-        Cursor cursor = dbPersonAdapter.GetAllPeople();
+        Cursor cursor = dbPersonAdapter.getAllPeople();
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
             personList.add(name);
         }
-        dbPersonAdapter.CloseDB();
+        dbPersonAdapter.closeDB();
         spinner.setAdapter(adapterPerson);
     }
 
@@ -545,9 +545,9 @@ public class AddMedicine extends AppCompatActivity {
 
     private long tryToAddToMedInfo(){
         checkEmptyFields();
-        dbMedInfo.OpenDB();
+        dbMedInfo.openDB();
         long work2 = addMedToDBMedInfo();
-        dbMedInfo.CloseDB();
+        dbMedInfo.closeDB();
         return work2;
     }
 
@@ -583,10 +583,10 @@ public class AddMedicine extends AppCompatActivity {
             personid = getPersonID(dbPerson, spinnerSelection(spin_person));
         }
 
-        dbUserMed.OpenDB();
+        dbUserMed.openDB();
         long work = addMedToDB();
         //long work2 = addMedToDBMedInfo();
-        dbUserMed.CloseDB();
+        dbUserMed.closeDB();
         return work;
     }
 
@@ -598,36 +598,36 @@ public class AddMedicine extends AppCompatActivity {
     }
 
     public int getFormID(DBFormAdapter dAForm, String name) {
-        dAForm.OpenDB();
-        formid = dAForm.GetFormId(name);
-        dAForm.CloseDB();
+        dAForm.openDB();
+        formid = dAForm.getFormId(name);
+        dAForm.closeDB();
         return formid;
     }
 
     public int getMedInfoID(DBMedicamentInfoAdapter dbMed, String name){
-        dbMed.OpenDB();
-        medinfoid = dbMed.GetMedId(name);
-        dbMed.CloseDB();
+        dbMed.openDB();
+        medinfoid = dbMed.getMedId(name);
+        dbMed.closeDB();
         return medinfoid;
 
     }
     public int getPurposeID(DBPurposeAdapter dbPurpose, String name) {
-        dbPurpose.OpenDB();
-        purposeid = dbPurpose.GetPurposeId(name);
-        dbPurpose.CloseDB();
+        dbPurpose.openDB();
+        purposeid = dbPurpose.getPurposeId(name);
+        dbPurpose.closeDB();
         return purposeid;
     }
     public int getAmountFormID(DBAmountFormAdapter dbAmountForm, String name) {
-        dbAmountForm.OpenDB();
-        amountformid = dbAmountForm.GetAmountFormId(name);
-        dbAmountForm.CloseDB();
+        dbAmountForm.openDB();
+        amountformid = dbAmountForm.getAmountFormId(name);
+        dbAmountForm.closeDB();
         return amountformid;
     }
     public int getPersonID(DBPersonAdapter dbPersonAdapter, String name) {
 
-        dbPersonAdapter.OpenDB();
-        personid = dbPersonAdapter.GetPersonId(name);
-        dbPersonAdapter.CloseDB();
+        dbPersonAdapter.openDB();
+        personid = dbPersonAdapter.getPersonId(name);
+        dbPersonAdapter.closeDB();
         return personid;
     }
 
@@ -706,7 +706,7 @@ public class AddMedicine extends AppCompatActivity {
     }
 
     private long addMedToDB() {
-        return dbUserMed.AddUserMedicamentData(name.getText().toString(),
+        return dbUserMed.addUserMedicamentData(name.getText().toString(),
                 medinfoid,
                 todb_expdate,
                 todb_opendate,
@@ -722,14 +722,14 @@ public class AddMedicine extends AppCompatActivity {
 
     private long addMedToDBMedInfo() {
         if(medexistedid>0){
-            return  dbMedInfo.UpdateRowMedInfo(medinfoid,name.getText().toString(),
+            return  dbMedInfo.updateRowMedInfo(medinfoid,name.getText().toString(),
                     todb_power,
                     todb_subsActive,
                     todb_code,
                     todb_producer);
         }
         else
-        {   return dbMedInfo.AddMedicamentInfoData(name.getText().toString(),
+        {   return dbMedInfo.addMedicamentInfoData(name.getText().toString(),
                     todb_power,
                     todb_subsActive,
                     todb_code,
@@ -828,14 +828,14 @@ public class AddMedicine extends AppCompatActivity {
 
                 Cursor cursor = checkIfMedExisted(scanCode);
                 if(cursor.getCount()>0){
-                    dbMedInfo.OpenDB();
+                    dbMedInfo.openDB();
                     medinfoid=dbMedInfo.getMedIdFromCode(scanCode);
                     medexistedid=medinfoid;
                     name.setText(dbMedInfo.getNameFromCode(scanCode));
                     power.setText(dbMedInfo.getPowerFromCode(scanCode));
                     subsActive.setText(dbMedInfo.getSubsActiveFromCode(scanCode));
                     producer.setText(dbMedInfo.getProducerFromCode(scanCode));
-                    dbMedInfo.CloseDB();
+                    dbMedInfo.closeDB();
                     Toast.makeText(AddMedicine.this, "Lek wcześniej istniał, dane uzupełnione", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -901,11 +901,11 @@ public class AddMedicine extends AppCompatActivity {
     }
 
     private Cursor checkIfMedExisted(String scancode) {
-        dbMedInfo.OpenDB();
+        dbMedInfo.openDB();
         Cursor cursor;
         if(code.getText()!=null)
         {
-            cursor = dbMedInfo.FindMedicamentByCode(scancode, DatabaseConstantInformation.CODE);
+            cursor = dbMedInfo.findMedicamentByCode(scancode, DatabaseConstantInformation.CODE);
         }
         else{
             cursor=null;
